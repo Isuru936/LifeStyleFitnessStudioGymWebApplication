@@ -1,5 +1,5 @@
 function Payments() {
-  return <div className="text-3xl font-bold">App</div>;
+  return <div className="text-4xl font-bold">App</div>;
 }
 
 export default App;
