@@ -1,4 +1,4 @@
-function App() {
+function Payments() {
   return <div className="text-3xl font-bold">App</div>;
 }
 
