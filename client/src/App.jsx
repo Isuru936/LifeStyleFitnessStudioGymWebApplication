@@ -1,4 +1,4 @@
-import DietPlan from "./assets/pages/DietPlanTrail";
+import DietPlan from "./pages/DietPlanTrail";
 
 function App() {
   return (
