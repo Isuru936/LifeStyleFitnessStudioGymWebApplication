@@ -1,5 +1,11 @@
+import DietPlan from "./assets/pages/DietPlanTrail";
+
 function App() {
-  return <div className="text-3xl font-bold">App</div>;
+  return (
+    <div>
+      <DietPlan />
+    </div>
+  );
 }
 
 export default App;
