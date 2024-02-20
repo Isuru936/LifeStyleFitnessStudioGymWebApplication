@@ -1,5 +1,6 @@
 function App() {
-  return <div className="text-3xl font-bold">isuru is gay</div>;
+  return <div className="text-3xl font-bold">vinuka</div>;
+  
 }
 
 export default App;
