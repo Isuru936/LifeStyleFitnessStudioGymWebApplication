@@ -15,6 +15,14 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@iconify-json/ant-design": "^1.1.15",
+    "@iconify-json/bi": "^1.1.23",
+    "@iconify-json/fluent": "^1.1.48",
+    "@iconify-json/iconoir": "^1.1.41",
+    "@iconify-json/material-symbols": "^1.1.73",
+    "@iconify-json/mingcute": "^1.1.16",
+    "@iconify-json/ph": "^1.1.11",
+    "@iconify/tailwind": "^0.1.4",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react-swc": "^3.5.0",

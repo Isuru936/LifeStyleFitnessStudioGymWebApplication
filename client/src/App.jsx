@@ -1,4 +1,4 @@
-import DietPlan from "./pages/DietPlanTrail";
+import DietPlan from "./pages/DietPlanPool";
 
 function App() {
   return (
