@@ -66,17 +66,6 @@ function SideBar() {
           </div>
         </div>
       </div>
-      <div className=" bottom-0 left-0 p-5">
-        <button className="bg-lightBlue-300 font-bold text-white p-3 rounded-2xl w-full hover:bg-blue-900">
-          <p className="">
-            <span
-              className="icon-[mingcute--add-fill] mx-1"
-              style={{ height: "20px", width: "20px" }}
-            />
-            Add Food Item
-          </p>
-        </button>
-      </div>
     </div>
   );
 }
