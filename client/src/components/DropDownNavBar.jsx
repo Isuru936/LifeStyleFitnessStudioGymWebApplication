@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { CSSTransition } from "react-transition-group";
 import "./styles/SideBarStyles.css";
 
 function SideBar() {
@@ -10,7 +9,7 @@ function SideBar() {
   };
 
   return (
-    <div className="w-fit h-fit">
+    <div className="w-fit h-fit relative">
       <div className="pl-3 pt-8">
         <button className="cursor-pointer" onClick={sidebarHandler}>
           <span
@@ -19,23 +18,14 @@ function SideBar() {
           />
         </button>
       </div>
-      <CSSTransition
-        in={show}
-        timeout={300}
-        classNames="sidebar"
-        unmountOnExit // this prop will unmount the component when it is hidden, so that other divs can use up the space
-      >
-        <div className="relative text-black-500 h-fit">
-          <div
-            className={`bg-blend-overlay lg:block pt-3 pl-5 w-[250px] ${
-              show
-                ? "bg-slate-50 absolute top-0 left-0 z-50 lg:static lg:bg-transparent"
-                : ""
-            }`}
-          >
-            <p className="text-3xl font-bold">Content</p>
-            <div className="pt-5 pr-5">
-              <div className="p-2 my-2 rounded-xl  hover:bg-slate-200 transition">
+      {show && (
+        <div className="absolute top-15 left-0 w-[250px] z-50 bg-slate-50 transition-opacity duration-500">
+          <div className="bg-blend-overlay lg:block pt-3 pl-5">
+            <hr />
+            <p className="text-xl font-bold bg-blue-500">Content</p>
+            <hr />
+            <div className="pt-1 pr-5">
+              <div className="p-2 my-2 rounded-xl hover:bg-slate-200 transition">
                 <p className="text-l font-bold">
                   <span
                     className="icon-[ph--users] mx-2 "
@@ -122,7 +112,7 @@ function SideBar() {
             </div>
           </div>
         </div>
-      </CSSTransition>
+      )}
     </div>
   );
 }

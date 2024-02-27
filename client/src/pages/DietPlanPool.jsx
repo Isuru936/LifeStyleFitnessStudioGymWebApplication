@@ -1,463 +1,75 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import { useState } from "react";
 import bgImg from "../assets/bg-Img.png";
 import proImage from "../assets/proImage.png";
 import SideBar from "../components/SideBar";
+import logo from "../assets/logo.png";
+import DropDownBar from "../components/DropDownNavBar";
 
 const DietPlan = () => {
-  const [buttonBgColor, setButtonBgColor] = useState("#1A78E5");
+  const [mobileView] = useState(window.innerWidth < 768);
   return (
     <div
-      className="inline-flex flex-col items-start min-h-screen w-screen bg-cover bg-center bg-no-repeat bg-fixed"
-      style={{
-        backgroundImage: `url(${bgImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
+      className="flex flex-row items-start min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
+      style={{ backgroundImage: `url(${bgImg})` }}
     >
-      <div className="flex flex-row">
-        <SideBar />
-        <div className="fixed bottom-0 left-0 p-5">
-          <button
-            className={`font-bold text-white p-3 rounded-2xl w-full hover:bg-blue-950`}
-            style={{
-              backgroundColor: buttonBgColor,
-            }}
-            onMouseEnter={() => setButtonBgColor("#2c3e50")}
-            onMouseLeave={() => setButtonBgColor("#123321f")}
-          >
-            <p className="">
-              <span
-                className="icon-[mingcute--add-fill]` mx-1"
-                style={{ height: "20px", width: "20px" }}
-              />
-              Add Food Item
-            </p>
-          </button>
-        </div>
-        <div className="text-white">
-          <div className="p-7">
-            <div className=" ">
-              <h1 className="text-5xl font-bold text-black mb-2">Diet Plan</h1>
-              <p className="text-blue-800">
-                Manage workout categories to help users find the workouts
-                they`re looking for
-              </p>
-              <h2 className="text-black text-lg font-bold mt-3">
-                Select diet plan
-              </h2>
-              <div className="">
-                <div className="bg-blue-100 flex-row rounded-xl w-fit pr-4 lg:w-fit lg:pb-2 pl-1">
-                  <input
-                    type="text"
-                    name="searchFood"
-                    id="searchFood"
-                    placeholder="Search Food Items"
-                    className="mt-2 rounded-lg text-black w-52 bg-blue-100 outline-none lg:w-96 p-2"
-                  />
-                  <button
-                    className="bg-blue-300 rounded-xl hover:scale-105 
-                  transition hover:bg-lightBlue-300 pb-1 pt-2 pl-2 pr-2 
-                  lg:pb-2 lg:pt-2 lg:pl-3 lg:pr-3"
-                  >
-                    <span
-                      className="icon-[material-symbols--search]"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Porducts */}
-            <div className="flex flex-wrap">
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 h-36 object-cover mx-auto"
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-object-cover  mx-aut rounded-xl 36 h- lg:w-32 lg:h-32 o"
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-object-cover  mx-aut rounded-xl 36 h- lg:w-32 lg:h-32 o"
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-              <div className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-[150px] lg:w-[170px] hover:scale-105 transition">
-                <img
-                  src={proImage}
-                  alt="product"
-                  className="w-36 object-cover mx-auto rounded-xl h-36 lg:w-32 lg:h-32  "
-                />
-                <p className="text-black text-sm font-bold">
-                  Egg whole, Cooked, fried
-                </p>
-                <span
-                  className="text-black text-xs"
-                  style={{ lineHeight: "0.1" }}
-                >
-                  205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                </span>
-              </div>
-            </div>
+      {mobileView ? <DropDownBar /> : <SideBar />}
+      <div className="p-7 flex flex-col flex-1 justify-between">
+        <div>
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl font-bold text-black mb-2 lg:text-5xl">
+              Diet Plan
+            </h1>
+            <img src={logo} alt="" className="h-8 w-auto" />
           </div>
+          <p className="text-blue-800">
+            Manage workout categories to help users find the workouts they`re
+            looking for
+          </p>
+          <h2 className="text-black text-lg font-bold mt-3 mb-2">
+            Select diet plan
+          </h2>
+          <div className="flex flex-row">
+            <div className="flex w-fit bg-blue-100 rounded-xl h-fit">
+              <input
+                type="text"
+                name="searchFood"
+                id="searchFood"
+                placeholder="Search Food Items"
+                className="mt-2 rounded-lg text-black bg-blue-100 outline-none pl-2 pb-2 flex-1 "
+              />
+              <button className="bg-blue-0 rounded-lg hover:scale-105 transition hover:bg-lightBlue-300">
+                <span
+                  className="icon-[material-symbols--search]"
+                  style={{ width: "30px", height: "20px" }}
+                />
+              </button>
+            </div>
+            <button className="bg-slate-50 rounded-xl pl-2 pr-2 border ml-2 text-black font-semibold hover:bg-blue-950 hover:text-slate-50 transition ">
+              <span className="icon-[ci--add-plus] font-extrabold mr-1" />
+              {mobileView ? "" : "Add Foods"}
+            </button>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap mt-8 w-full">
+          {[...Array(20)].map((_, index) => (
+            <div
+              key={index}
+              className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-32 lg:w-[200px] hover:scale-105 transition"
+            >
+              <img
+                src={proImage}
+                alt="product"
+                className="w-28 h-28 object-cover mx-auto rounded-xl"
+              />
+              <p className="text-black text-sm font-bold">
+                Egg whole, Cooked, fried
+              </p>
+              <span className="text-black text-xs">
+                205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

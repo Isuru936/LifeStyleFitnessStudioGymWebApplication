@@ -1,13 +1,16 @@
 /** @type {import('tailwindcss').Config} */
-// import { red } from "tailwindcss/colors";
-// import { white } from "tailwindcss/colors";
-// import { orange } from "tailwindcss/colors";
+
 import { addDynamicIconSelectors } from "@iconify/tailwind";
 
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "regal-blue": "#243c5a",
+        "side-bar-hover": "#D1D5DA",
+      },
+    },
   },
   plugins: [addDynamicIconSelectors()],
 };
