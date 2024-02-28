@@ -22,7 +22,8 @@ function SideBar() {
         <div className="absolute top-15 left-0 w-[250px] z-50 bg-slate-50 transition-opacity duration-500">
           <div className="bg-blend-overlay lg:block pt-3 pl-5">
             <hr />
-            <p className="text-xl font-bold bg-blue-500">Content</p>
+
+            <p className="text-xl font-bold bg-blue-50">Content</p>
             <hr />
             <div className="pt-1 pr-5">
               <div className="p-2 my-2 rounded-xl hover:bg-slate-200 transition">
