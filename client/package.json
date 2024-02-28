@@ -10,10 +10,31 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.18",
+    "@iconify/react": "^4.1.1",
+    "dotenv": "^16.4.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-feather": "^2.0.10",
+    "react-icons": "^5.0.1",
+    "react-router-dom": "^6.22.1",
+    "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
+    "@iconify-json/ant-design": "^1.1.15",
+    "@iconify-json/bi": "^1.1.23",
+    "@iconify-json/ci": "^1.1.13",
+    "@iconify-json/emojione": "^1.1.10",
+    "@iconify-json/fluent": "^1.1.48",
+    "@iconify-json/ic": "^1.1.17",
+    "@iconify-json/iconoir": "^1.1.41",
+    "@iconify-json/line-md": "^1.1.36",
+    "@iconify-json/material-symbols": "^1.1.73",
+    "@iconify-json/mdi": "^1.1.64",
+    "@iconify-json/mingcute": "^1.1.16",
+    "@iconify-json/ph": "^1.1.11",
+    "@iconify-json/ri": "^1.1.19",
+    "@iconify/tailwind": "^0.1.4",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react-swc": "^3.5.0",
@@ -22,6 +43,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "file-loader": "^6.2.0",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "vite": "^5.1.0"
