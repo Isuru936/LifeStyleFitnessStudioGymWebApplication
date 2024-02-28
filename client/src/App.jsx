@@ -1,6 +1,13 @@
+// App.js
+import React from 'react';
+import WorkoutPool from './components/workoutpool';
+
 function App() {
-  return <div className="text-3xl font-bold">vinuka</div>;
-  
+  return (
+    <div>
+      <WorkoutPool />
+    </div>
+  );
 }
 
 export default App;
