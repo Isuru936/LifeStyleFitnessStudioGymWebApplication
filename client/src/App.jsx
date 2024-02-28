@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DietPlan from "./pages/DietPlanPool";
 // import Home from "./pages/Home";
@@ -18,6 +19,13 @@ function App() {
       </BrowserRouter>
     </div>
   );
+=======
+import InventoryAdd from"./pages/InventoryAdd.jsx" 
+function App() {
+  return <div className="text-3xl font-bold">
+    <InventoryAdd />
+  </div>;
+>>>>>>> 65f0efe8ad204880bfbc697a7b77350f852063d1
 }
 
 export default App;
