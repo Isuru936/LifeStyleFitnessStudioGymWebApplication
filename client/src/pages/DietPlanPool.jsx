@@ -4,6 +4,7 @@ import proImage from "../assets/proImage.png";
 import SideBar from "../components/SideBar";
 import logo from "../assets/logo.png";
 import DropDownBar from "../components/DropDownNavBar";
+import { Link } from "react-router-dom";
 
 const DietPlan = () => {
   const [mobileView] = useState(window.innerWidth < 768);
@@ -44,10 +45,18 @@ const DietPlan = () => {
                 />
               </button>
             </div>
-            <button className="bg-slate-50 rounded-xl pl-2 pr-2 border ml-2 text-black font-semibold hover:bg-blue-950 hover:text-slate-50 transition ">
-              <span className="icon-[ci--add-plus] font-extrabold mr-1" />
-              {mobileView ? "" : "Add Foods"}
-            </button>
+            <Link to="/add-food">
+              <button className="bg-slate-50 rounded-xl pl-2 pr-2 p-2 border ml-2 text-black font-semibold hover:bg-blue-950 hover:text-slate-50 transition ">
+                <span className="icon-[ci--add-plus] font-extrabold mr-1" />
+                {mobileView ? "" : "Add Foods"}
+              </button>
+            </Link>
+            <Link to="/assign-diet-plan">
+              <button className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
+                <span className="icon-[mdi--food] mr-2" />
+                Assign Diet Plans
+              </button>
+            </Link>
           </div>
         </div>
 

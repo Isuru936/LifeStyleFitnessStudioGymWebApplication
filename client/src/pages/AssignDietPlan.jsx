@@ -4,6 +4,7 @@ import DietPlanUserView from "../components/DietPlanUserView";
 import DropDownBar from "../components/DropDownNavBar";
 import foodImg from "../assets/proImage.png";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function AssignDietPlan() {
   const [mobileView] = useState(window.innerWidth < 768);
@@ -46,6 +47,12 @@ export default function AssignDietPlan() {
                     style={{ width: "20px", height: "20px" }}
                   />
                 </div>
+                <Link to="/">
+                  <button className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
+                    <span className="icon-[emojione--pot-of-food] mr-2" />
+                    View Food Pool
+                  </button>
+                </Link>
               </div>
             </div>
             <div className="w-full lg:w-[800px] ">
