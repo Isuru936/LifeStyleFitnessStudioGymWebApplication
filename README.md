@@ -1,7 +1,7 @@
 <br/>
 <p align="center">
   <a href="https://github.com/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication">
-    <img src="https://github.com/Isuru936/LifeStyleFitnessStudioGymWebApplication/raw/main/client/src/assets/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/Isuru936/LifeStyleFitnessStudioGymWebApplication/raw/main/client/src/assets/logo.png">
   </a>
 
   <h3 align="center">LifeStyle Fitness Studio Gym Management System</h3>
@@ -15,9 +15,6 @@
     <br/>
     <a href="https://github.com/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication">View Demo</a>
     .
-    <a href="https://github.com/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication/issues">Report Bug</a>
-    .
-    <a href="https://github.com/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication/issues">Request Feature</a>
   </p>
 </p>
 
