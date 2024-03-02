@@ -1,6 +1,6 @@
 <br/>
 <p align="center">
-  <a href="https://github.com/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication">
+  <a href="https://github.com/Isuru936/LifeStyleFitnessStudioGymWebApplication">
     <img src="/blob/main/client/src/assets/logo.png">
   </a>
 
