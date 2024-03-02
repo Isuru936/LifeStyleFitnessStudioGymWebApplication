@@ -18,7 +18,7 @@
   </p>
 </p>
 
-![Downloads](https://img.shields.io/github/downloads/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication/total) ![Contributors](https://img.shields.io/github/contributors/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication?color=dark-green) ![Forks](https://img.shields.io/github/forks/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication?style=social) ![Stargazers](https://img.shields.io/github/stars/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication?style=social) ![Issues](https://img.shields.io/github/issues/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication) ![License](https://img.shields.io/github/license/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication) 
+(https://img.shields.io/github/stars/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication?style=social) ![Issues]
 
 ## Table Of Contents
 
@@ -27,10 +27,8 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Roadmap](#roadmap)
 * [Contributing](#contributing)
 * [Authors](#authors)
-* [Acknowledgements](#acknowledgements)
 
 ## About The Project
 
@@ -78,10 +76,6 @@ cd client
 4. run the program
 npm run dev
 
-## Roadmap
-
-See the [open issues](https://github.com/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication/issues) for a list of proposed features (and known issues).
-
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -107,8 +101,3 @@ Contributions are what make the open source community such an amazing place to b
 * **Sewmini Swarnasinghe** - *SE and CS undergraduate* - [Sewmini Swarnasinghe](https://github.com/sewmini2003) - *Payment Management System*
 * **Thamalsha Perera** - *SE and CS undergraduate* - [Thamalsha Perera](https://github.com/ThamalshaPerea) - *Admin Side User Management*
 
-## Acknowledgements
-
-* []()
-* []()
-* []()
