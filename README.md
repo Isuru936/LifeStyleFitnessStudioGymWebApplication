@@ -32,8 +32,6 @@
 
 ## About The Project
 
-![Screen Shot](images/screenshot.png)
-
 Welcome to the Lifestyle Fitness Studio Management System, a comprehensive MERN (MongoDB, Express.js, React.js, Node.js) application designed to streamline operations and enhance the experience for both gym owners and customers.
 
 ## Built With
