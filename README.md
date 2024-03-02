@@ -1,8 +1,9 @@
 <br/>
 <p align="center">
   <a href="https://github.com/Isuru936/LifeStyleFitnessStudioGymWebApplication">
-    <img src="[/blob/main/client/src/assets/logo.png](https://github.com/Isuru936/LifeStyleFitnessStudioGymWebApplication/blob/main/client/src/assets/logo.png)">
-  </a>
+    <img src="https://github.com/Isuru936/LifeStyleFitnessStudioGymWebApplication/raw/main/client/src/assets/logo.png">
+</a>
+
 
   <h3 align="center">LifeStyle Fitness Studio Gym Management System</h3>
 
