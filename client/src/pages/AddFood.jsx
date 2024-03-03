@@ -4,7 +4,7 @@ import { useState } from "react";
 import DropDownNavBar from "../components/DropDownNavBar";
 import { Link } from "react-router-dom";
 
-function AddWorkout() {
+function AddFood() {
   const [mobileView] = useState(window.innerWidth < 768);
   return (
     <div
@@ -100,4 +100,4 @@ function AddWorkout() {
   );
 }
 
-export default AddWorkout;
+export default AddFood;
