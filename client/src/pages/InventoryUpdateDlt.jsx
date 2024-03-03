@@ -45,8 +45,14 @@ function InventoryAdd() {
             </select>
           </div>
           <div className="mt-4">
-            <button className="bg-blue-500 text-white py-2 px-4 rounded">
-              Add Inventory
+            <button className="bg-red-500 text-white py-2 px-4 rounded">
+              Delete
+            </button>
+            <button className="bg-green-500 text-white py-2 px-4 rounded mt-2">
+              Update
+            </button>
+            <button className="bg-orange-500 text-white py-2 px-4 rounded mt-2">
+              Backa
             </button>
           </div>
         </div>
@@ -60,8 +66,8 @@ function InventoryAdd() {
 
         {/* Image space with increased size */}
 
-        {/* Button below the even larger image */}
-        <div className="mt-4 text-center">
+        {/* Buttons below the even larger image */}
+        <div className="flex flex-col mt-4 text-center">
           <button className="bg-blue-500 text-white py-2 px-4 rounded">
             Add Image
           </button>

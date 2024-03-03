@@ -1,10 +1,11 @@
 import InventoryAdd from "./pages/InventoryAdd.jsx";
 import SamplePage from "./pages/SamplePage.jsx";
-import InventoryShow from './pages/InventoryShow';
+import InventoryShow from "./pages/InventoryShow";
+import InventoryUpdateDlt from "./pages/InventoryUpdateDlt.jsx";
 function App() {
   return (
     <div>
-      <InventoryShow />
+      <InventoryUpdateDlt />
     </div>
   );
 }
