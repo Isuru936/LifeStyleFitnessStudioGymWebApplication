@@ -3,7 +3,7 @@ import SideBar from "../components/SideBar";
 import DropDownNavBar from "../components/DropDownNavBar";
 
 // Import your background image
-import backgroundImage from "../assets/0.png";
+import backgroundImage from "../assets/sim.jpg";
 
 function InventoryShow() {
   const [mobileView] = useState(window.innerWidth < 768);
