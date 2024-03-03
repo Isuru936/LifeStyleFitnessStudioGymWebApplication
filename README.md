@@ -18,8 +18,6 @@
   </p>
 </p>
 
-(https://img.shields.io/github/stars/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication?style=social) ![Issues]
-
 ## Table Of Contents
 
 * [About the Project](#about-the-project)
