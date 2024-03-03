@@ -1,4 +1,16 @@
 {
+<<<<<<< HEAD
+=======
+  "name": "lifestylefitnessstudiogymwebapplication",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+>>>>>>> a4a6f596ba681e83ee2b3d384fa10def48d278a5
   "devDependencies": {
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.35",
