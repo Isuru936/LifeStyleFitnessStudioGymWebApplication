@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 export const Login = () => {
     return (
      <div className="bg-white">
-            <img src={wmodel} className="absolute inset-0 w-64 h-full object-cover scale-y-[-1] rotate-180" alt="Background"/>
+            <img src={wmodel} className="absolute inset-0 lg:px-[220px]  h-full object-cover " alt="Background"/>
             <img src={logo} className="w-[107px] h-12 absolute bottom-0 right-0 mb-4 mr-4" alt="background"/>
-            <div className=" bg-white bg-opacity-40 rounded-[20px] border border-stone-800 backdrop-blur-sm justify-center p-6 shadow-lg backdrop filter relative">
+            <div className=" bg-white bg-opacity-40 rounded-[20px] border border-stone-800 backdrop-blur-sm justify-center p-6 shadow-lg backdrop filter relative lg:p-10">
                 <div>
                 <h1 className="text-center static text-neutral-950 text-xl mb-6 font-bold font-['Josefin Slab']">Lifestyle Fitness Studio</h1>
                 <div>

@@ -13,7 +13,8 @@ import Q7 from './pages/Q7';
 import Q8 from './pages/Q8';
 import Q9 from './pages/Q9';
 import Q10 from './pages/Q10';
-
+import UserProfile from './pages/UserProfile';
+import EditProfile from './pages/EditProfile';
 function App() {
 
   return (
@@ -33,16 +34,11 @@ function App() {
           <Route path='Q8'element={<Q8/>}></Route>
           <Route path='Q9'element={<Q9/>}></Route>
           <Route path='Q10'element={<Q10/>}></Route>
+          <Route path='profile' element={<UserProfile/>}></Route>
+          <Route path='editProfile' element={<EditProfile/>}></Route>
         </Routes>
       </div> 
     )
   }
  export default App;
- /*          <Route path='Q3'element={<Q3/>}></Route>
-          <Route path='Q4'element={<Q4/>}></Route>
-          <Route path='Q5'element={<Q5/>}></Route>
-          <Route path='Q6'element={<Q6/>}></Route>
-          <Route path='Q7'element={<Q7/>}></Route>
-          <Route path='Q8'element={<Q8/>}></Route>
-          <Route path='Q9'element={<Q9/>}></Route>
-          <Route path='Q10'element={<Q10/>}></Route>*/
+ 
