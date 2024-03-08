@@ -14,7 +14,7 @@ export const UserProfile = () =>{
 
 
         <div>
-          <img src={model1} className="inset-0 absolute h-full object-cover contrast-150" alt="background" />
+          <img src={model1} className="inset-0 absolute h-full object-cover contrast-150 brightness-50" alt="background" />
         
         <div id="NavBar" className="relative p-1 w-[370px] h-10 mb-1 flex-col">
             
