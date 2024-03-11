@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import bgImg from "../assets/bg-Img.png";
 import proImage from "../assets/proImage.png";
 import SideBar from "../components/SideBar";
 import logo from "../assets/logo.png";
 import DropDownBar from "../components/DropDownNavBar";
 import { Link } from "react-router-dom";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const DietPlan = () => {
   const [mobileView] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
+
   return (
     <div
       className="flex flex-row items-start min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
@@ -65,6 +72,7 @@ const DietPlan = () => {
             <div
               key={index}
               className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-32 lg:w-[200px] hover:scale-105 transition"
+              data-aos="zoom-in"
             >
               <img
                 src={proImage}
@@ -77,6 +85,20 @@ const DietPlan = () => {
               <span className="text-black text-xs">
                 205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
               </span>
+              <p className="p-1 border-2 bg-[#F2420D] text-white rounded-xl  hover:scale-110 transform duration-200">
+                <span
+                  className="icon-[material-symbols--delete-sharp] align-middle"
+                  style={{ width: "32px" }}
+                />
+                Delete
+              </p>
+              <p className="p-1 border-2 bg-slate-400 text-white rounded-xl  hover:scale-110 transform duration-200">
+                <span
+                  className="icon-[basil--edit-outline] align-middle"
+                  style={{ width: "32px" }}
+                />
+                Update
+              </p>
             </div>
           ))}
         </div>

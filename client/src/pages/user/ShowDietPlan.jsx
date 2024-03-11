@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import bgImg from "../../assets/pexels-suzy-hazelwood-1098529.jpg";
 import proImage from "../../assets/proImage.png";
 import proImage2 from "../../assets/proImage2.png";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const App = () => {
   const [activeButton, setActiveButton] = useState(1);
+
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
 
   const handleButtonClick = (buttonIndex) => {
     setActiveButton(buttonIndex);
@@ -30,12 +36,12 @@ const App = () => {
           </div>
           <div className="flex flex-col lg:flex-row justify-center m-5">
             <div className="lg:ml-5">
-              <div className="flex flex-row lg:flex-col lg:mr-3">
+              <div className="flex flex-row justify-center lg:flex-col lg:mr-3">
                 <button
                   onClick={() => handleButtonClick(1)}
                   className={`${
                     activeButton === 1 ? "bg-orange-700" : "bg-black "
-                  } text-white font-semibold rounded w-20  focus:outline-none mb-3 hover:scale-110 transition focus:ring-2 mr-3 focus:ring-orange-700 pt-2 pb-2`}
+                  } text-white font-semibold rounded w-20 focus:outline-none mb-3 hover:scale-110 transition focus:ring-2 mr-3 focus:ring-orange-700 pt-2 pb-2`}
                 >
                   <span
                     className="icon-[fluent--food-apple-24-regular] mr-2 ml-1 "
@@ -75,7 +81,7 @@ const App = () => {
                   {[...Array(20)].map((_, index) => (
                     <div
                       key={index}
-                      className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-32 lg:w-[200px] hover:scale-105 transition"
+                      className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-36 lg:w-[200px] hover:scale-105 transition"
                     >
                       <img
                         src={proImage}
@@ -97,7 +103,7 @@ const App = () => {
                   {[...Array(20)].map((_, index) => (
                     <div
                       key={index}
-                      className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-32 lg:w-[200px] hover:scale-105 transition"
+                      className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-36 lg:w-[200px] hover:scale-105 transition"
                     >
                       <img
                         src={proImage2}
@@ -119,7 +125,7 @@ const App = () => {
                   {[...Array(20)].map((_, index) => (
                     <div
                       key={index}
-                      className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-32 lg:w-[200px] hover:scale-105 transition"
+                      className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-36 lg:w-[200px] hover:scale-105 transition"
                     >
                       <img
                         src={proImage}

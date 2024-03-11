@@ -3,11 +3,16 @@ import bgImg from "../assets/bg-Img.png";
 import DietPlanUserView from "../components/DietPlanUserView";
 import DropDownBar from "../components/DropDownNavBar";
 import foodImg from "../assets/proImage.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 export default function AssignDietPlan() {
   const [mobileView] = useState(window.innerWidth < 768);
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
   return (
     <div
       className="inline-flex flex-col items-start min-h-screen w-screen bg-cover bg-center bg-no-repeat bg-fixed"
@@ -19,7 +24,7 @@ export default function AssignDietPlan() {
       }}
     >
       <div className="flex flex-col">
-        <div className="flex flex-row">
+        <div className="flex flex-row " data-aos="fade-up">
           {/* side bar, select user */}
           <div className="flex-col">
             {mobileView ? <DropDownBar /> : <SideBar />}
@@ -63,6 +68,7 @@ export default function AssignDietPlan() {
                   <div
                     key={index}
                     className="w-fit h-fit bg-slate-50 rounded-lg p-3 m-0 flex flex-row hover:bg-green-500 transition duration-300 ease-in-out"
+                    data-aos="zoom-in"
                   >
                     <div>
                       <img
