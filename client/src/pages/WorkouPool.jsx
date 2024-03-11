@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import SideBar from '../components/SideBar'; // Import the SideBar component
-import CopyrightBar from '../components/copyrightbar';
+import CopyrightBar from '../components/CopyrightBar';
 
 // Import the workout image from the assets folder
 import workoutImage from '../assets/illust58-5797-01.jpg';
 import logo from '../assets/logo.png'
 import backgroundImage from '../assets/bg-Img.png'
+import DietPlanUserView from '../components/DietPlanUserView';
 
 function WorkoutPool() {
   const [armsDropdown, setArmsDropdown] = useState(false);
@@ -22,7 +23,7 @@ function WorkoutPool() {
   return (
     <div className=" flex flex-row w-screen h-screen relative" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}> {/* Set position to relative */}
       {/* Display the SideBar component */}
-      <SideBar />
+     <div><SideBar /><DietPlanUserView/></div> 
       <div className="ml-16 pt-16 flex-grow">
      
         <div className="container mx-auto">

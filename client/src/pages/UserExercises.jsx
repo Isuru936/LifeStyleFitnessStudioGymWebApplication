@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import NavigationBar from '../components/UserNavbar';
-import CopyrightBar from '../components/copyrightbar';
+import CopyrightBar from '../components/CopyrightBar';
 import backgroundImage from '../assets/bg-Img.png';
+"./styles/UserExersisesstyles.css";
 
 function UserExercises() {
   const exercises = [
@@ -16,6 +17,11 @@ function UserExercises() {
     const newCheckedItems = [...checkedItems];
     newCheckedItems[index] = !newCheckedItems[index];
     setCheckedItems(newCheckedItems);
+
+    // Move the checked item to the bottom of the array
+    const checkedItem = exercises[index];
+    exercises.splice(index, 1);
+    exercises.push(checkedItem);
   };
 
   return (
@@ -28,7 +34,7 @@ function UserExercises() {
           
           <div className="max-w-md mx-auto">
             {exercises.map((exercise, index) => (
-              <div key={index} className={`bg-orange-100 bg-opacity-30 backdrop-blur-md rounded-md p-4 mb-4 transition ${checkedItems[index] ? 'line-through' : ''}`}>
+              <div key={index} className={`exercise-item bg-orange-100 bg-opacity-30 backdrop-blur-md rounded-md p-4 mb-4 transition ${checkedItems[index] ? 'line-through flipped' : ''}`}>
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="text-lg mb-1">{exercise.name}</p>

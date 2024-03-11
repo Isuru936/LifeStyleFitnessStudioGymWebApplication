@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DropDownBar from "../components/DropDownNavBar.jsx";
 import SideBar from "../components/SideBar.jsx";
-import CopyrightBar from "../components/copyrightbar.jsx";
+import CopyrightBar from "../components/CopyrightBar.jsx";
 
 function SamplePage() {
   const [mobileView] = useState(window.innerWidth < 768);
