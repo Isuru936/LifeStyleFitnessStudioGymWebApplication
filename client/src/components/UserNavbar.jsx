@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
+import { Icon, InlineIcon } from '@iconify/react';
+import menuIcon from '@iconify-icons/fa-solid/bars';
+import bellIcon from '@iconify-icons/fa-solid/bell';
+import userIcon from '@iconify-icons/fa-solid/user';
 import Logo from '../assets/logo.png';
 
 function NavigationBar() {
@@ -19,8 +21,8 @@ function NavigationBar() {
   return (
     <div className="bg-white h-16 flex items-center justify-between px-6 font-sans relative z-50">
       <div className="flex items-center">
-        <FontAwesomeIcon
-          icon={faBars}
+        <Icon
+          icon={menuIcon}
           className="lg:hidden text-black text-base cursor-pointer mr-4 hover:text-gray-500 transition duration-300"
           onClick={toggleMenu}
         />
@@ -73,7 +75,11 @@ function NavigationBar() {
         </Link>
       </div>
       <div className="flex items-center">
-        <FontAwesomeIcon icon={faBell} className="text-black text-base cursor-pointer mr-6 hover:text-gray-400 transition duration-300" onClick={toggleNotifications} />
+        <Icon
+          icon={bellIcon}
+          className="text-black text-base cursor-pointer mr-6 hover:text-gray-400 transition duration-300"
+          onClick={toggleNotifications}
+        />
         {showNotifications && (
           <div className="absolute top-16 right-0 bg-white shadow-lg rounded-md p-4">
             <p>Notification 1</p>
@@ -81,7 +87,7 @@ function NavigationBar() {
             <p>Notification 3</p>
           </div>
         )}
-        <FontAwesomeIcon icon={faUser} className="text-black text-base cursor-pointer hover:text-gray-400 transition duration-300" />
+        <Icon icon={userIcon} className="text-black text-base cursor-pointer hover:text-gray-400 transition duration-300" />
       </div>
       <style>{`
         .text-link {
