@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DietPlan from "./pages/DietPlanPool";
-import Home from "./pages/Home";
 import AssignDietPlan from "./pages/AssignDietPlan";
 import SideBar from "./components/SideBar";
 import AddFood from "./pages/AddFood";
@@ -18,10 +17,9 @@ function App() {
           <Route path="/sidebar" element={<SideBar />} />
           <Route path="/add-food" element={<AddFood />} />
           <Route path="/sample-page" element={<SamplePage />} />
-          <Route path="/user-exercises" element={<UserExercises/>} />
-          <Route path="/workoutpool" element={<WorkoutPool/>} />
-          <Route path="/AddWorkout" element={<AddWorkout/>} />
-          
+          <Route path="/user-exercises" element={<UserExercises />} />
+          <Route path="/workoutpool" element={<WorkoutPool />} />
+          <Route path="/AddWorkout" element={<AddWorkout />} />
         </Routes>
       </BrowserRouter>
     </div>
