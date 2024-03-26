@@ -19,9 +19,8 @@ function AddUpdateUserDetails() {
           backgroundPosition: "left",
         }}
       >
-        <div className="flex flex-col w-full ">
-          <div className="flex flex-row">
-            {/* side bar, select user */}
+        <div className="flex flex-col w-full">
+          <div className="flex flex-row m-2">
             <div className="flex-col">
               {mobileView ? <DropDownNavBar /> : <SideBar />}
             </div>
@@ -36,7 +35,7 @@ function AddUpdateUserDetails() {
                   <img
                     src={profImg}
                     alt="profile"
-                    className=" w-32  h-32 bg-slate-800 rounded-full hover:scale-105 duration-500 ease-in-out transform"
+                    className=" w-32  h-32 bg-slate-800 rounded-full hover:scale-105 duration-500 ease-in-out transform mb-2"
                   />
                   <p className="flex flex-row justify-center font-semibold pb-5">
                     Kelly Parker
