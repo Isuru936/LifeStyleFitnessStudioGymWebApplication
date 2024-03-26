@@ -1,6 +1,6 @@
 import logo from "../assets/logo.png";
 // Import your background image
-import backgroundImage from "../assets/lot.jpg";
+import backgroundImage from "../assets/lot.jpgcd";
 
 function CreateMsg() {
   return (
