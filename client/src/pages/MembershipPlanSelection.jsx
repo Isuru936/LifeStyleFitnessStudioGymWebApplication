@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import workoutWithSanjeewa from "../assets/workoutwithSanjeewa.png";
+import UserNavbar from "../components/UserNavbar";
+
 function MembershipPlanSelection() {
   return (
     <div className="h-auto bg-[#121212]">
+      <UserNavbar />
+
       <div className="flex flex-col lg:flex-row p-3 ml-0 lg:ml-5">
-        {/* <div> nav bar </div> */}
         <div>
           <img
             src={workoutWithSanjeewa}

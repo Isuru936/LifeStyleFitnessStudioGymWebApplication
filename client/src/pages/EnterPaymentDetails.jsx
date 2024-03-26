@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import bgImg from "../assets/wp11154513.jpg";
+import UserNavbar from "../components/UserNavbar";
 
 function EnterPaymentDetails() {
   return (
     <>
+      <UserNavbar className="mt-3" />
       <div
         className="inline-flex flex-col items-start h-screen w-screen bg-cover bg-[#212121] bg-center bg-no-repeat"
         style={{
@@ -14,9 +16,6 @@ function EnterPaymentDetails() {
         }}
       >
         <div className="flex flex-col w-full  ">
-          <p className="mx-auto text-3xl font-extrabold text-white">
-            HERE IS THE NAVIGATION BAR
-          </p>
           <div className="flex flex-row m-5">
             {/* side bar, select user */}
             <div className="flex-col"></div>
