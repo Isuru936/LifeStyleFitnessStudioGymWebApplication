@@ -7,7 +7,7 @@ import Notifocations from "./pages/Notifications.jsx";
 function App() {
   return (
     <div>
-      <InventoryShow />
+      <InventoryUpdateDlt />
     </div>
   );
 }

@@ -11,7 +11,7 @@ function InventoryShow() {
 
   return (
     <div
-      className="relative"
+      className={`relative flex ${mobileView ? "flex-col" : "flex-row"}`}
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
@@ -19,9 +19,9 @@ function InventoryShow() {
         minHeight: "100vh",
       }}
     >
+      <div>{mobileView ? <DropDownNavBar /> : <SideBar />}</div>
       <div className={`flex ${mobileView ? "flex-col" : "flex-row"}`}>
         {/* Sidebar */}
-        <div>{mobileView ? <DropDownNavBar /> : <SideBar />}</div>
 
         {/* Main Content */}
         <div className="flex flex-col items-start justify-start flex-1 ml-auto relative">
