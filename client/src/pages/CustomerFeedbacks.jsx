@@ -1,5 +1,5 @@
 import React from "react";
-import bgImg from "../assets/bg-img-customerFeedback.jpg";
+import bgImg from "../assets/asdad.jpeg";
 import DropDownNavBar from "../components/DropDownNavBar";
 import SideBar from "../components/SideBar";
 import logo from "../assets/logo.png";
@@ -13,9 +13,8 @@ function CustomerFeedbacks() {
         className="inline-flex flex-col items-start min-h-screen w-screen bg-cover bg-opacity-95 bg-center bg-no-repeat bg-fixed "
         style={{
           backgroundImage: `url(${bgImg})`,
-          backgroundSize: "auto",
-          backgroundRepeat: "repeat",
-          backgroundrepeat: "75",
+          backgroundSize: "contain",
+          backgroundPosition: "bottom",
         }}
       >
         <div className="flex flex-col w-full ">
