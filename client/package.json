@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
+    "@iconify-icons/fa-solid": "^1.2.4",
     "@iconify-json/basil": "^1.1.5",
     "@iconify/react": "^4.1.1",
     "aos": "^2.3.4",
@@ -28,6 +29,7 @@
     "react-use": "^17.5.0"
   },
   "devDependencies": {
+    "@iconify-icons/fa": "^1.2.4",
     "@iconify-json/ant-design": "^1.1.15",
     "@iconify-json/bi": "^1.1.23",
     "@iconify-json/ci": "^1.1.13",

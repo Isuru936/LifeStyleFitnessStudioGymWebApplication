@@ -12,7 +12,7 @@ const DietPlan = () => {
   const [mobileView] = useState(window.innerWidth < 768);
 
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 2000, selector: ".food-card" });
   }, []);
 
   return (
@@ -71,13 +71,13 @@ const DietPlan = () => {
           {[...Array(20)].map((_, index) => (
             <div
               key={index}
-              className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-32 lg:w-[200px] hover:scale-105 transition"
+              className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-32 lg:w-[200px] hover:scale-75 transition"
               data-aos="zoom-in"
             >
               <img
                 src={proImage}
                 alt="product"
-                className="w-28 h-28 object-cover mx-auto rounded-xl"
+                className="w-28 h-28 object-cover mx-auto rounded-xl hover:scale-75 transition"
               />
               <p className="text-black text-sm font-bold">
                 Egg whole, Cooked, fried

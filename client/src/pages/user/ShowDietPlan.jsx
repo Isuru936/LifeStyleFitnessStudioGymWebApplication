@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import logo from "../../assets/logo.png";
 import bgImg from "../../assets/pexels-suzy-hazelwood-1098529.jpg";
 import proImage from "../../assets/proImage.png";
 import proImage2 from "../../assets/proImage2.png";
+import UserNavbar from "../../components/UserNavbar";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -25,10 +25,8 @@ const App = () => {
         className="flex flex-row items-start min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
         style={{ backgroundImage: `url(${bgImg})` }}
       >
-        <div className="m-4">
-          <div className="mb-3 ml-3 mr-3 w-full">
-            <img src={logo} alt="" />
-          </div>
+        <div className="mb">
+          <UserNavbar />
           <hr />
           <h1 className="text-4xl font-bold ml-10">Diet Plans</h1>
           <div className="text-blue-900 ml-10">
