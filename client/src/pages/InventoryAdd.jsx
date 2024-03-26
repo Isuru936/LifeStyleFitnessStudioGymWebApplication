@@ -54,18 +54,14 @@ function InventoryAdd() {
                 <option value="brandNew">Brand New</option>
               </select>
             </div>
-            <div className="mt-4">
-              <button className="bg-blue-500 text-white py-2 px-4 rounded w-full md:w-auto">
-                Add Inventory
-              </button>
-            </div>
           </div>
 
-          {/* Even larger image space */}
+          {/* Add Image section */}
           <div className="w-full md:w-1/2 lg:w-2/3 mt-4 md:mt-0">
             <div className="w-full h-96 border border-dashed rounded-lg flex items-center justify-center mx-auto">
               {/* You can add an image or any other content here */}
-              <span>Add Image</span>
+
+              {/* This is where the image will be displayed */}
               <img
                 src="your_image_path.jpg"
                 alt=""
@@ -80,6 +76,12 @@ function InventoryAdd() {
               </button>
             </div>
           </div>
+        </div>
+        {/* Done button */}
+        <div className="absolute bottom-5 right-5">
+          <button className="bg-green-500 text-white py-2 px-4 rounded">
+            Done
+          </button>
         </div>
         {/* Add more questions and input fields as needed */}
       </div>

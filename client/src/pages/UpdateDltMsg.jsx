@@ -13,12 +13,12 @@ function UpdateDltMsg() {
         minHeight: "100vh",
       }}
     >
-      <div className="flex flex-col m-5">
+      <div className="flex flex-col mb-5 ml-5 mr-5">
         <div className="flex items-center">
           <img src={logo} alt="" className="w-28" />
         </div>
         <div className="mt-5">
-          <h2 className="font-bold text-xl text-black">EDIT MESSAGE</h2>
+          <h2 className="font-bold text-xl text-black">UPDATE MESSAGE</h2>
         </div>
         <div className="flex flex-col items-center h-screen">
           {/* Subject */}

@@ -7,8 +7,8 @@ import backgroundImage from "../assets/lot.jpg";
 function Notifications() {
   const [mobileView] = useState(window.innerWidth < 768);
   const [notifications, setNotifications] = useState([
-    { id: 1, message: "Isuru + Vinuka Hotxxxx", read: false },
-    { id: 2, message: "IsuruVinuka Gay..", read: false },
+    { id: 1, message: "Are you ready to do some exercises?", read: false },
+    { id: 2, message: "BodyMax classes start in 30 minutes", read: false },
   ]);
 
   const markAsRead = (notificationId) => {

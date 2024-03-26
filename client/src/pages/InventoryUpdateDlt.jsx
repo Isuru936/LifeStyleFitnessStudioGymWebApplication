@@ -1,6 +1,7 @@
 import logo from "../assets/logo.png";
 // Import your background image
 import backgroundImage from "../assets/sim.jpg";
+
 function InventoryUpdateDlt() {
   return (
     <div
@@ -17,7 +18,7 @@ function InventoryUpdateDlt() {
           <img src={logo} alt="" className="w-28" />
         </div>
         <div className="mt-5">
-          <h2 className="font-bold text-xl text-black">ADD INVENTORY</h2>
+          <h2 className="font-bold text-xl text-black">UPDATE INVENTORY</h2>
         </div>
         <div className="mt-8 flex flex-col md:flex-row md:justify-between">
           {/* Questions and input fields */}
@@ -71,7 +72,7 @@ function InventoryUpdateDlt() {
           <div className="w-full md:w-1/2 lg:w-2/3 mt-4 md:mt-0">
             <div className="w-full h-96 border border-dashed rounded-lg flex items-center justify-center mx-auto">
               {/* You can add an image or any other content here */}
-              <span>Add Image</span>
+
               <img
                 src="your_image_path.jpg"
                 alt=""
