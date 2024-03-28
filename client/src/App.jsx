@@ -11,6 +11,9 @@ import AddUpdateUserDetails from "./pages/ViewUpdateUsers";
 import ShowDietPlan from "./pages/user/ShowDietPlan";
 import AddUsers from "./pages/AddUser";
 
+import WorkoutPool from "./pages/WorkoutManagement/WorkouPool";
+import UserExercises from "./pages/WorkoutManagement/UserExercises";
+import AddWorkout from "./pages/WorkoutManagement/AddWorkout";
 function App() {
   return (
     <div>
@@ -34,6 +37,12 @@ function App() {
             path="/enter-payment-details"
             element={<EnterPaymentDetails />}
           />
+          {/* {Vinuka} */}
+          <Route path="/UserExercises" element={<UserExercises/>} />
+          <Route path="/workoutpool" element={<WorkoutPool/>} />
+          <Route path="/AddWorkout" element={<AddWorkout/>} />
+          
+
         </Routes>
       </BrowserRouter>
     </div>
