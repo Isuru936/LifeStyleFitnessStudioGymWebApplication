@@ -7,7 +7,6 @@ import UserProfile from './pages/UserProfile';
 import EditProfile from './pages/EditProfile';
 import Quiz from './pages/Quiz';
 function App() {
-
   return (
       <div className='text-white h-[100vh] flex justify-center items-center bg-cover' style={{"background":"white"}}>
         <Routes>
