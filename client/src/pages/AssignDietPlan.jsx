@@ -52,6 +52,7 @@ export default function AssignDietPlan() {
                     style={{ width: "20px", height: "20px" }}
                   />
                 </div>
+                {/* TODO add Add Food Button and the UI */}
                 <Link to="/">
                   <button className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
                     <span className="icon-[emojione--pot-of-food] mr-2" />

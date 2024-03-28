@@ -12,8 +12,8 @@
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "@iconify-icons/fa-solid": "^1.2.4",
-    "@iconify-json/basil": "^1.1.5",
     "@iconify-json/arcticons": "^1.1.98",
+    "@iconify-json/basil": "^1.1.5",
     "@iconify-json/logos": "^1.1.42",
     "@iconify-json/openmoji": "^1.1.49",
     "@iconify-json/skill-icons": "^1.1.8",
@@ -28,7 +28,7 @@
     "react-feather": "^2.0.10",
     "react-icons": "^5.0.1",
     "react-intersection-observer": "^9.8.1",
-    "react-router-dom": "^6.22.1",
+    "react-router-dom": "^6.22.3",
     "react-transition-group": "^4.4.5",
     "react-use": "^17.5.0"
   },
