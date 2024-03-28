@@ -1,13 +1,13 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import paymentCompleteGif from "../assets/payment-complete.gif";
+import paymentCompleteGif from "../../assets/payment-complete.gif";
 
 function PaymentComplete() {
   const navigate = useNavigate();
 
   useEffect(() => {
     const redirectTimeout = setTimeout(() => {
-      navigate("/"); // Replace "/new-url" with your desired URL
+      navigate("/payment-details"); // Replace "/new-url" with your desired URL
     }, 3900);
 
     return () => {

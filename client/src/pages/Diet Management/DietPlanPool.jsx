@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import bgImg from "../assets/bg-Img.png";
-import proImage from "../assets/proImage.png";
-import SideBar from "../components/SideBar";
-import logo from "../assets/logo.png";
-import DropDownBar from "../components/DropDownNavBar";
+import bgImg from "../../assets/bg-Img.png";
+import proImage from "../../assets/proImage.png";
+import SideBar from "../../components/SideBar";
+import logo from "../../assets/logo.png";
+import DropDownBar from "../../components/DropDownNavBar";
 import { Link } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";

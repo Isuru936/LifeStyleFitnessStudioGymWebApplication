@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import workoutWithSanjeewa from "../assets/workoutwithSanjeewa.png";
-import UserNavbar from "../components/UserNavbar";
+import workoutWithSanjeewa from "../../assets/workoutwithSanjeewa.png";
+import UserNavbar from "../../components/UserNavbar";
+import React from "react";
 
 function MembershipPlanSelection() {
   return (

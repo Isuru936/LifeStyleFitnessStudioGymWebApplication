@@ -1,10 +1,10 @@
 import React from "react";
-import DropDownNavBar from "../components/DropDownNavBar";
+import DropDownNavBar from "../../components/DropDownNavBar";
 import { useState } from "react";
-import profImg from "../assets/profImg.png";
-import SideBar from "../components/SideBar";
-import bgImg from "../assets/bgImg.png";
-import logo from "../assets/logo.png";
+import profImg from "../../assets/profImg.png";
+import SideBar from "../../components/SideBar";
+import bgImg from "../../assets/bgImg.png";
+import logo from "../../assets/logo.png";
 
 function AddUpdateUserDetails() {
   const [mobileView] = useState(window.innerWidth < 768);

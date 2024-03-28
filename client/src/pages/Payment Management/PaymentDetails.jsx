@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import React from "react";
 
 function PaymentDetails() {
   return (
@@ -38,9 +40,11 @@ function PaymentDetails() {
             <div>30,000 Package</div>
           </div>
         </div>
-        <button className="bg-[#E8EDF2] mx-auto justify-center p-2 pl-3 pr-3 rounded-xl hover:bg-[#D8EDF2]">
-          Go Back
-        </button>
+        <Link to="/membership-plan">
+          <button className="bg-[#E8EDF2] mx-auto justify-center p-2 pl-3 pr-3 rounded-xl hover:bg-[#D8EDF2]">
+            Go Back
+          </button>
+        </Link>
       </div>
     </div>
   );

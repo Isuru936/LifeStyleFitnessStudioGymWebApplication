@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./style/AddCard.css";
-import chip from "../assets/chip.png";
-import visa from "../assets/visa.png";
+import chip from "../../assets/chip.png";
+import visa from "../../assets/visa.png";
 import { Link } from "react-router-dom";
 
 function AddCard() {
