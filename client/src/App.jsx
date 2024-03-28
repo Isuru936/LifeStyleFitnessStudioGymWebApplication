@@ -1,39 +1,50 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
-import UserDetails from "./pages/ViewUpdateUsers";
-import UserPool from "./pages/UserPool";
-import ContactUs from "./pages/ContactUs";
-import CustomerFeedbacks from "./pages/CustomerFeedbacks";
-import DietPlan from "./pages/DietPlanPool";
-import AssignDietPlan from "./pages/AssignDietPlan";
-import EnterPaymentDetails from "./pages/EnterPaymentDetails";
-import AddUpdateUserDetails from "./pages/ViewUpdateUsers";
-import ShowDietPlan from "./pages/user/ShowDietPlan";
-import AddUsers from "./pages/AddUser";
+import UserPool from "./pages/User Management/UserPool";
+import ContactUs from "./pages/Customer Feedback/ContactUs";
+import CustomerFeedbacks from "./pages/Customer Feedback/CustomerFeedbacks";
+import DietPlan from "./pages/Diet Management/DietPlanPool";
+import AssignDietPlan from "./pages/Diet Management/AssignDietPlan";
+import EnterPaymentDetails from "./pages/Payment Management/EnterPaymentDetails";
+import AddUpdateUserDetails from "./pages/User Management/ViewUpdateUsers";
+import ShowDietPlan from "./pages/Diet Management/ShowDietPlan";
+import AddUsers from "./pages/User Management/AddUser";
+import AddCard from "./pages/Payment Management/AddCard";
+import MembershipPlanSelection from "./pages/Payment Management/MembershipPlanSelection";
+import PaymentComplete from "./pages/Payment Management/PaymentComplete";
+import PaymentReview from "./pages/Payment Management/PaymentReview";
+import PaymentDetails from "./pages/Payment Management/PaymentDetails";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          {/* Client */}
+          {/* Client Routes */}
           {/* Thamalsha */}
           <Route path="/contact-us" element={<ContactUs />} />
-          {/* Admin */}
-          {/* {Isuru} */}
-          <Route path="/" element={<DietPlan />} />
-          <Route path="/assign-diet-plan" element={<AssignDietPlan />} />
+          {/* Sewmini */}
+          <Route path="/add-card" element={<AddCard />} />
+          <Route path="/payment-complete" element={<PaymentComplete />} />
+          <Route path="/payment-review" element={<PaymentReview />} />
+          <Route path="/payment-details" element={<PaymentDetails />} />
+          <Route
+            path="/membership-plan"
+            element={<MembershipPlanSelection />}
+          />
+          <Route path="/enter-payment" element={<EnterPaymentDetails />} />
+          {/* Admin Routes */}
+          {/* Isuru */}
           <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
-          {/* {Thamalsha} */}
+          {/* Admin */}
+          <Route path="/assign-diet-plan" element={<AssignDietPlan />} />
+          {/* Thamalsha */}
           <Route path="/user-pool" element={<UserPool />} />
           <Route path="/add-user" element={<AddUsers />} />
           <Route path="/update-user" element={<AddUpdateUserDetails />} />
           <Route path="/customer-feedbacks" element={<CustomerFeedbacks />} />
-          {/* {Sewmini} */}
-          <Route
-            path="/enter-payment-details"
-            element={<EnterPaymentDetails />}
-          />
+          {/* Sewmini */}
+          <Route path="/" element={<DietPlan />} />
         </Routes>
       </BrowserRouter>
     </div>

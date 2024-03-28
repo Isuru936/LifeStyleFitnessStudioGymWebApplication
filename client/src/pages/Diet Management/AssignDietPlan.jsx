@@ -1,8 +1,8 @@
-import SideBar from "../components/SideBar";
-import bgImg from "../assets/bg-Img.png";
-import DietPlanUserView from "../components/DietPlanUserView";
-import DropDownBar from "../components/DropDownNavBar";
-import foodImg from "../assets/proImage.png";
+import SideBar from "../../components/SideBar";
+import bgImg from "../../assets/bg-Img.png";
+import DietPlanUserView from "../../components/DietPlanUserView";
+import DropDownBar from "../../components/DropDownNavBar";
+import foodImg from "../../assets/proImage.png";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Aos from "aos";

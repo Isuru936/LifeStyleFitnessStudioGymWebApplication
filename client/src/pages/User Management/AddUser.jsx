@@ -1,10 +1,9 @@
-import React from "react";
-import DropDownNavBar from "../components/DropDownNavBar";
-import { useState } from "react";
-import profImg from "../assets/profImg.png";
-import SideBar from "../components/SideBar";
-import bgImg from "../assets/bgImg.png";
-import logo from "../assets/logo.png";
+import DropDownNavBar from "../../components/DropDownNavBar";
+import React, { useState } from "react";
+import profImg from "../../assets/profImg.png";
+import SideBar from "../../components/SideBar";
+import bgImg from "../../assets/bgImg.png";
+import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 
 function AddUsers() {
