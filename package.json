@@ -3,6 +3,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@iconify-icons/ant-design": "^1.2.7",
     "@iconify-icons/fa-solid": "^1.2.4",
     "@iconify/react": "^4.1.1",
     "autoprefixer": "^10.4.17",
