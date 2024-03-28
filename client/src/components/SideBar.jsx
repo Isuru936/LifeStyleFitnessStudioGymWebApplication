@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import "./styles/SideBarStyles.css";
+import { Link } from "react-router-dom";
 
 function SideBar() {
   const [show, setShow] = useState(false);
@@ -35,18 +36,20 @@ function SideBar() {
           >
             <p className="text-3xl font-bold">Content</p>
             <div className="pt-5 pr-5">
-              <div className="p-2 my-2 rounded-xl  hover:bg-slate-200 transition">
-                <p className="text-l font-bold">
-                  <span
-                    className="icon-[ph--users] mx-2 "
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                  Users
-                </p>
-              </div>
+              <Link to="/user-pool">
+                <div className="p-2 my-2 rounded-xl  hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[ph--users] mx-2 "
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                      }}
+                    />
+                    Users
+                  </p>
+                </div>
+              </Link>
               <div className="p-2 my-2 rounded-xl hover:bg-slate-200 transition">
                 <p className="text-l font-bold">
                   <span
@@ -83,18 +86,20 @@ function SideBar() {
                   QR Scan
                 </p>
               </div>
-              <div className="p-2  w-50 my-2 rounded-xl bg-side-bar-hover hover:bg-slate-200 transition">
-                <p className="text-l font-bold">
-                  <span
-                    className="icon-[ant-design--apple-outlined] mx-2"
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                    }}
-                  />
-                  Diet Plan
-                </p>
-              </div>
+              <Link to="/">
+                <div className="p-2  w-50 my-2 rounded-xl bg-side-bar-hover hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[ant-design--apple-outlined] mx-2"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                      }}
+                    />
+                    Diet Plan
+                  </p>
+                </div>
+              </Link>
               <div className="p-2  w-50 my-2 rounded-xl hover:bg-slate-200 transition">
                 <p className="text-l font-bold">
                   <span
@@ -107,18 +112,20 @@ function SideBar() {
                   Inventory
                 </p>
               </div>
-              <div className="p-2  w-50 my-2 rounded-xl  hover:bg-slate-200 transition">
-                <p className="text-l font-bold">
-                  <span
-                    className="icon-[mdi--feedback-outline] mx-2"
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                    }}
-                  />
-                  Customer Feedback
-                </p>
-              </div>
+              <Link to="/customer-feedbacks">
+                <div className="p-2  w-50 my-2 rounded-xl  hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[mdi--feedback-outline] mx-2"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                      }}
+                    />
+                    Customer Feedback
+                  </p>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
