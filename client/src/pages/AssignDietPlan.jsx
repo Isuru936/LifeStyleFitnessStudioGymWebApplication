@@ -3,7 +3,7 @@ import bgImg from "../assets/bg-Img.png";
 import DietPlanUserView from "../components/DietPlanUserView";
 import DropDownBar from "../components/DropDownNavBar";
 import foodImg from "../assets/proImage.png";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";

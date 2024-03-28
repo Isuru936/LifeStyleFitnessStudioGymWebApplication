@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import bgImg from "../assets/bg-Img.png";
 import proImage from "../assets/proImage.png";
 import SideBar from "../components/SideBar";
