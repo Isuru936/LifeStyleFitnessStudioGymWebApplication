@@ -1,7 +1,7 @@
 // TODO add Logo
 // Import your background image
 import backgroundImage from "../assets/sim.jpg";
-import SideBar from "../components/SideBar";
+import SideBar from "../../components/SideBar";
 function InventoryAdd() {
   return (
     <div className="">

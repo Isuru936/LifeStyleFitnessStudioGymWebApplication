@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SideBar from "../components/SideBar";
-import DropDownNavBar from "../components/DropDownNavBar";
+import SideBar from "../../components/SideBar";
+import DropDownNavBar from "../../components/DropDownNavBar";
 
 // Import your background image
 import backgroundImage from "../assets/sim.jpg";
