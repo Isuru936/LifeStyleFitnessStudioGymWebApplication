@@ -18,6 +18,14 @@ import PaymentDetails from "./pages/Payment Management/PaymentDetails";
 import WorkoutPool from "./pages/WorkoutManagement/WorkouPool";
 import UserExercises from "./pages/WorkoutManagement/UserExercises";
 import AddWorkout from "./pages/WorkoutManagement/AddWorkout";
+
+import Login from "./pages/Profile Management/Login";
+import Signup from "./pages/Profile Management/Signup";
+import ForgetPassword from "./pages/Profile Management/ForgetPassword";
+import NewPassword from "./pages/Profile Management/NewPassword";
+import UserProfile from "./pages/Profile Management/UserProfile";
+import EditProfile from "./pages/Profile Management/EditProfile";
+import Quiz from "./pages/Profile Management/Quiz";
 function App() {
   return (
     <div>
@@ -36,6 +44,15 @@ function App() {
             element={<MembershipPlanSelection />}
           />
           <Route path="/enter-payment" element={<EnterPaymentDetails />} />
+          {/* {Shafry} */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<Signup />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/new-password" element={<NewPassword />} />
+          <Route path="/Quiz" element={<Quiz />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/editProfile" element={<EditProfile />} />
+
           {/* Admin Routes */}
           {/* Isuru */}
           <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
