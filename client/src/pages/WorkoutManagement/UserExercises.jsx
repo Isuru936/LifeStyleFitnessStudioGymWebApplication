@@ -3,8 +3,8 @@ import NavigationBar from "../../components/UserNavbar";
 import backgroundImage from "../../assets/bg-Img.png";
 import workoutImage1 from "../../assets/illust58-5797-01.jpg";
 import { Icon } from "@iconify/react";
-import exclamationCircleOutlined from "@iconify-icons/ant-design/exclamation-circle-outlined";
-
+// import exclamationCircleOutlined from "@iconify-icons/ant-design/exclamation-circle-outlined";
+// TODO:Removed above import cause error
 function UserExercises() {
   const exercises = [
     {
@@ -74,7 +74,7 @@ function UserExercises() {
                       className="w-16 h-16 rounded-md mr-4 relative z-10"
                     />
                     <Icon
-                      icon={exclamationCircleOutlined}
+                      icon={""}
                       className="text-black ml-2 cursor-pointer z-20"
                       onClick={() => handleExclamationClick(index)}
                     />

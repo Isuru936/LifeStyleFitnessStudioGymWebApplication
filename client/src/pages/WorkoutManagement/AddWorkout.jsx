@@ -3,9 +3,8 @@ import bgImg from "../../assets/bg-Img.png";
 import React, { useState } from "react";
 import DropDownNavBar from "../../components/DropDownNavBar";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFile } from "@fortawesome/free-solid-svg-icons";
-//import CopyrightBar from "../../components/CopyrightBar"; // Import the CopyrightBar component
+// import { faFile } from "@fortawesome/free-solid-svg-icons";
+// TODO: Removed faFile since got error
 
 function AddWorkout() {
   const [mobileView] = useState(window.innerWidth < 768);
@@ -66,7 +65,7 @@ function AddWorkout() {
                         htmlFor="file-upload"
                         className="font-semibold cursor-pointer text-sm lg:text-base text-blue-600 flex items-center"
                       >
-                        <FontAwesomeIcon icon={faFile} className="mr-2" />
+                        {/* <FontAwesomeIcon icon={faFile} className="mr-2" /> */}
                         Choose an image
                       </label>
                       <input
