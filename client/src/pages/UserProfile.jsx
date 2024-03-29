@@ -2,47 +2,76 @@ import React from "react";
 import LOGO from "../assets/Logo.png";
 import MENU from "../assets/MENU.png";
 import model from "../assets/model.jpg";
+import gym from "../assets/gym.jpg";
+import bg from "../assets/860.jpg";
 
-export const UserProfile = () => {
+const UserProfile = () => {
   return (
-    <div className="">
-        <div className="bg-black bg-opacity-40 border border-stone-900 backdrop-blur-sm backdrop filter max-w-sm max-h-[1024px]">
-          <img src={model} className="mt-9 absolute object-cover opacity-75 rounded-lg" alt="background" />
-          <div className="flex justify-between flex-row bg-slate-300 max-w-sm">
-            <img src={LOGO} className="w-[50px] h-[30px]" alt="logo" />
-            <img src={MENU} className="w-[50px] h-[50px] mt-[-10px]" alt="menu" />
+    <div className="bg-gray-200 h-full relative">
+      <img src={bg} alt="background" className="absolute inset-0 object-cover w-full h-full opacity-50" />
+      <div className="p-5 relative z-10">
+        <img src={LOGO} alt="logo" className="absolute top-0 left-0 h-10 mt-2 ml-3" />
+        <img src={MENU} className="absolute w-10 h-10 top-0 right-0 mt-2 mr-2" alt="menu" />
+        <div className="bg-white rounded-lg shadow-xl pb-8 mt-10">
+          <div className="w-full h-[250px]">
+            <img
+              src={gym}
+              className="w-full h-full rounded-tl-lg rounded-tr-lg"
+              alt="Profile Background"
+            />
           </div>
-          <div className="flex items-center p-5 flex-col">
-            <img src={model} alt="profile Pic" className="absolute border-4 border-white mt-[130px] mb-2 w-[100px] h-[100px] rounded-[64px]" />
-            <label className="text-white font-bold text-xl relative mt-[230px]" htmlFor="UserName">Micheal Clark</label>
-          </div>
-          <div className="flex-row flex justify-around">
-            <button className="text-black bg-slate-200 w-[170px] h-[30px] text-center rounded-lg">Edit Profile</button>
-            <button className="text-black w-[180px] h-[30px] bg-orange-400 text-center rounded-lg">Change Password</button>
-          </div>
-          <div>
-            <div className="p-4 px-[45px] flex-row flex justify-stretch items-center border-1 border-b-gray-200">
-              <label className="w-[20px] h-[20px] mr-20 text-bold text-white text-opacity-70" htmlFor="EmailAddress">ID</label>
-              <label className="text-sky-100" htmlFor="EmailAddress">188526445</label>
-            </div>
-            <div className="p-4 px-[45px] flex-row flex justify-stretch items-center border-1 border-b-gray-200">
-              <label className="w-[20px] h-[20px] mr-20 text-bold text-white text-opacity-70" htmlFor="EmailAddress">Email</label>
-              <label className="text-sky-100" htmlFor="EmailAddress">test@gmail.com</label>
-            </div>
-            <div className="p-4 px-[45px] flex-row flex justify-stretch items-center border-1 border-b-gray-200">
-              <label className="w-[20px] h-[20px] mr-20 text-bold text-white text-opacity-70" htmlFor="EmailAddress">Age</label>
-              <label className="text-sky-100" htmlFor="EmailAddress">18</label>
-            </div>
-            <div className="p-4 px-[45px] flex-row flex justify-stretch items-center border-1 border-b-gray-200">
-              <label className="w-[20px] h-[20px] mr-20 text-bold text-white text-opacity-70" htmlFor="EmailAddress">Tele</label>
-              <label className="text-sky-100" htmlFor="EmailAddress">78995518</label>
+          <div className="flex flex-col items-center -mt-20">
+            <img
+              src={model}
+              className="border-4 border-white object-cover w-36 h-36 rounded-full custom-position"
+              alt="Profile"
+            />
+            <div className="flex items-center mt-2">
+              <label className="text-2xl text-black font-bold">Micheal</label>
             </div>
           </div>
-          <div className="flex justify-center mt-6">
-            <button className="bg-red-600 h-7 w-40 rounded-lg text-black">Delete Account</button>
+          <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
+            <div className="flex items-center space-x-4 mt-2">
+              <button className="flex items-center bg-orange-600 hover:bg-orange-700 text-gray-100  rounded text-[12px]  transition duration-100 w-[130px] h-7 justify-center">
+                <span>Update Profile</span>
+              </button>
+              <button className="flex items-center bg-orange-600 hover:bg-orange-700 text-gray-100  rounded text-[12px]  transition duration-100 w-[130px] h-7 justify-center">
+                <span>Change Password</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="flex-1 bg-white rounded-lg shadow-xl p-8 mt-3">
+          <h4 className="text-xl text-gray-900 font-bold">Personal Info</h4>
+          <ul className="mt-2 text-gray-700">
+            <li className="flex border-y py-2">
+              <span className="font-bold w-24">Full name:</span>
+              <span className="text-gray-700">Amanda S. Ross</span>
+            </li>
+            <li className="flex border-y py-2">
+              <span className="font-bold w-24">Age:</span>
+              <span className="text-gray-700">18</span>
+            </li>
+            <li className="flex border-y py-2">
+              <span className="font-bold w-24">NIC:</span>
+              <span className="text-gray-700">485684455</span>
+            </li>
+            <li className="flex border-y py-2">
+              <span className="font-bold w-24">Phone:</span>
+              <span className="text-gray-700">+94 77 666 8888</span>
+            </li>
+          </ul>
+          <div className="mt-12  flex justify-center">
+            <button className="flex items-center bg-red-600 hover:bg-red-700 text-gray-100  rounded text-[12px]  transition duration-100 w-[130px] h-7 justify-center">
+              <span>Delete Profile</span>
+            </button>
           </div>
         </div>
       </div>
+      <div className="flex justify-center bg-white p-2 absolute bottom-0 left-0 w-full">
+        <p className="text-black">Copyright© All rights Reserved.</p>
+      </div>
+    </div>
   );
 };
 
