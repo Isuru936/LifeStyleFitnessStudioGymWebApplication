@@ -1,9 +1,10 @@
 // TODO: Add Logo
 // Import your background image
-import backgroundImage from "../assets/sim.jpg";
+import backgroundImage from "../../assets/sim.jpg";
 import SideBar from "../../components/SideBar";
+import React from "react";
 
-function InventoryUpdateDlt() {
+function CreateNotification() {
   return (
     <div className="">
       <div
@@ -19,7 +20,7 @@ function InventoryUpdateDlt() {
           <SideBar />
           <div className="flex flex-col  justify-center mx-auto w-full">
             <div className="mt-5 justify-center mx-auto">
-              <h2 className="font-bold text-black text-3xl">UPDATE MESSAGE</h2>
+              <h2 className="font-bold text-black text-3xl">NEW MESSAGE</h2>
             </div>
             <div className="mt-8 flex flex-row mx-auto justify-center w-full">
               <div className="flex  flex-col justify-center mx-auto w-full md:w-1/3 ml-5 mr-5">
@@ -59,9 +60,6 @@ function InventoryUpdateDlt() {
                   />
                 </div>
                 <div className="mt-4 flex flex-col md:flex-row">
-                  <button className="bg-red-500 text-white py-2 px-4 rounded mb-2 md:mb-0 md:mr-2">
-                    Delete
-                  </button>
                   <button className="bg-green-500 text-white py-2 px-4 rounded mb-2 md:mb-0 md:mr-2">
                     Update
                   </button>
@@ -78,4 +76,4 @@ function InventoryUpdateDlt() {
   );
 }
 
-export default InventoryUpdateDlt;
+export default CreateNotification;

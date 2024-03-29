@@ -26,15 +26,31 @@ import NewPassword from "./pages/Profile Management/NewPassword";
 import UserProfile from "./pages/Profile Management/UserProfile";
 import EditProfile from "./pages/Profile Management/EditProfile";
 import Quiz from "./pages/Profile Management/Quiz";
+import InventoryAdd from "./pages/Inventory Management/InventoryAdd";
+import InventoryShow from "./pages/Inventory Management/InventoryShow";
+import InventoryUpdateDlt from "./pages/Inventory Management/InventoryUpdateDlt";
+import CreateNotification from "./pages/Notification Management/CreateMsg";
+import NotificationUpdateDelete from "./pages/Notification Management/UpdateDltMsg";
+import Notifications from "./pages/Notification Management/Notifications";
+import AddFood from "./pages/Diet Management/AddFood";
+import ViewPayments from "./pages/Payment Management/ViewPayments";
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
           {/* Client Routes */}
-          {/* Thamalsha */}
+          {/* {Isuru} */}
+          <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
+          {/* {Vinuka} */}
           <Route path="/contact-us" element={<ContactUs />} />
+          {/* Thamalsha */}
+          <Route path="/UserExercises" element={<UserExercises />} />
           {/* Sewmini */}
+          <Route
+            path="/enter-payment-details"
+            element={<EnterPaymentDetails />}
+          />
           <Route path="/add-card" element={<AddCard />} />
           <Route path="/payment-complete" element={<PaymentComplete />} />
           <Route path="/payment-review" element={<PaymentReview />} />
@@ -55,26 +71,32 @@ function App() {
 
           {/* Admin Routes */}
           {/* Isuru */}
-          <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
-          {/* Admin */}
+          <Route path="/" element={<DietPlan />} />
           <Route path="/assign-diet-plan" element={<AssignDietPlan />} />
+          <Route path="/add-food" element={<AddFood />} />
+
           {/* Thamalsha */}
           <Route path="/user-pool" element={<UserPool />} />
           <Route path="/add-user" element={<AddUsers />} />
           <Route path="/update-user" element={<AddUpdateUserDetails />} />
           <Route path="/customer-feedbacks" element={<CustomerFeedbacks />} />
           {/* {Sewmini} */}
-          <Route
-            path="/enter-payment-details"
-            element={<EnterPaymentDetails />}
-          />
+          <Route path="/payment-view" element={<ViewPayments />} />
           {/* {Vinuka} */}
-          <Route path="/UserExercises" element={<UserExercises />} />
           <Route path="/workoutpool" element={<WorkoutPool />} />
           <Route path="/AddWorkout" element={<AddWorkout />} />
 
-          {/* Sewmini */}
-          <Route path="/" element={<DietPlan />} />
+          {/* {Umaya} */}
+          <Route path="/add-inventory" element={<InventoryAdd />} />
+          <Route path="/show-inventory" element={<InventoryShow />} />
+          <Route path="/update-inventory" element={<InventoryUpdateDlt />} />
+
+          <Route path="/create-notification" element={<CreateNotification />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route
+            path="/update-notifications"
+            element={<NotificationUpdateDelete />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

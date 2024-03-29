@@ -1,10 +1,9 @@
-import SideBar from "../../components/DropDownNavBar";
+import SideBar from "../../components/SideBar";
 import bgImg from "../../assets/bg-Img.png";
 import React, { useState } from "react";
-import DropDownNavBar from "../../components/DropDownNavBar";
 import { Link } from "react-router-dom";
-// import { faFile } from "@fortawesome/free-solid-svg-icons";
-// TODO: Removed faFile since got error
+import { Icon } from "@iconify/react";
+import exclamationCircleOutlined from "@iconify-icons/ant-design/exclamation-circle-outlined";
 
 function AddWorkout() {
   const [mobileView] = useState(window.innerWidth < 768);
@@ -19,7 +18,7 @@ function AddWorkout() {
     >
       <div className="flex flex-row m-2 w-full justify-center">
         <div className="flex-col">
-          {mobileView ? <DropDownNavBar /> : <SideBar />}
+          <SideBar />
         </div>
         <div className="mx-auto w-3/4 flex justify-center">
           {" "}
@@ -65,7 +64,7 @@ function AddWorkout() {
                         htmlFor="file-upload"
                         className="font-semibold cursor-pointer text-sm lg:text-base text-blue-600 flex items-center"
                       >
-                        {/* <FontAwesomeIcon icon={faFile} className="mr-2" /> */}
+                        <Icon icon={exclamationCircleOutlined} />
                         Choose an image
                       </label>
                       <input

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import SideBar from "../../components/SideBar";
 import DropDownNavBar from "../../components/DropDownNavBar";
 // Import your background image
-import backgroundImage from "../assets/lot.jpg";
+import backgroundImage from "../../assets/lot.jpg";
 
 function Notifications() {
   const [mobileView] = useState(window.innerWidth < 768);
