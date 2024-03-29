@@ -45,13 +45,13 @@ function App() {
           />
           <Route path="/enter-payment" element={<EnterPaymentDetails />} />
           {/* {Shafry} */}
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/sign-up" element={<Signup />}></Route>
-          <Route path="/forget-password" element={<ForgetPassword />}></Route>
-          <Route path="/new-password" element={<NewPassword />}></Route>
-          <Route path="/Quiz" element={<Quiz />}></Route>
-          <Route path="/profile" element={<UserProfile />}></Route>
-          <Route path="/editProfile" element={<EditProfile />}></Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<Signup />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/new-password" element={<NewPassword />} />
+          <Route path="/Quiz" element={<Quiz />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/editProfile" element={<EditProfile />} />
 
           {/* Admin Routes */}
           {/* Isuru */}
