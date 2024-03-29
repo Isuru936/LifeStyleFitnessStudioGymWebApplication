@@ -46,22 +46,18 @@ function App() {
           <Route path="/add-user" element={<AddUsers />} />
           <Route path="/update-user" element={<AddUpdateUserDetails />} />
           <Route path="/customer-feedbacks" element={<CustomerFeedbacks />} />
-<<<<<<< HEAD
           {/* {Sewmini} */}
           <Route
             path="/enter-payment-details"
             element={<EnterPaymentDetails />}
           />
           {/* {Vinuka} */}
-          <Route path="/UserExercises" element={<UserExercises/>} />
-          <Route path="/workoutpool" element={<WorkoutPool/>} />
-          <Route path="/AddWorkout" element={<AddWorkout/>} />
-          
+          <Route path="/UserExercises" element={<UserExercises />} />
+          <Route path="/workoutpool" element={<WorkoutPool />} />
+          <Route path="/AddWorkout" element={<AddWorkout />} />
 
-=======
           {/* Sewmini */}
           <Route path="/" element={<DietPlan />} />
->>>>>>> 3ddd7b2d40e76e9c543d59d3bde84bb502a68a0e
         </Routes>
       </BrowserRouter>
     </div>
