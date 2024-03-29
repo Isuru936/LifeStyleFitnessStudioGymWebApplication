@@ -1,36 +1,38 @@
-import React, { useState } from 'react';
-import NavigationBar from '../../components/UserNavbar';
-import backgroundImage from '../../assets/bg-Img.png';
-import workoutImage1 from '../../assets/illust58-5797-01.jpg';
-import { Icon } from '@iconify/react';
-import exclamationCircleOutlined from '@iconify-icons/ant-design/exclamation-circle-outlined';
+import React, { useState } from "react";
+import NavigationBar from "../../components/UserNavbar";
+import backgroundImage from "../../assets/bg-Img.png";
+import workoutImage1 from "../../assets/illust58-5797-01.jpg";
+import { Icon } from "@iconify/react";
+import exclamationCircleOutlined from "@iconify-icons/ant-design/exclamation-circle-outlined";
 
 function UserExercises() {
   const exercises = [
-    { 
-      name: "Exercise 1", 
-      reps: "10", 
-      sets: "3", 
-      weight: "50kg", 
+    {
+      name: "Exercise 1",
+      reps: "10",
+      sets: "3",
+      weight: "50kg",
       description: "Description of Exercise 1",
     },
-    { 
-      name: "Exercise 2", 
-      reps: "8", 
-      sets: "4", 
-      weight: "60kg", 
+    {
+      name: "Exercise 2",
+      reps: "8",
+      sets: "4",
+      weight: "60kg",
       description: "Description of Exercise 2",
     },
-    { 
-      name: "Exercise 3", 
-      reps: "12", 
-      sets: "3", 
-      weight: "55kg", 
+    {
+      name: "Exercise 3",
+      reps: "12",
+      sets: "3",
+      weight: "55kg",
       description: "Description of Exercise 3",
-    }
+    },
   ];
 
-  const [checkedItems, setCheckedItems] = useState(new Array(exercises.length).fill(false));
+  const [checkedItems, setCheckedItems] = useState(
+    new Array(exercises.length).fill(false)
+  );
   const [showDescriptionIndex, setShowDescriptionIndex] = useState(-1);
 
   const handleCheckboxChange = (index) => {
@@ -58,11 +60,24 @@ function UserExercises() {
 
           <div className="max-w-md mx-auto">
             {exercises.map((exercise, index) => (
-              <div key={index} className={`exercise-item bg-orange-100 bg-opacity-30 backdrop-blur-md rounded-md p-4 mb-4 transition ${checkedItems[index] ? 'line-through flipped' : ''}`}>
+              <div
+                key={index}
+                className={`exercise-item bg-orange-100 bg-opacity-30 backdrop-blur-md rounded-md p-4 mb-4 transition ${
+                  checkedItems[index] ? "line-through flipped" : ""
+                }`}
+              >
                 <div className="flex justify-between items-center relative">
                   <div>
-                    <img src={workoutImage1} alt="Workout" className="w-16 h-16 rounded-md mr-4 relative z-10" />
-                    <Icon icon={exclamationCircleOutlined} className="text-black ml-2 cursor-pointer z-20" onClick={() => handleExclamationClick(index)} />
+                    <img
+                      src={workoutImage1}
+                      alt="Workout"
+                      className="w-16 h-16 rounded-md mr-4 relative z-10"
+                    />
+                    <Icon
+                      icon={exclamationCircleOutlined}
+                      className="text-black ml-2 cursor-pointer z-20"
+                      onClick={() => handleExclamationClick(index)}
+                    />
                     <p className="text-lg mb-1">{exercise.name}</p>
                     <p className="text-sm text-gray-500">
                       Reps: {exercise.reps}, Sets: {exercise.sets}, Weight:{" "}
@@ -80,7 +95,9 @@ function UserExercises() {
                   </label>
                 </div>
                 {showDescriptionIndex === index && (
-                  <div className="absolute bg-white p-2 rounded-md shadow-md mt-2 z-30 left-12">{exercise.description}</div>
+                  <div className="absolute bg-white p-2 rounded-md shadow-md mt-2 z-30 left-12">
+                    {exercise.description}
+                  </div>
                 )}
               </div>
             ))}
