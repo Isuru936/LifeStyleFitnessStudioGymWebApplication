@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import menuIcon from "@iconify-icons/fa-solid/bars";
 import bellIcon from "@iconify-icons/fa-solid/bell";
 import userIcon from "@iconify-icons/fa-solid/user";
-import Logo from "../assets/Logo.png";
+import Logo from "../assets/logo.png";
 
 function NavigationBar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -35,17 +35,17 @@ function NavigationBar() {
       >
         <div className="flex flex-col items-center">
           <Link
-            to="/membership-plan"
+            to="/payments"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
             Payments
             <span className="underline"></span>
           </Link>
           <Link
-            to="/contact-us"
+            to="/about"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
-            Contact Us
+            About Us
             <span className="underline"></span>
           </Link>
           <Link
@@ -56,14 +56,14 @@ function NavigationBar() {
             <span className="underline"></span>
           </Link>
           <Link
-            to="/UserExercises"
+            to="/user-exercises"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
             My Workout Plan
             <span className="underline"></span>
           </Link>
           <Link
-            to="/user-view-diet-plans"
+            to="/dietplan"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
             Diet Plan
@@ -73,17 +73,17 @@ function NavigationBar() {
       </div>
       <div className="hidden lg:flex items-center">
         <Link
-          to="/membership-plan"
+          to="/payments"
           className="text-black text-base font-semibold mr-6 hover:text-gray-400 transition duration-300 relative text-link"
         >
           Payments
           <span className="underline"></span>
         </Link>
         <Link
-          to="/contact-us"
+          to="/about"
           className="text-black text-base font-semibold mr-6 hover:text-gray-400 transition duration-300 relative text-link"
         >
-          Contact Us
+          About Us
           <span className="underline"></span>
         </Link>
         <Link
@@ -94,14 +94,14 @@ function NavigationBar() {
           <span className="underline"></span>
         </Link>
         <Link
-          to="/UserExercises"
+          to="/user-exercises"
           className="text-black text-base font-semibold mr-6 hover:text-gray-400 transition duration-300 relative text-link"
         >
           My Workout Plan
           <span className="underline"></span>
         </Link>
         <Link
-          to="/user-view-diet-plans"
+          to="/dietplan"
           className="text-black text-base font-semibold mr-6 hover:text-gray-400 transition duration-300 relative text-link"
         >
           Diet Plan
@@ -121,12 +121,10 @@ function NavigationBar() {
             <p>Notification 3</p>
           </div>
         )}
-        <Link to="/profile">
-          <Icon
-            icon={userIcon}
-            className="text-black text-base cursor-pointer hover:text-gray-400 transition duration-300"
-          />
-        </Link>
+        <Icon
+          icon={userIcon}
+          className="text-black text-base cursor-pointer hover:text-gray-400 transition duration-300"
+        />
       </div>
       <style>{`
         .text-link {
