@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-import LOGO from "../assets/Logo.png";
-import MENU from "../assets/MENU.png";
-import bg from "../assets/gym.jpg";
+import LOGO from "../../assets/Logo.png";
+import MENU from "../../assets/MENU.png";
+import bg from "../../assets/gym.jpg";
 
 const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState("");

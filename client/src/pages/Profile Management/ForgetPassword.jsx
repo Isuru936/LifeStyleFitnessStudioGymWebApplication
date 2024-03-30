@@ -1,6 +1,6 @@
 import React from "react";
 import wmodel from "../../assets/model3.png";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 import { Link } from "react-router-dom";
 
 export const ForgetPassword = () => {
@@ -50,14 +50,16 @@ export const ForgetPassword = () => {
                       A Email has Sent
                     </span>
                   </div>
-                  <div className="flex justify-center mb-3">
-                    <button
-                      className=" w-[108px] h-[35px] bg-amber-600 rounded-[10px]"
-                      type="submit"
-                    >
-                      Done
-                    </button>
-                  </div>
+                  <Link to="/">
+                    <div className="flex justify-center mb-3">
+                      <button
+                        className=" w-[108px] h-[35px] bg-amber-600 rounded-[10px]"
+                        type="submit"
+                      >
+                        Done
+                      </button>
+                    </div>
+                  </Link>
                   <label className="flex justify-center text-black opacity-50">
                     "Decipline Work Miracles."
                   </label>

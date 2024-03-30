@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SideBar from "../../components/SideBar";
 import DietPlanUserView from "../../components/DietPlanUserView";
 import workoutImage from "../../assets/illust58-5797-01.jpg";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 import backgroundImage from "../../assets/bg-Img.png";
 import { Icon } from "@iconify/react"; // Importing Iconify
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

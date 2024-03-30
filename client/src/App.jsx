@@ -19,13 +19,6 @@ import WorkoutPool from "./pages/WorkoutManagement/WorkouPool";
 import UserExercises from "./pages/WorkoutManagement/UserExercises";
 import AddWorkout from "./pages/WorkoutManagement/AddWorkout";
 
-import Login from "./pages/Profile Management/Login";
-import Signup from "./pages/Profile Management/Signup";
-import ForgetPassword from "./pages/Profile Management/ForgetPassword";
-import NewPassword from "./pages/Profile Management/NewPassword";
-import UserProfile from "./pages/Profile Management/UserProfile";
-import EditProfile from "./pages/Profile Management/EditProfile";
-import Quiz from "./pages/Profile Management/Quiz";
 import InventoryAdd from "./pages/Inventory Management/InventoryAdd";
 import InventoryShow from "./pages/Inventory Management/InventoryShow";
 import InventoryUpdateDlt from "./pages/Inventory Management/InventoryUpdateDlt";
@@ -34,15 +27,14 @@ import NotificationUpdateDelete from "./pages/Notification Management/UpdateDltM
 import Notifications from "./pages/Notification Management/Notifications";
 import AddFood from "./pages/Diet Management/AddFood";
 import ViewPayments from "./pages/Payment Management/ViewPayments";
-import { Route, Routes } from "react-router-dom";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import ForgetPassword from "./pages/ForgetPassword";
-import NewPassword from "./pages/NewPassword";
-import UserProfile from "./pages/UserProfile";
-import EditProfile from "./pages/EditProfile";
-import Quiz from "./pages/Quiz";
-import ChangePassword from "./pages/ChangePassword.jsx";
+import Login from "./pages/Profile Management/Login";
+import Signup from "./pages/Profile Management/Signup";
+import ForgetPassword from "./pages/Profile Management/ForgetPassword";
+import NewPassword from "./pages/Profile Management/NewPassword";
+import Quiz from "./pages/Profile Management/Quiz";
+import UserProfile from "./pages/Profile Management/UserProfile";
+import EditProfile from "./pages/Profile Management/EditProfile";
+import ChangePassword from "./pages/Profile Management/ChangePassword";
 function App() {
   return (
     <div>
@@ -70,19 +62,17 @@ function App() {
           />
           <Route path="/enter-payment" element={<EnterPaymentDetails />} />
           {/* {Shafry} */}
-          <Routes>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/sign-up" element={<Signup />}></Route>
-        <Route path="/forget-password" element={<ForgetPassword />}></Route>
-        <Route path="/new-password" element={<NewPassword />}></Route>
-        <Route path="/Quiz" element={<Quiz />}></Route>
-        <Route path="/profile" element={<UserProfile />}></Route>
-        <Route path="/editProfile" element={<EditProfile />}></Route>
-        <Route path="/change-password" element={<ChangePassword />}></Route>
+          <Route path="/" element={<Login />} />
+          <Route path="/sign-up" element={<Signup />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/new-password" element={<ChangePassword />} />
+          <Route path="/Quiz" element={<Quiz />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/editProfile" element={<EditProfile />} />
 
           {/* Admin Routes */}
           {/* Isuru */}
-          <Route path="/" element={<DietPlan />} />
+          <Route path="/diet-plan" element={<DietPlan />} />
           <Route path="/assign-diet-plan" element={<AssignDietPlan />} />
           <Route path="/add-food" element={<AddFood />} />
 
@@ -115,5 +105,3 @@ function App() {
 }
 
 export default App;
-
-

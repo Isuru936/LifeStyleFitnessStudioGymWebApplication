@@ -11,6 +11,7 @@ import m8 from "../../assets/Sit.png";
 import m9 from "../../assets/Weights.png";
 import maleIcon from "../../assets/selMaMod.jpg";
 import femaleIcon from "../../assets/selLadMod.jpg";
+import { useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
 
@@ -70,6 +71,7 @@ const questions = [
 ];
 
 const Quiz = () => {
+  const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [answers, setAnswers] = useState(Array(questions.length).fill(""));
@@ -86,12 +88,16 @@ const Quiz = () => {
         newAnswers[currentQuestion] = selectedOption;
         setAnswers(newAnswers);
       }
-      setCurrentQuestion(currentQuestion + 1);
-      setSelectedOption(null);
-      setBackgroundImage(backgroundImg[currentQuestion + 1]); // Change background image
+      if (currentQuestion === questions.length - 1) {
+        // Redirect when reaching the last question
+        navigate("/UserExercises");
+      } else {
+        setCurrentQuestion(currentQuestion + 1);
+        setSelectedOption(null);
+        setBackgroundImage(backgroundImg[currentQuestion + 1]);
+      }
     }
   };
-
   const handlePreviousQuestion = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);

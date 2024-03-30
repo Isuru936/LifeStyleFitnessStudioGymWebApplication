@@ -4,7 +4,7 @@ import { useState } from "react";
 import profImg from "../../assets/profImg.png";
 import SideBar from "../../components/SideBar";
 import bgImg from "../../assets/bgImg.png";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 
 function AddUpdateUserDetails() {
   const [mobileView] = useState(window.innerWidth < 768);

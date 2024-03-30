@@ -84,7 +84,7 @@ function AddFood() {
                     <button className="mt-5 bg-green-600 p-2 w-full rounded-xl hover:bg-green-500 transition">
                       Save
                     </button>
-                    <Link to="/">
+                    <Link to="/diet-plan">
                       <button className="mt-5 bg-blue-600 p-2 w-full rounded-xl hover:bg-blue-500 transition">
                         Back
                       </button>

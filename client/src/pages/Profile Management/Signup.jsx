@@ -1,6 +1,6 @@
 import React from "react";
 import wmodel from "../../assets/Layer 2.png";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 import { Link } from "react-router-dom";
 
 export const Signup = () => {
@@ -59,14 +59,16 @@ export const Signup = () => {
                     Have an account already?
                   </span>
                 </div>
-                <div className="flex justify-center mb-3">
-                  <button
-                    className=" w-[108px] h-[35px] bg-amber-600 rounded-[10px]"
-                    type="submit"
-                  >
-                    Signup
-                  </button>
-                </div>
+                <Link to="/diet-plan">
+                  <div className="flex justify-center mb-3">
+                    <button
+                      className=" w-[108px] h-[35px] bg-amber-600 rounded-[10px]"
+                      type="submit"
+                    >
+                      Signup
+                    </button>
+                  </div>
+                </Link>
                 <label className="flex justify-center text-black opacity-50">
                   "Decipline Work Miracles."
                 </label>

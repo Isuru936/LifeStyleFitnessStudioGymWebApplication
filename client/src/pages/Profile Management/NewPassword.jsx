@@ -1,6 +1,6 @@
 import React from "react";
 import wmodel from "../../assets/dc907d1437465e2b0d94230b9086304c.png";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 import { Link } from "react-router-dom";
 
 export const NewPassword = () => {

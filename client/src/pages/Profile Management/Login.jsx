@@ -1,6 +1,6 @@
 import React from "react";
 import wmodel from "../../assets/435224b8d6c20d7126bc9eb88fa745dd.png";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 import { Link } from "react-router-dom";
 
 export const Login = () => {
@@ -45,24 +45,30 @@ export const Login = () => {
                       id="password"
                     />
                   </div>
-                  <div className="mb-3">
-                    <span className="flex justify-center size- text-blue-500">
-                      Forget Password?
-                    </span>
-                  </div>
-                  <div className="flex justify-center mb-3">
-                    <button
-                      className=" w-[108px] h-[35px] bg-amber-600 rounded-[10px]"
-                      type="submit"
-                    >
-                      Login
-                    </button>
-                  </div>
-                  <div className=" mb-7">
-                    <span className="flex justify-center text-blue-700">
-                      Don't have an Account?
-                    </span>
-                  </div>
+                  <Link to="/forget-password">
+                    <div className="mb-3">
+                      <span className="flex justify-center size- text-blue-500">
+                        Forget Password?
+                      </span>
+                    </div>
+                  </Link>
+                  <Link to="/UserExercises">
+                    <div className="flex justify-center mb-3">
+                      <button
+                        className=" w-[108px] h-[35px] bg-amber-600 rounded-[10px]"
+                        type="submit"
+                      >
+                        Login
+                      </button>
+                    </div>
+                  </Link>
+                  <Link to="/sign-up">
+                    <div className=" mb-7">
+                      <span className="flex justify-center text-blue-700">
+                        Don't have an Account?
+                      </span>
+                    </div>
+                  </Link>
                   <label className="flex justify-center text-black opacity-50">
                     "Decipline Work Miracles."
                   </label>

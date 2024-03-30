@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 import React from "react";
 
 function PaymentDetails() {
@@ -40,7 +40,7 @@ function PaymentDetails() {
             <div>30,000 Package</div>
           </div>
         </div>
-        <Link to="/membership-plan">
+        <Link to="/UserExercises">
           <button className="bg-[#E8EDF2] mx-auto justify-center p-2 pl-3 pr-3 rounded-xl hover:bg-[#D8EDF2]">
             Go Back
           </button>
