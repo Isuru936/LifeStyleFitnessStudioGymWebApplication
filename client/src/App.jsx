@@ -69,7 +69,8 @@ function App() {
           <Route path="/Quiz" element={<Quiz />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/editProfile" element={<EditProfile />} />
-
+          {/* {Umaya} */}
+          <Route path="/notifications" element={<Notifications />} />
           {/* Admin Routes */}
           {/* Isuru */}
           <Route path="/diet-plan" element={<DietPlan />} />
@@ -93,7 +94,6 @@ function App() {
           <Route path="/update-inventory" element={<InventoryUpdateDlt />} />
 
           <Route path="/create-notification" element={<CreateNotification />} />
-          <Route path="/notifications" element={<Notifications />} />
           <Route
             path="/update-notifications"
             element={<NotificationUpdateDelete />}

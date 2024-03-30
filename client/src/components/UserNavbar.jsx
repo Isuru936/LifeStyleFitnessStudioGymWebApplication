@@ -116,7 +116,9 @@ function NavigationBar() {
         />
         {showNotifications && (
           <div className="absolute top-16 right-0 bg-white shadow-lg rounded-md p-4">
-            <p>Notification 1</p>
+            <Link to="/notifications">
+              <p>Notification 1</p>
+            </Link>
             <p>Notification 2</p>
             <p>Notification 3</p>
           </div>

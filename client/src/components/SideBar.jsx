@@ -132,7 +132,7 @@ function SideBar() {
                   </p>
                 </div>
               </Link>
-              <Link to="/notifications">
+              <Link to="/create-notification">
                 <div className="p-2  w-50 my-2 rounded-xl  hover:bg-slate-200 transition">
                   <p className="text-l font-bold">
                     <span

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import SideBar from "../../components/SideBar";
-import DropDownNavBar from "../../components/DropDownNavBar";
+import NavigationBar from "../../components/UserNavbar";
 // Import your background image
 import backgroundImage from "../../assets/lot.jpg";
 
@@ -31,9 +30,11 @@ function Notifications() {
         minHeight: "100vh",
       }}
     >
+      <div>
+        <NavigationBar />
+      </div>
       <div className={`flex ${mobileView ? "flex-col" : "flex-row"}`}>
         {/* Sidebar */}
-        <div>{mobileView ? <DropDownNavBar /> : <SideBar />}</div>
         <div className="flex flex-col">
           <h2 className="m-8 font-bold text-xl text-black">NOTIFICATIONS</h2>
           {/* Search Bar */}
