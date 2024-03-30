@@ -1,6 +1,7 @@
+import React from "react";
 import { Link } from "react-router-dom";
-import bgImg from "../assets/wp11154513.jpg";
-import UserNavbar from "../components/UserNavbar";
+import bgImg from "../../assets/wp11154513.jpg";
+import UserNavbar from "../../components/UserNavbar";
 
 function EnterPaymentDetails() {
   return (
