@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import bgImg from "../../assets/pexels-suzy-hazelwood-1098529.jpg";
 import proImage from "../../assets/proImage.png";
 import proImage2 from "../../assets/proImage2.png";
@@ -6,7 +6,7 @@ import UserNavbar from "../../components/UserNavbar";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-const App = () => {
+const ShowDietPlan = () => {
   const [activeButton, setActiveButton] = useState(1);
 
   useEffect(() => {
@@ -19,8 +19,6 @@ const App = () => {
 
   return (
     <div className="h-screen overflow-y-auto">
-      {" "}
-      {/* Use overflow-y-auto to enable scrolling */}
       <div
         className="flex flex-row items-start min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
         style={{ backgroundImage: `url(${bgImg})` }}
@@ -73,9 +71,9 @@ const App = () => {
                 </button>
               </div>
             </div>
-            <div className=" bg-white bg-opacity-50 shadow-md p-2 w-full h-full rounded border border-solid  ">
+            <div className=" bg-white w-fit bg-opacity-50 shadow-md p-2 h-fit rounded border border-solid  ">
               {activeButton === 1 && (
-                <div className="flex flex-wrap mt-1 w-full">
+                <div className="flex flex-wrap mt-1 w-fit">
                   {[...Array(20)].map((_, index) => (
                     <div
                       key={index}
@@ -97,7 +95,7 @@ const App = () => {
                 </div>
               )}
               {activeButton === 2 && (
-                <div className="flex flex-wrap mt-1 w-full">
+                <div className="flex flex-wrap mt-1 w-fit">
                   {[...Array(20)].map((_, index) => (
                     <div
                       key={index}
@@ -119,7 +117,7 @@ const App = () => {
                 </div>
               )}
               {activeButton === 3 && (
-                <div className="flex flex-wrap mt-1 w-full">
+                <div className="flex flex-wrap mt-1 w-fit">
                   {[...Array(20)].map((_, index) => (
                     <div
                       key={index}
@@ -148,4 +146,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default ShowDietPlan;
