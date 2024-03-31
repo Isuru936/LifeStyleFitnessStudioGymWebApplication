@@ -1,6 +1,6 @@
 import React from "react";
-import bgImg from "../assets/about-us-bgImg.jpeg";
-import UserNavbar from "../components/UserNavbar";
+import bgImg from "../../assets/about-us-bgImg.jpeg";
+import UserNavbar from "../../components/UserNavbar";
 
 function ContactUs() {
   return (

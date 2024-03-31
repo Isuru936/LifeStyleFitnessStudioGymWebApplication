@@ -1,10 +1,11 @@
 {
   "name": "lifestylefitnessstudiogymwebapplication",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon api/index.js",
+    "start": "node api/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,13 @@
     "@iconify-json/arcticons": "^1.1.98",
     "@iconify-json/logos": "^1.1.42",
     "@iconify-json/openmoji": "^1.1.49",
-    "@iconify-json/skill-icons": "^1.1.8"
-  }
+    "@iconify-json/skill-icons": "^1.1.8",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.2.4",
+    "nodemon": "^3.1.0"
+  },
+  "keywords": [],
+  "description": ""
 }

@@ -1,12 +1,12 @@
-import React from "react";
-import DropDownNavBar from "../components/DropDownNavBar";
-import { useState } from "react";
-import profImg from "../assets/profImg.png";
-import SideBar from "../components/SideBar";
-import bgImg from "../assets/bgImg.png";
-import logo from "../assets/logo.png";
+import DropDownNavBar from "../../components/DropDownNavBar";
+import React, { useState } from "react";
+import profImg from "../../assets/profImg.png";
+import SideBar from "../../components/SideBar";
+import bgImg from "../../assets/bgImg.png";
+import logo from "../../assets/Logo.png";
+import { Link } from "react-router-dom";
 
-function AddUpdateUserDetails() {
+function AddUsers() {
   const [mobileView] = useState(window.innerWidth < 768);
   return (
     <>
@@ -123,46 +123,24 @@ function AddUpdateUserDetails() {
                       <input type="text" className="w-full p-3 rounded-xl" />
                     </div>
                   </div>
-                  <h1 className="text-xl font-bold mt-2">Plans</h1>
-                  <div className="flex flex-row mx-auto text-bold ">
-                    <div className=" flex-1 w-10 p-5 m-1 mt-2 bg-green-50 rounded-xl  hover:bg-green-600 duration-300 ease-in-out transition">
-                      <span
-                        className="icon-[fluent--food-16-filled] ml-2"
-                        style={{ width: "24px", height: "24px" }}
-                      />
-                      Diet Plan
-                    </div>
-                    <div className=" flex-1 w-10 p-5 m-1 mt-2 bg-orange-50 rounded-xl hover:bg-orange-600 duration-200 ease-in-out transition">
-                      Work Out Plan
-                      <span
-                        className="icon-[arcticons--home-workouts] ml-2"
-                        style={{ width: "24px", height: "24px" }}
-                      />
-                    </div>
-                  </div>
                 </form>
                 <div className="flex flex-row justify-end w-auto mr-96">
-                  <button className="p-3 bg-orange-500 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-orange-600">
-                    <span
-                      className="icon-[line-md--download-loop] mr-2"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                    Download Details
-                  </button>
-                  <button className="p-3 bg-blue-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-blue-700">
+                  <button className="p-3 bg-green-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-green-700">
                     <span
                       className="icon-[ic--twotone-system-security-update-good] mr-2"
                       style={{ width: "20px", height: "20px" }}
                     />
-                    Update Details
+                    Add User
                   </button>
-                  <button className="p-3 bg-red-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-red-700">
-                    <span
-                      className="icon-[material-symbols--delete-outline] mr-2"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                    Delete Record
-                  </button>
+                  <Link to="/user-pool">
+                    <button className="p-3 bg-white rounded-xl text-black border font-bold mr-5 mt-5 mb-10 hover:bg-slate-100">
+                      <span
+                        className="icon-[ic--twotone-system-security-update-good] mr-2"
+                        style={{ width: "20px", height: "20px" }}
+                      />
+                      Back
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -173,4 +151,4 @@ function AddUpdateUserDetails() {
   );
 }
 
-export default AddUpdateUserDetails;
+export default AddUsers;

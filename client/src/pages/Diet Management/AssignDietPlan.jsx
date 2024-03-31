@@ -1,8 +1,8 @@
-import SideBar from "../components/SideBar";
-import bgImg from "../assets/bg-Img.png";
-import DietPlanUserView from "../components/DietPlanUserView";
-import DropDownBar from "../components/DropDownNavBar";
-import foodImg from "../assets/proImage.png";
+import SideBar from "../../components/SideBar";
+import bgImg from "../../assets/bg-Img.png";
+import DietPlanUserView from "../../components/DietPlanUserView";
+import DropDownBar from "../../components/DropDownNavBar";
+import foodImg from "../../assets/proImage.png";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Aos from "aos";
@@ -52,8 +52,7 @@ export default function AssignDietPlan() {
                     style={{ width: "20px", height: "20px" }}
                   />
                 </div>
-                {/* TODO add Add Food Button and the UI */}
-                <Link to="/">
+                <Link to="/diet-plan">
                   <button className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
                     <span className="icon-[emojione--pot-of-food] mr-2" />
                     View Food Pool
