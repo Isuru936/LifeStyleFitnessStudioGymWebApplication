@@ -1,13 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import bgImg from "../../assets/userPoolbgImg.png";
 import DropDownNavBar from "../../components/DropDownNavBar";
-import { useState } from "react";
-import profImg from "../../assets/profImg.png";
 import SideBar from "../../components/SideBar";
-import bgImg from "../../assets/bgImg.png";
 import logo from "../../assets/Logo.png";
+import { useParams } from "react-router-dom";
 
 function AddUpdateUserDetails() {
+  const [user, setUser] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/api/users/${id}`
+        );
+        setUser(response.data);
+        console.log(user);
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+
+    if (id) {
+      fetchUserDetails();
+    }
+  }, [id]);
+
   const [mobileView] = useState(window.innerWidth < 768);
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <div
@@ -19,6 +45,7 @@ function AddUpdateUserDetails() {
           backgroundPosition: "left",
         }}
       >
+        {console.log(user)}
         <div className="flex flex-col w-full">
           <div className="flex flex-row m-2">
             <div className="flex-col">
@@ -33,12 +60,12 @@ function AddUpdateUserDetails() {
               <div className="flex flex-col  justify-center w-full">
                 <div className="mx-auto mt-5">
                   <img
-                    src={profImg}
+                    src={user.profileImage}
                     alt="profile"
                     className=" w-32  h-32 bg-slate-800 rounded-full hover:scale-105 duration-500 ease-in-out transform mb-2"
                   />
-                  <p className="flex flex-row justify-center font-semibold pb-5">
-                    Kelly Parker
+                  <p className="flex text-black flex-row justify-center font-semibold pb-5">
+                    {user.fullName}
                   </p>
                 </div>
                 <form className="mx-auto  ">
@@ -50,6 +77,7 @@ function AddUpdateUserDetails() {
                       <p className="font-semibold">Email</p>
                       <input
                         type="text"
+                        value={user.email}
                         className="bg-white  p-2 rounded-xl w-96 border" // Adjusted width
                       />
                     </div>
@@ -142,27 +170,7 @@ function AddUpdateUserDetails() {
                   </div>
                 </form>
                 <div className="flex flex-row justify-end w-auto mr-96">
-                  <button className="p-3 bg-orange-500 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-orange-600">
-                    <span
-                      className="icon-[line-md--download-loop] mr-2"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                    Download Details
-                  </button>
-                  <button className="p-3 bg-blue-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-blue-700">
-                    <span
-                      className="icon-[ic--twotone-system-security-update-good] mr-2"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                    Update Details
-                  </button>
-                  <button className="p-3 bg-red-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-red-700">
-                    <span
-                      className="icon-[material-symbols--delete-outline] mr-2"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                    Delete Record
-                  </button>
+                  {/* Action buttons */}
                 </div>
               </div>
             </div>

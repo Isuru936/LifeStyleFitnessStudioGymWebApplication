@@ -1,13 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import bgImg from "../../assets/userPoolbgImg.png";
 import DropDownNavBar from "../../components/DropDownNavBar";
 import SideBar from "../../components/SideBar";
 import logo from "../../assets/Logo.png";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function UserPool() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/users");
+        setUsers(response.data.users);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const deleteUser = async (userId) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/users/${userId}`);
+      setUsers(users.filter((user) => user._id !== userId));
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
+
   const [mobileView] = useState(window.innerWidth < 768);
+
   return (
     <>
       <div
@@ -54,105 +79,105 @@ function UserPool() {
                     </div>
                     <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                       <table className="min-w-fit divide-y divide-gray-200">
-                        <Link to="/update-user">
-                          <thead className="bg-gray-50">
-                            <tr>
-                              <th
-                                scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                              ></th>
-                              <th
-                                scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                              >
-                                Name
-                              </th>
-                              <th
-                                scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                              >
-                                Email
-                              </th>
-                              <th
-                                scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                              >
-                                Joined Date
-                              </th>
-                              <th
-                                scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                              >
-                                Workout Plan
-                              </th>
-                              <th
-                                scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                              >
-                                Diet Plan
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody className="bg-white divide-y divide-gray-200">
-                            <tr className="hover:bg-slate-200">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            ></th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Email
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Weight
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Height
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Username
+                            </th>
+                            {/* <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Diet Plan
+                            </th> */}
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                          {users.map((user) => (
+                            <tr key={user._id} className="hover:bg-slate-200">
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex items-center">
                                   <div className="flex-shrink-0 h-10 w-10">
                                     <img
                                       className="h-10 w-10 rounded-full"
-                                      src="https://randomuser.me/api/portraits/men/1.jpg"
-                                      alt="User 1"
+                                      src={user.profileImage}
+                                      alt={user.username}
                                     />
                                   </div>
                                 </div>
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                John Doe
+                                {user.email}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                john.doe@example.com
+                                {user.weight}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                2023-02-28
+                                {user.height}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight  ">
-                                <div className="h-5 w-5 rounded-full bg-red-700"></div>
+                                {/* <div
+                                  className={`h-5 w-5 rounded-full bg-${
+                                    user.workoutPlan ? "green" : "red"
+                                  }-700`}
+                                ></div> */}
+                                {user.username}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight ">
-                                <div className="h-5 w-5 rounded-full bg-green-700"></div>
+                                <div
+                                  className={`h-5 w-5 rounded-full bg-${
+                                    user.dietPlan ? "green" : "red"
+                                  }-700`}
+                                ></div>
                               </td>
-                            </tr>
-                            <tr className="hover:bg-slate-100">
-                              <td className="px-6 py-4 whitespace-nowrap text-sm ">
-                                <div className="flex items-center">
-                                  <div className="flex-shrink-0 h-10 w-10">
-                                    <img
-                                      className="h-10 w-10 rounded-full"
-                                      src="https://randomuser.me/api/portraits/women/2.jpg"
-                                      alt="User 2"
+                              <td>
+                                <Link to={`/update-user/${user._id}`}>
+                                  <button className="p-3 bg-green-800 rounded-xl text-sm text-white font-bold mr-5 mt-5 mb-5 hover:bg-green-700">
+                                    <span
+                                      className="icon-[ic--twotone-system-security-update-good] mr-2"
+                                      style={{ width: "15px", height: "15px" }}
                                     />
-                                  </div>
-                                </div>
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                Jane Smith
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                jane.smith@example.com
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                2023-03-01
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight  ">
-                                <div className="h-5 w-5 rounded-full bg-green-700"></div>
-                              </td>
-
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight ">
-                                <div className="h-5 w-5 rounded-full bg-green-700"></div>
+                                    Update Details
+                                  </button>
+                                </Link>
+                                <button
+                                  className="p-3  rounded-xl text-sm text-white font-bold mr-5 mt-5 mb-5 hover:bg-slate-300"
+                                  onClick={() => deleteUser(user._id)}
+                                >
+                                  <span
+                                    className="icon-[ic--twotone-delete] text-red-700"
+                                    style={{ width: "25px", height: "25px" }}
+                                  />
+                                </button>
                               </td>
                             </tr>
-                          </tbody>
-                        </Link>
+                          ))}
+                        </tbody>
                       </table>
                     </div>
                   </div>
