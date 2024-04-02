@@ -60,7 +60,7 @@ function App() {
             path="/membership-plan"
             element={<MembershipPlanSelection />}
           />
-          <Route path="/enter-payment" element={<EnterPaymentDetails />} />
+          {/* <Route path="/enter-payment" element={<EnterPaymentDetails />} /> */}
           {/* {Shafry} */}
           <Route path="/" element={<Login />} />
           <Route path="/sign-up" element={<Signup />} />
