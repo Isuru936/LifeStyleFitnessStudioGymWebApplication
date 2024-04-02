@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js";
 import paymentRoute from "./routes/payment.route.js";
 import cors from "cors";
-// import userRouter from "./routes/user.route.js";
 dotenv.config();
 
 const app = express();

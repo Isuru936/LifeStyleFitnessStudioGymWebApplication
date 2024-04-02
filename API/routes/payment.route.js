@@ -7,8 +7,8 @@ import {
 
 const router = express.Router();
 
-router.post("/payment", storePayment);
-router.get("/payment", getPaymentDetails);
-router.delete("/payment/:id", deletePayment);
+router.post("/payment", storePayment); //add = post
+router.get("/payment", getPaymentDetails); //recieve payments = get
+router.delete("/payment/:id", deletePayment); //delete = delete
 
 export default router;

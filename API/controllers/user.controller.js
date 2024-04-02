@@ -108,7 +108,6 @@ export const addUser = async (req, res) => {
   }
 };
 // Import the User model
-
 export const getUsers = async (req, res) => {
   try {
     // Fetch all users from the database
@@ -116,11 +115,15 @@ export const getUsers = async (req, res) => {
 
     // Convert image buffers to base64 strings
     const usersWithBase64Images = users.map((user) => {
-      const base64Image = Buffer.from(user.profileImage).toString("base64");
-      return {
-        ...user.toJSON(),
-        profileImage: `data:image/jpeg;base64,${base64Image}`,
-      };
+      if (user.profileImage) {
+        const base64Image = Buffer.from(user.profileImage).toString("base64");
+        return {
+          ...user.toJSON(),
+          profileImage: `data:image/jpeg;base64,${base64Image}`,
+        };
+      } else {
+        return user.toJSON();
+      }
     });
 
     res.status(200).json({ users: usersWithBase64Images });
