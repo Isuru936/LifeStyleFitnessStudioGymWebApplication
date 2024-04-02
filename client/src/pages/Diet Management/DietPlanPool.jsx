@@ -92,13 +92,15 @@ const DietPlan = () => {
                 />
                 Delete
               </p>
-              <p className="p-1 border-2 bg-slate-400 text-white rounded-xl  hover:scale-110 transform duration-200">
-                <span
-                  className="icon-[basil--edit-outline] align-middle"
-                  style={{ width: "32px" }}
-                />
-                Update
-              </p>
+              <Link to="/update-food">
+                <p className="p-1 border-2 bg-slate-400 text-white rounded-xl  hover:scale-110 transform duration-200">
+                  <span
+                    className="icon-[basil--edit-outline] align-middle"
+                    style={{ width: "32px" }}
+                  />
+                  Update
+                </p>
+              </Link>
             </div>
           ))}
         </div>

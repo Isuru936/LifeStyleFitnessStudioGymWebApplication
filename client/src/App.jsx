@@ -35,6 +35,7 @@ import Quiz from "./pages/Profile Management/Quiz";
 import UserProfile from "./pages/Profile Management/UserProfile";
 import EditProfile from "./pages/Profile Management/EditProfile";
 import ChangePassword from "./pages/Profile Management/ChangePassword";
+import UpdateFood from "./pages/Diet Management/UpdateFood";
 function App() {
   return (
     <div>
@@ -75,6 +76,7 @@ function App() {
           <Route path="/diet-plan" element={<DietPlan />} />
           <Route path="/assign-diet-plan" element={<AssignDietPlan />} />
           <Route path="/add-food" element={<AddFood />} />
+          <Route path="/update-food" element={<UpdateFood />} />
 
           {/* Thamalsha */}
           <Route path="/user-pool" element={<UserPool />} />

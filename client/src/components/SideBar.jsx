@@ -90,7 +90,7 @@ function SideBar() {
                   QR Scan
                 </p>
               </div>
-              <Link to="/">
+              <Link to="/diet-plan">
                 <div className="p-2  w-50 my-2 rounded-xl  hover:bg-slate-200 transition">
                   <p className="text-l font-bold">
                     <span
