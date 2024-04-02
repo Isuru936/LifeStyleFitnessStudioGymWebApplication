@@ -79,7 +79,7 @@ function App() {
           {/* Thamalsha */}
           <Route path="/user-pool" element={<UserPool />} />
           <Route path="/add-user" element={<AddUsers />} />
-          <Route path="/update-user/:id" element={<AddUpdateUserDetails />} />
+          <Route path="/update-user" element={<AddUpdateUserDetails />} />
           <Route path="/customer-feedbacks" element={<CustomerFeedbacks />} />
           {/* {Sewmini} */}
           <Route path="/payment-view" element={<ViewPayments />} />
