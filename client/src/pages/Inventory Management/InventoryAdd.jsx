@@ -1,10 +1,41 @@
-// TODO add Logo
-// Import your background image
+// Import necessary modules and components
+import React, { useState } from "react";
 import backgroundImage from "../../assets/sim.jpg";
 import SideBar from "../../components/SideBar";
-import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function InventoryAdd() {
+  // State variables to store form data
+  const navigate = useNavigate();
+  const [itemName, setItemName] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("underMaintenance");
+
+  // Function to handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:3000/api/inventory", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ itemName, description, status }), // Using individual state variables directly
+      });
+      if (response.ok) {
+        alert("Inventory added successfully");
+        navigate("/show-inventory");
+        // Redirect or handle success as needed
+      } else {
+        throw new Error("Failed to add inventory");
+      }
+    } catch (error) {
+      console.error("Error adding inventory:", error);
+      alert("Failed to add inventory. Please try again.");
+    }
+  };
+
   return (
     <div className="">
       <div
@@ -24,8 +55,8 @@ function InventoryAdd() {
             </div>
             <div className="mt-8 flex flex-row items-start justify-center">
               <div className="flex flex-col mx-auto  ml-5 mr-5">
-                <div className="flex flex-col w-full">
-                  <div className="flex flex-col">
+                <form onSubmit={handleSubmit}>
+                  <div className="flex flex-col w-full">
                     <label
                       htmlFor="itemName"
                       className="text-black font-medium mb-2"
@@ -35,7 +66,10 @@ function InventoryAdd() {
                     <input
                       type="text"
                       id="itemName"
+                      value={itemName}
+                      onChange={(e) => setItemName(e.target.value)}
                       className="border rounded py-1 px-2 w-full"
+                      required
                     />
                   </div>
                   <div className="flex flex-col mt-4">
@@ -47,7 +81,10 @@ function InventoryAdd() {
                     </label>
                     <textarea
                       id="description"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
                       className="border rounded py-1 px-2 h-24 w-full" // Adjust the 'h-24' value for a longer textarea
+                      required
                     ></textarea>
                   </div>
                   <div className="flex flex-col mt-4">
@@ -59,7 +96,10 @@ function InventoryAdd() {
                     </label>
                     <select
                       id="status"
+                      value={status}
+                      onChange={(e) => setStatus(e.target.value)}
                       className="border rounded py-1 px-2 w-full"
+                      required
                     >
                       <option value="underMaintenance">
                         Under Maintenance
@@ -69,11 +109,14 @@ function InventoryAdd() {
                     </select>
                   </div>
                   <div className="mt-5">
-                    <button className="bg-green-500 text-white py-2 px-4 rounded">
+                    <button
+                      type="submit"
+                      className="bg-green-500 text-white py-2 px-4 rounded"
+                    >
                       Add inventory
                     </button>
                   </div>
-                </div>
+                </form>
               </div>
               {/* Add Image section */}
               <div className="w-96 mt-0 ">

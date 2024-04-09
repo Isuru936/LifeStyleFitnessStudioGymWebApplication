@@ -9,6 +9,7 @@ function MembershipPlanSelection() {
   // Function to handle saving package type to localStorage
   const handleChoosePlan = (packageType) => {
     localStorage.setItem("selectedPackage", packageType);
+    localStorage.setItem("userID");
     navigate("/add-card");
   };
 

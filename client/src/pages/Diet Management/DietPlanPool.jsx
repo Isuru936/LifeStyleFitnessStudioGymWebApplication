@@ -10,10 +10,51 @@ import "aos/dist/aos.css";
 
 const DietPlan = () => {
   const [mobileView] = useState(window.innerWidth < 768);
+  const [foods, setFoods] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     Aos.init({ duration: 2000, selector: ".food-card" });
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/food"); // Change the endpoint accordingly
+      if (!response.ok) {
+        throw new Error("Failed to fetch food data");
+      }
+      const jsonData = await response.json();
+      setFoods(jsonData.foods);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/food/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete food");
+      }
+      fetchData(); // Refetch data after deletion
+    } catch (error) {
+      console.error("Error deleting food:", error);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div
@@ -68,7 +109,7 @@ const DietPlan = () => {
         </div>
 
         <div className="flex flex-wrap mt-8 w-full">
-          {[...Array(20)].map((_, index) => (
+          {foods.map((food, index) => (
             <div
               key={index}
               className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-32 lg:w-[200px] hover:scale-75 transition"
@@ -79,26 +120,29 @@ const DietPlan = () => {
                 alt="product"
                 className="w-28 h-28 object-cover mx-auto rounded-xl hover:scale-75 transition"
               />
-              <p className="text-black text-sm font-bold">
-                Egg whole, Cooked, fried
-              </p>
+              <p className="text-black text-sm font-bold">{food.foodname}</p>
               <span className="text-black text-xs">
-                205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
+                {`${food.calories} calories, ${food.proteins}g protein, ${food.carbs}g carbs, ${food.fats}g fat`}
               </span>
-              <p className="p-1 border-2 bg-[#F2420D] text-white rounded-xl  hover:scale-110 transform duration-200">
-                <span
-                  className="icon-[material-symbols--delete-sharp] align-middle"
-                  style={{ width: "32px" }}
-                />
-                Delete
-              </p>
-              <p className="p-1 border-2 bg-slate-400 text-white rounded-xl  hover:scale-110 transform duration-200">
-                <span
-                  className="icon-[basil--edit-outline] align-middle"
-                  style={{ width: "32px" }}
-                />
-                Update
-              </p>
+              <div className="flex flex-col">
+                <button
+                  className="p-1 border-2 bg-[#F2420D] text-white rounded-xl  hover:scale-110 transform duration-200"
+                  onClick={() => handleDelete(food._id)}
+                >
+                  <span
+                    className="icon-[material-symbols--delete-sharp] align-middle"
+                    style={{ width: "32px" }}
+                  />
+                  Delete
+                </button>
+                <button className="p-1 border-2 bg-slate-400 text-white rounded-xl  hover:scale-110 transform duration-200">
+                  <span
+                    className="icon-[basil--edit-outline] align-middle"
+                    style={{ width: "32px" }}
+                  />
+                  Update
+                </button>
+              </div>
             </div>
           ))}
         </div>

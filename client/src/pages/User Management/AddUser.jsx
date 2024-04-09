@@ -189,14 +189,14 @@ function AddUsers() {
                         id="weight"
                       />
                     </div>
-                    <div className="mr-10 w-full">
+                    {/* <div className="mr-10 w-full">
                       <p className="font-semibold">BMI</p>
                       <input
                         type="text"
                         disabled
                         className="bg-white  p-2 rounded-xl w-62 border " // Adjusted width
                       />
-                    </div>
+                    </div> */}
                   </div>
                   <div>
                     <div className="text-xl font-bold">
