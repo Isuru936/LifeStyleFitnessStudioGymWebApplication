@@ -1,45 +1,88 @@
 import Food from "../models/food.model.js";
-import multer from "multer";
 
-// Set up multer storage configuration
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads"); // Save uploaded files to the 'uploads' directory
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname); // Keep the original file name
-  },
-});
-
-// Set up multer upload configuration
-const upload = multer({ storage: storage });
-
-// Controller function to add a new food item to the database
-const addFoodItem = async (req, res) => {
+export const addFoodItem = async (req, res) => {
   try {
-    // Extract data from the request body
-    const { name, calories, protein, carbs, fat } = req.body;
-    const imageData = req.file.filename; // Get the filename of the uploaded image
-    console.log(req.body);
-    // Create a new Food object using the provided data
-    const newFood = new Food({
-      name,
-      calories,
-      protein,
-      carbs,
-      fat,
-      imageData,
+    const newFood = await Food.create(req.body);
+    res.status(201).json({
+      status: "success",
+      data: {
+        food: newFood,
+      },
     });
-
-    // Save the new food item to the database
-    const savedFood = await newFood.save();
-
-    // Respond with the saved food item
-    res.status(201).json(savedFood);
-  } catch (error) {
-    // Handle errors
-    res.status(400).json({ message: error.message, data: req.body });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
   }
 };
 
-export { addFoodItem, upload };
+export const getFoodItems = async (req, res) => {
+  try {
+    const foodItems = await Food.find();
+    res.status(200).json({
+      status: "success",
+      results: foodItems.length,
+      data: {
+        foodItems,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+export const deleteFoodItem = async (req, res) => {
+  try {
+    await Food.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+export const updateFoodItem = async (req, res) => {
+  try {
+    const food = await Food.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      status: "success",
+      data: {
+        food,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+export const getFoodItemById = async (req, res) => {
+  try {
+    const food = await Food.findById(req.params.id);
+    res.status(200).json({
+      status: "success",
+      data: {
+        food,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};

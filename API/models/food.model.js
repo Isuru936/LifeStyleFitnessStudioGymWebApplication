@@ -22,7 +22,7 @@ const foodSchema = new mongoose.Schema({
     required: true,
   },
   imageData: {
-    type: Buffer,
+    type: String,
     required: false,
   },
 });

@@ -1,13 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
+
 import UserPool from "./pages/User Management/UserPool";
 import ContactUs from "./pages/Customer Feedback/ContactUs";
 import CustomerFeedbacks from "./pages/Customer Feedback/CustomerFeedbacks";
+
 import DietPlan from "./pages/Diet Management/DietPlanPool";
 import AssignDietPlan from "./pages/Diet Management/AssignDietPlan";
+import ShowDietPlan from "./pages/Diet Management/ShowDietPlan";
+
 import EnterPaymentDetails from "./pages/Payment Management/EnterPaymentDetails";
 import AddUpdateUserDetails from "./pages/User Management/ViewUpdateUsers";
-import ShowDietPlan from "./pages/Diet Management/ShowDietPlan";
 import AddUsers from "./pages/User Management/AddUser";
 import AddCard from "./pages/Payment Management/AddCard";
 import MembershipPlanSelection from "./pages/Payment Management/MembershipPlanSelection";
@@ -76,7 +79,7 @@ function App() {
           <Route path="/diet-plan" element={<DietPlan />} />
           <Route path="/assign-diet-plan" element={<AssignDietPlan />} />
           <Route path="/add-food" element={<AddFood />} />
-          <Route path="/update-food" element={<UpdateFood />} />
+          <Route path="/update-food/:id" element={<UpdateFood />} />
 
           {/* Thamalsha */}
           <Route path="/user-pool" element={<UserPool />} />

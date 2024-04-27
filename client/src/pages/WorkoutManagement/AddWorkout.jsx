@@ -3,10 +3,11 @@ import bgImg from "../../assets/bg-Img.png";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import exclamationCircleOutlined from "@iconify-icons/ant-design/exclamation-circle-outlined";
+// import exclamationCircleOutlined from "@iconify-icons/ant-design/exclamation-circle-outlined";
 
 function AddWorkout() {
   const [mobileView] = useState(window.innerWidth < 768);
+
   return (
     <div
       className="flex flex-col items-center justify-center min-h-screen"

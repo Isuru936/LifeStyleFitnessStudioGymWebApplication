@@ -19,7 +19,3 @@ app.listen(3000, () => {
 });
 
 app.use("/api/food/", foodRouter);
-
-// app.use("http://localhost:3000/addUser", userRouter);
-
-// app.get("/", testRoute);

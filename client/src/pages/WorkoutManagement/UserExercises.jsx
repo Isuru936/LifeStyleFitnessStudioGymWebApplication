@@ -3,7 +3,7 @@ import NavigationBar from "../../components/UserNavbar";
 import backgroundImage from "../../assets/bg-Img.png";
 import workoutImage1 from "../../assets/illust58-5797-01.jpg";
 import { Icon } from "@iconify/react";
-import exclamationCircleOutlined from "@iconify-icons/ant-design/exclamation-circle-outlined";
+// import exclamationCircleOutlined from "@iconify-icons/ant-design/exclamation-circle-outlined";
 function UserExercises() {
   const exercises = [
     {
