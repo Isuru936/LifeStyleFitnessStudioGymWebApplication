@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import foodRouter from "./routes/food.route.js";
+import employeeRouter from "./routes/employee.route.js";
 import cors from "cors";
 dotenv.config();
 
@@ -19,3 +20,4 @@ app.listen(3000, () => {
 });
 
 app.use("/api/food/", foodRouter);
+app.use("/api/employee/", employeeRouter);

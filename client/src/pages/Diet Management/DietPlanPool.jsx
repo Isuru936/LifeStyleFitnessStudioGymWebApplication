@@ -7,7 +7,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
-// import "../../index.css";
 
 const DietPlan = () => {
   const [mobileView] = useState(window.innerWidth < 768);

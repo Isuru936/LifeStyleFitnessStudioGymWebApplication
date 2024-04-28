@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 
-import UserPool from "./pages/User Management/UserPool";
+import UserPool from "./pages/Employee Management/EmployeePool";
 import ContactUs from "./pages/Customer Feedback/ContactUs";
 import CustomerFeedbacks from "./pages/Customer Feedback/CustomerFeedbacks";
 
@@ -10,8 +10,7 @@ import AssignDietPlan from "./pages/Diet Management/AssignDietPlan";
 import ShowDietPlan from "./pages/Diet Management/ShowDietPlan";
 
 import EnterPaymentDetails from "./pages/Payment Management/EnterPaymentDetails";
-import AddUpdateUserDetails from "./pages/User Management/ViewUpdateUsers";
-import AddUsers from "./pages/User Management/AddUser";
+import AddUsers from "./pages/Employee Management/AddEmployee";
 import AddCard from "./pages/Payment Management/AddCard";
 import MembershipPlanSelection from "./pages/Payment Management/MembershipPlanSelection";
 import PaymentComplete from "./pages/Payment Management/PaymentComplete";
@@ -39,6 +38,7 @@ import UserProfile from "./pages/Profile Management/UserProfile";
 import EditProfile from "./pages/Profile Management/EditProfile";
 import ChangePassword from "./pages/Profile Management/ChangePassword";
 import UpdateFood from "./pages/Diet Management/UpdateFood";
+import AddUpdateEmployeeDetails from "./pages/Employee Management/ViewUpdateEmployee";
 function App() {
   return (
     <div>
@@ -82,9 +82,12 @@ function App() {
           <Route path="/update-food/:id" element={<UpdateFood />} />
 
           {/* Thamalsha */}
-          <Route path="/user-pool" element={<UserPool />} />
-          <Route path="/add-user" element={<AddUsers />} />
-          <Route path="/update-user" element={<AddUpdateUserDetails />} />
+          <Route path="/employee-pool" element={<UserPool />} />
+          <Route path="/add-employee" element={<AddUsers />} />
+          <Route
+            path="/update-employee/:id"
+            element={<AddUpdateEmployeeDetails />}
+          />
           <Route path="/customer-feedbacks" element={<CustomerFeedbacks />} />
           {/* {Sewmini} */}
           <Route path="/payment-view" element={<ViewPayments />} />
