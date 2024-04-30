@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import "./styles/SideBarStyles.css";
+import { Link, NavLink } from "react-router-dom";
 
 function SideBar() {
   const [show, setShow] = useState(false);
@@ -35,42 +36,49 @@ function SideBar() {
           >
             <p className="text-3xl font-bold">Content</p>
             <div className="pt-5 pr-5">
-              <div className="p-2 my-2 rounded-xl  hover:bg-slate-200 transition">
-                <p className="text-l font-bold">
-                  <span
-                    className="icon-[ph--users] mx-2 "
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                  Users
-                </p>
-              </div>
-              <div className="p-2 my-2 rounded-xl hover:bg-slate-200 transition">
-                <p className="text-l font-bold">
-                  <span
-                    className="icon-[iconoir--gym] mx-2"
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                    }}
-                  />
-                  Workouts
-                </p>
-              </div>
-              <div className="p-2 my-2 rounded-xl hover:bg-slate-200 transition">
-                <p className="text-l font-bold">
-                  <span
-                    className="icon-[fluent--payment-16-regular] mx-2"
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                    }}
-                  />
-                  Payments
-                </p>
-              </div>
+              <NavLink to="/employee-pool" acc>
+                <div className="p-2 my-2 rounded-xl  hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[ph--users] mx-2 "
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                      }}
+                    />{" "}
+                    {""}
+                    Employees
+                  </p>
+                </div>
+              </NavLink>
+              <Link to="/workoutpool">
+                <div className="p-2 my-2 rounded-xl hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[iconoir--gym] mx-2"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                      }}
+                    />{" "}
+                    Workouts
+                  </p>
+                </div>
+              </Link>
+              <Link to="/payment-view">
+                <div className="p-2 my-2 rounded-xl hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[fluent--payment-16-regular] mx-2"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                      }}
+                    />{" "}
+                    Payments
+                  </p>
+                </div>
+              </Link>
               <div className="p-2 my-2 rounded-xl hover:bg-slate-200 transition">
                 <p className="text-l font-bold">
                   <span
@@ -79,46 +87,80 @@ function SideBar() {
                       width: "20px",
                       height: "20px",
                     }}
-                  />
+                  />{" "}
                   QR Scan
                 </p>
               </div>
-              <div className="p-2  w-50 my-2 rounded-xl bg-side-bar-hover hover:bg-slate-200 transition">
-                <p className="text-l font-bold">
-                  <span
-                    className="icon-[ant-design--apple-outlined] mx-2"
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                    }}
-                  />
-                  Diet Plan
-                </p>
-              </div>
-              <div className="p-2  w-50 my-2 rounded-xl hover:bg-slate-200 transition">
-                <p className="text-l font-bold">
-                  <span
-                    className="icon-[mingcute--inventory-line] mx-2"
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                    }}
-                  />
-                  Inventory
-                </p>
-              </div>
-              <div className="p-2  w-50 my-2 rounded-xl  hover:bg-slate-200 transition">
-                <p className="text-l font-bold">
-                  <span
-                    className="icon-[mdi--feedback-outline] mx-2"
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                    }}
-                  />
-                  Customer Feedback
-                </p>
-              </div>
+              <Link to="/diet-plan">
+                <div className="p-2  w-50 my-2 rounded-xl  hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[ant-design--apple-outlined] mx-2"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                      }}
+                    />{" "}
+                    Diet Plan
+                  </p>
+                </div>
+              </Link>
+              <Link to="/show-inventory">
+                <div className="p-2  w-50 my-2 rounded-xl hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[mingcute--inventory-line] mx-2"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                      }}
+                    />{" "}
+                    Inventory
+                  </p>
+                </div>
+              </Link>
+              <Link to="/view-all-users">
+                <div className="p-2  w-50 my-2 rounded-xl hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[ph--users] mx-2"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                      }}
+                    />{" "}
+                    Users
+                  </p>
+                </div>
+              </Link>
+              <Link to="/customer-feedbacks">
+                <div className="p-2  w-50 my-2 rounded-xl  hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[mdi--feedback-outline] mx-2"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                      }}
+                    />{" "}
+                    Customer Feedback
+                  </p>
+                </div>
+              </Link>
+              <Link to="/create-notification">
+                <div className="p-2  w-50 my-2 rounded-xl  hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[ion--notifications-outline] mx-2"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                      }}
+                    />{" "}
+                    Notifications
+                  </p>
+                </div>
+              </Link>
             </div>
           </div>
         </div>

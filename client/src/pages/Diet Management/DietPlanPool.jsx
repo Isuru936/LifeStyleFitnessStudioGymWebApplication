@@ -1,19 +1,46 @@
 import React, { useEffect, useState } from "react";
 import bgImg from "../../assets/bg-Img.png";
-import proImage from "../../assets/proImage.png";
 import SideBar from "../../components/SideBar";
 import logo from "../../assets/Logo.png";
 import DropDownBar from "../../components/DropDownNavBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import axios from "axios";
 
 const DietPlan = () => {
   const [mobileView] = useState(window.innerWidth < 768);
+  const [foods, setFoods] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    Aos.init({ duration: 2000, selector: ".food-card" });
+    const fetchFoods = async () => {
+      Aos.init({ duration: 2000, selector: ".food-card" });
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/food/getFoods"
+        );
+        setFoods(response.data.data.foodItems);
+      } catch (error) {
+        console.error("Error fetching foods:", error);
+      }
+    };
+
+    fetchFoods();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/food/deleteFood/${id}`);
+      setFoods((prevFoods) => prevFoods.filter((food) => food._id !== id));
+    } catch (error) {
+      console.error("Error deleting food:", error);
+    }
+  };
+
+  const handleUpdate = async (id) => {
+    navigate(`/update-food/${id}`);
+  };
 
   return (
     <div
@@ -60,45 +87,53 @@ const DietPlan = () => {
             </Link>
             <Link to="/assign-diet-plan">
               <button className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
-                <span className="icon-[mdi--food] mr-2" />
-                Assign Diet Plans
+                <span className="icon-[mdi--food] mr-2" /> Assign Diet Plans
               </button>
             </Link>
           </div>
         </div>
 
         <div className="flex flex-wrap mt-8 w-full">
-          {[...Array(20)].map((_, index) => (
+          {foods.map((food, id) => (
             <div
-              key={index}
-              className="food-card p-4 m-2 bg-white rounded-lg shadow-md h-auto w-32 lg:w-[200px] hover:scale-75 transition"
+              key={food._id}
+              className={`food-card flex flex-col p-4 m-2 bg-white rounded-lg shadow-md h-auto w-32 lg:w-[200px] hover:scale-75 transition ${
+                food.deleted ? "fade-out" : ""
+              }`}
               data-aos="zoom-in"
             >
               <img
-                src={proImage}
+                src={food.imageData}
                 alt="product"
                 className="w-28 h-28 object-cover mx-auto rounded-xl hover:scale-75 transition"
               />
-              <p className="text-black text-sm font-bold">
-                Egg whole, Cooked, fried
-              </p>
+              <p className="text-black text-sm font-bold">{food.name}</p>
               <span className="text-black text-xs">
-                205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
+                {food.calories} calories, {food.protein}g protein, {food.carbs}g
+                carbs, {food.fat}g fat
               </span>
-              <p className="p-1 border-2 bg-[#F2420D] text-white rounded-xl  hover:scale-110 transform duration-200">
-                <span
-                  className="icon-[material-symbols--delete-sharp] align-middle"
-                  style={{ width: "32px" }}
-                />
-                Delete
-              </p>
-              <p className="p-1 border-2 bg-slate-400 text-white rounded-xl  hover:scale-110 transform duration-200">
+              <button
+                className="p-1 border-2 bg-[#F2420D] text-white rounded-xl mx-0 flex  hover:scale-110 transform duration-200"
+                onClick={() => handleDelete(food._id)}
+              >
+                <p className="">
+                  <span
+                    className="icon-[material-symbols--delete-sharp] align-middle my-auto"
+                    style={{ width: "32px" }}
+                  />{" "}
+                  Delete
+                </p>
+              </button>
+              <button
+                className="p-1 border-2 bg-slate-400 text-white rounded-xl w-full flex hover:scale-110 transform duration-200"
+                onClick={() => handleUpdate(food._id)}
+              >
                 <span
                   className="icon-[basil--edit-outline] align-middle"
                   style={{ width: "32px" }}
-                />
+                />{" "}
                 Update
-              </p>
+              </button>
             </div>
           ))}
         </div>
