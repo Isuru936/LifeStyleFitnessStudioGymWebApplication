@@ -119,6 +119,20 @@ function SideBar() {
                   </p>
                 </div>
               </Link>
+              <Link to="/view-all-users">
+                <div className="p-2  w-50 my-2 rounded-xl hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[ph--users] mx-2"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                      }}
+                    />{" "}
+                    Users
+                  </p>
+                </div>
+              </Link>
               <Link to="/customer-feedbacks">
                 <div className="p-2  w-50 my-2 rounded-xl  hover:bg-slate-200 transition">
                   <p className="text-l font-bold">

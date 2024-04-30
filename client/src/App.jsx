@@ -5,6 +5,8 @@ import UserPool from "./pages/Employee Management/EmployeePool";
 import ContactUs from "./pages/Customer Feedback/ContactUs";
 import CustomerFeedbacks from "./pages/Customer Feedback/CustomerFeedbacks";
 
+import ViewAllUsers from "./components/ViewAllUsers";
+
 import DietPlan from "./pages/Diet Management/DietPlanPool";
 import AssignDietPlan from "./pages/Diet Management/AssignDietPlan";
 import ShowDietPlan from "./pages/Diet Management/ShowDietPlan";
@@ -39,6 +41,8 @@ import EditProfile from "./pages/Profile Management/EditProfile";
 import ChangePassword from "./pages/Profile Management/ChangePassword";
 import UpdateFood from "./pages/Diet Management/UpdateFood";
 import AddUpdateEmployeeDetails from "./pages/Employee Management/ViewUpdateEmployee";
+import AddPaymentAdmin from "./pages/Payment Management/AddPaymentAdmin";
+import UpdatePaymentAdmin from "./pages/Payment Management/UpdatePaymentAdmin";
 function App() {
   return (
     <div>
@@ -91,6 +95,12 @@ function App() {
           <Route path="/customer-feedbacks" element={<CustomerFeedbacks />} />
           {/* {Sewmini} */}
           <Route path="/payment-view" element={<ViewPayments />} />
+          <Route path="/add-payment/:id" element={<AddPaymentAdmin />} />
+          <Route path="/update-payment/:id" element={<UpdatePaymentAdmin />} />
+
+          {/* Shafry */}
+          <Route path="/view-all-users" element={<ViewAllUsers />} />
+
           {/* {Vinuka} */}
           <Route path="/workoutpool" element={<WorkoutPool />} />
           <Route path="/AddWorkout" element={<AddWorkout />} />
