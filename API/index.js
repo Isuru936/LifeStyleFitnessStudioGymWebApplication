@@ -1,20 +1,38 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-// import userRouter from "./routes/user.route.js";
+import cors from 'cors';
+import workoutRoutes from './routes/workoutRoutes.js';
+import bodyParser from "body-parser";
+
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
+// Remove the express.json() middleware
+app.use(cors({
+  origin: 'http://localhost:5173',
+  optionsSuccessStatus: 200 // Specify the status code for successful preflight requests
+}));
 
-mongoose.connect(process.env.MONGO).
-then(console.log("DB connected")).catch(err => console.log(err)) ;
+// Configure body-parser middleware
+app.use(bodyParser.json({ limit: '1000mb' }));
 
-app.listen(3000, () => {
-  console.log("Server running in port 3000");
+// Log incoming requests
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
 });
 
-// app.use("http://localhost:3000/addUser", userRouter);
+// routes
+app.use('/api', workoutRoutes);
 
-// app.get("/", testRoute);
+mongoose.connect("mongodb+srv://isurugayantha:aRVY9kSNFxDNywDF@cluster0.xeoryue.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+  .then(() => {
+    console.log("DB connected");
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch(err => console.error("MongoDB connection error:", err));

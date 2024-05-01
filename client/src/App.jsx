@@ -15,6 +15,7 @@ import PaymentComplete from "./pages/Payment Management/PaymentComplete";
 import PaymentReview from "./pages/Payment Management/PaymentReview";
 import PaymentDetails from "./pages/Payment Management/PaymentDetails";
 
+import EditWorkout from "./pages/WorkoutManagement/EditWorkout";
 import WorkoutPool from "./pages/WorkoutManagement/WorkouPool";
 import UserExercises from "./pages/WorkoutManagement/UserExercises";
 import AddWorkout from "./pages/WorkoutManagement/AddWorkout";
@@ -86,6 +87,8 @@ function App() {
           {/* {Vinuka} */}
           <Route path="/workoutpool" element={<WorkoutPool />} />
           <Route path="/AddWorkout" element={<AddWorkout />} />
+          <Route path="/editWorkout/:id" element={<EditWorkout/>} /> {/* Define route for editing workouts */}
+    
 
           {/* {Umaya} */}
           <Route path="/add-inventory" element={<InventoryAdd />} />
