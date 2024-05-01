@@ -14,7 +14,11 @@ export default function DietPlanUserView({ userId }) {
           `http://localhost:3000/api/users/bioDataById/${id}`
         );
         setUser(response.data.data.bioData);
-        console.log(response.data.data.bioData);
+        console.log(response.data.data);
+        const nutrientLevels = JSON.stringify(
+          response.data.data.nutrientLevels
+        );
+        localStorage.setItem("nutrientsRecommend", nutrientLevels);
       };
 
       fetchUser();

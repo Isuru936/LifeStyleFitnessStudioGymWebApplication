@@ -2,19 +2,15 @@ import React, { useState } from "react";
 import bgImg from "../../assets/bg-Img.png";
 import SideBar from "../../components/SideBar";
 import { Link } from "react-router-dom";
-import { Icon } from "@iconify/react";
-import exclamationCircleOutlined from "@iconify-icons/ant-design/exclamation-circle-outlined";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 
-
-
 function AddWorkout() {
-  const [workoutName, setWorkoutName] = useState('');
-  const [workoutDescription, setWorkoutDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-  const [category, setCategory] = useState('');
-  const [error, setError] = useState('');
+  const [workoutName, setWorkoutName] = useState("");
+  const [workoutDescription, setWorkoutDescription] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [category, setCategory] = useState("");
+  const [error, setError] = useState("");
 
   const storage = firebase.storage(); // Access the storage object from the imported firebase object
 
@@ -94,7 +90,10 @@ function AddWorkout() {
                       Enter the workout details
                     </p>
                   </div>
-                  <form onSubmit={handleSubmit} className="mt-5 text-base lg:text-xl">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="mt-5 text-base lg:text-xl"
+                  >
                     <div className="mb-4 lg:mb-6">
                       <p className="font-semibold text-sm lg:text-base mb-1">
                         Workout name
@@ -130,7 +129,9 @@ function AddWorkout() {
                       >
                         <option value="">Select category...</option>
                         <option value="Cardio">Cardio</option>
-                        <option value="Strength Training">Strength Training</option>
+                        <option value="Strength Training">
+                          Strength Training
+                        </option>
                         <option value="Flexibility">Flexibility</option>
                         <option value="arms">arms</option>
                         <option value="legs">legs</option>
@@ -142,7 +143,6 @@ function AddWorkout() {
                         htmlFor="file-upload"
                         className="font-semibold cursor-pointer text-sm lg:text-base text-blue-600 flex items-center"
                       >
-                        <Icon icon={exclamationCircleOutlined} />
                         Choose an image
                       </label>
                       <input
@@ -153,7 +153,10 @@ function AddWorkout() {
                         className="hidden"
                       />
                     </div>
-                    <button type="submit" className="mt-5 bg-orange-500 text-white p-2 w-full rounded-xl hover:bg-orange-600 transition text-sm lg:text-base">
+                    <button
+                      type="submit"
+                      className="mt-5 bg-orange-500 text-white p-2 w-full rounded-xl hover:bg-orange-600 transition text-sm lg:text-base"
+                    >
                       Save
                     </button>
                     <Link to="/">

@@ -13,6 +13,10 @@ const quizzesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  gender: {
+    type: String,
+    required: true,
+  },
   age: {
     type: Number,
     required: true,
@@ -21,6 +25,34 @@ const quizzesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  dietplan: [
+    {
+      name: {
+        type: String,
+        required: false,
+      },
+      imageData: {
+        type: String,
+        required: false,
+      },
+      protein: {
+        type: String,
+        required: false,
+      },
+      fat: {
+        type: String,
+        required: false,
+      },
+      carbs: {
+        type: String,
+        required: false,
+      },
+      calories: {
+        type: String,
+        required: false,
+      },
+    },
+  ],
 });
 
 const quizzes = mongoose.model("quizzes", quizzesSchema);
