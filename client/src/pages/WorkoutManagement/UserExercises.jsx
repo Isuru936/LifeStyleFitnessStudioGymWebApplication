@@ -3,7 +3,7 @@ import NavigationBar from "../../components/UserNavbar";
 import backgroundImage from "../../assets/bg-Img.png";
 import workoutImage1 from "../../assets/illust58-5797-01.jpg";
 import { Icon } from "@iconify/react";
-// import exclamationCircleOutlined from "@iconify-icons/ant-design/exclamation-circle-outlined";
+
 function UserExercises() {
   const exercises = [
     {
@@ -72,11 +72,7 @@ function UserExercises() {
                       alt="Workout"
                       className="w-16 h-16 rounded-md mr-4 relative z-10"
                     />
-                    <Icon
-                      icon={exclamationCircleOutlined}
-                      className="text-black ml-2 cursor-pointer z-20"
-                      onClick={() => handleExclamationClick(index)}
-                    />
+                    
                     <p className="text-lg mb-1">{exercise.name}</p>
                     <p className="text-sm text-gray-500">
                       Reps: {exercise.reps}, Sets: {exercise.sets}, Weight:{" "}
