@@ -53,6 +53,19 @@ const quizzesSchema = new mongoose.Schema({
       },
     },
   ],
+  workoutplan: [
+    {
+      name: {
+        type: String,
+        required: false,
+      },
+      description: {
+        type: String,
+      },
+      imageUrl: String, // Store the URL or reference to the image file
+      category: String,
+    },
+  ],
 });
 
 const quizzes = mongoose.model("quizzes", quizzesSchema);
