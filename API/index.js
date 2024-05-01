@@ -5,6 +5,7 @@ import foodRouter from "./routes/food.route.js";
 import employeeRouter from "./routes/employee.route.js";
 import userRouter from "./routes/user.route.js";
 import paymentRouter from "./routes/payment.route.js";
+import workoutRoutes from './routes/workoutRoutes.js';
 import cors from "cors";
 dotenv.config();
 
@@ -24,5 +25,5 @@ app.listen(3000, () => {
 app.use("/api/food/", foodRouter);
 app.use("/api/employee/", employeeRouter);
 app.use("/api/users/", userRouter);
-// app.use("/api/users/", userRouter);
+app.use('/api', workoutRoutes);
 app.use("/api/payments/", paymentRouter);
