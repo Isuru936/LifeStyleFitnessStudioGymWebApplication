@@ -43,6 +43,8 @@ import UpdateFood from "./pages/Diet Management/UpdateFood";
 import AddUpdateEmployeeDetails from "./pages/Employee Management/ViewUpdateEmployee";
 import AddPaymentAdmin from "./pages/Payment Management/AddPaymentAdmin";
 import UpdatePaymentAdmin from "./pages/Payment Management/UpdatePaymentAdmin";
+import QRCodeScanner from "./pages/Attendance Tracking/QRCodeScanner";
+import Scanner from "./pages/Attendance Tracking/QRCodeScanner";
 function App() {
   return (
     <div>
@@ -81,9 +83,11 @@ function App() {
           {/* Admin Routes */}
           {/* Isuru */}
           <Route path="/diet-plan" element={<DietPlan />} />
-          <Route path="/assign-diet-plan" element={<AssignDietPlan />} />
+          <Route path="/assign-diet-plan/:id" element={<AssignDietPlan />} />
           <Route path="/add-food" element={<AddFood />} />
           <Route path="/update-food/:id" element={<UpdateFood />} />
+
+          <Route path="/QR-CodeScanner" element={<Scanner />} />
 
           {/* Thamalsha */}
           <Route path="/employee-pool" element={<UserPool />} />

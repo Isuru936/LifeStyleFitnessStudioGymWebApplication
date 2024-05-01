@@ -86,3 +86,22 @@ export const getFoodItemById = async (req, res) => {
     });
   }
 };
+
+export const searchByName = async (req, res) => {
+  try {
+    const regex = new RegExp(req.params.name, "i"); // Create a regular expression to match names starting with req.params.name
+    const food = await Food.find({ name: regex }); // Find foods whose names match the regular expression
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        food,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err.message.response,
+    });
+  }
+};

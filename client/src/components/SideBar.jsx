@@ -79,18 +79,20 @@ function SideBar() {
                   </p>
                 </div>
               </Link>
-              <div className="p-2 my-2 rounded-xl hover:bg-slate-200 transition">
-                <p className="text-l font-bold">
-                  <span
-                    className="icon-[bi--qr-code-scan] mx-2"
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />{" "}
-                  QR Scan
-                </p>
-              </div>
+              <Link to="/QR-CodeScanner">
+                <div className="p-2 my-2 rounded-xl hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[bi--qr-code-scan] mx-2"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                      }}
+                    />{" "}
+                    QR Scan
+                  </p>
+                </div>
+              </Link>
               <Link to="/diet-plan">
                 <div className="p-2  w-50 my-2 rounded-xl  hover:bg-slate-200 transition">
                   <p className="text-l font-bold">

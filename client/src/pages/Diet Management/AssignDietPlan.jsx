@@ -7,8 +7,79 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 export default function AssignDietPlan() {
+  const { id } = useParams();
+  const [foods, setFoods] = useState([]);
+  const [assignedFoods, setAssignedFoods] = useState([]);
+  const selectedFoodClass = "bg-green-300";
+
+  const fetchFoods = async () => {
+    Aos.init({ duration: 2000, selector: ".food-card" });
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/food/getFoods"
+      );
+      setFoods(response.data.data.foodItems);
+      console.log(response.data.data.foodItems);
+    } catch (error) {
+      console.error("Error fetching foods:", error);
+    }
+  };
+  useEffect(() => {
+    fetchFoods();
+    console.log(id);
+  }, []);
+
+  const addToSelectedFoods = (food) => {
+    const exists = assignedFoods.some(
+      (selectedFood) => selectedFood._id === food._id
+    );
+
+    if (!exists) {
+      setAssignedFoods((prevSelectedFoods) => [...prevSelectedFoods, food]);
+    } else {
+      toast.warning("Food already selected");
+    }
+  };
+
+  const removeFromSelectedFoods = (index) => {
+    setAssignedFoods((prevSelectedFoods) =>
+      prevSelectedFoods.filter((_, i) => i !== index)
+    );
+    console.log("removed", index);
+  };
+
+  const handleClearAssignedFoods = () => {
+    setAssignedFoods([]);
+  };
+
+  const totalNutrients = assignedFoods.reduce(
+    (acc, food) => {
+      acc.calories += food.calories;
+      acc.protein += food.protein;
+      acc.carbs += food.carbs;
+      acc.fat += food.fat;
+      return acc;
+    },
+    { calories: 0, protein: 0, carbs: 0, fat: 0 }
+  );
+
+  const handleSearch = async (name) => {
+    try {
+      if (name === "") return fetchFoods();
+      const response = await axios.get(
+        `http://localhost:3000/api/food/searchByName/${name}`
+      );
+      setFoods(response.data.data.food);
+    } catch (error) {
+      console.error("Error searching for food:", error);
+    }
+  };
+
   const [mobileView] = useState(window.innerWidth < 768);
   useEffect(() => {
     Aos.init({ duration: 2000 });
@@ -28,7 +99,7 @@ export default function AssignDietPlan() {
           {/* side bar, select user */}
           <div className="flex-col">
             {mobileView ? <DropDownBar /> : <SideBar />}
-            <DietPlanUserView />
+            <DietPlanUserView userId={id} />
           </div>
           {/* Assign Diet Plan  */}
           <div className="p-4 mt-3 w-full lg:w-[800px] ">
@@ -45,6 +116,7 @@ export default function AssignDietPlan() {
                   <input
                     type="text"
                     placeholder="Search by Food Name"
+                    onChange={(e) => handleSearch(e.target.value)}
                     className="bg-slate-200 p-1 pl-2 rounded-xl  ml-1 outline-none"
                   />
                   <span
@@ -54,8 +126,8 @@ export default function AssignDietPlan() {
                 </div>
                 <Link to="/diet-plan">
                   <button className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
-                    <span className="icon-[emojione--pot-of-food] mr-2" />
-                    View Food Pool
+                    <span className="icon-[emojione--pot-of-food] mr-2" /> View
+                    Food Pool
                   </button>
                 </Link>
               </div>
@@ -64,23 +136,30 @@ export default function AssignDietPlan() {
               <h2 className="tex-l font-bold mt-3">Select Food</h2>
               {/* Food List */}
               <div className=" flex flex-wrap">
-                {[...Array(20)].map((_, index) => (
+                {foods.map((food, number) => (
                   <div
-                    key={index}
-                    className="w-fit h-fit bg-slate-50 rounded-lg p-3 m-0 flex flex-row hover:bg-green-500 transition duration-300 ease-in-out"
-                    data-aos="zoom-in"
+                    key={number}
+                    className={`w-fit h-fit bg-slate-50 rounded-lg p-3 m-0 flex flex-row hover:bg-green-500 transition duration-300 ease-in-out ml-3 mb-1 ${
+                      assignedFoods.some(
+                        (selectedFood) => selectedFood._id === food._id
+                      )
+                        ? "bg-[#26e326]"
+                        : "bg-white"
+                    }`}
+                    onClick={() => addToSelectedFoods(food)}
                   >
                     <div>
                       <img
-                        src={foodImg}
-                        className="w-20 h-fit p-0 rounded-xl"
-                        alt="Food Image"
+                        src={food.imageData}
+                        className="w-20 h-20 p-0 rounded-xl"
+                        alt="Food "
                       />
                     </div>
                     <div className="flex flex-col ml-3">
-                      <h5 className="font-bold">Egg whole, Cooked, fried</h5>
+                      <h5 className="font-bold">{food.name}</h5>
                       <p className="text-xs">
-                        205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
+                        {food.calories}g calories, {food.protein}g protein,{" "}
+                        {food.carbs}g carbs, {food.fat}g fat
                       </p>
                     </div>
                   </div>
@@ -90,62 +169,53 @@ export default function AssignDietPlan() {
             </div>
           </div>
           {/* Selected Food and Nutrient Levels */}
-          <div className="fixed top-0 left-[1050px] bottom-0 w-screen bg-slate-50">
+          <div className="fixed top-0 left-[1050px] bottom-0 w-screen h-screen bg-slate-50">
             <div>
               <h1 className="mt-5 ml-2 text-lg font-semibold ">
                 Selected Food
               </h1>
               {/* Selected Food */}
               <div className=" bg-slate-0 border h-96 flex flex-col p-3 relative overflow-y-auto">
-                <div className="w-[440px] h-fit bg-slate-50 rounded-lg p-3 flex flex-row transition duration-500 ease-in-out relative mb-1 hover:bg-slate-300">
-                  <div className="">
-                    <img
-                      src={foodImg}
-                      className="w-10 h-fit p-0 rounded-xl "
-                      alt="Food Image"
-                    />
-                  </div>
-                  <div className="flex flex-col ml-3">
-                    <h5 className="font-bold text-sm">
-                      Egg whole, Cooked, fried
-                    </h5>
-                    <p className="text-xs">
-                      205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                    </p>
-                  </div>
-                  <button className="bg-red-0 text-sm p-2 rounded-xl  absolute right-0">
-                    <span
-                      className="icon-[line-md--remove] hover:bg-red-500"
-                      style={{
-                        width: "24px",
-                        height: "24px",
-                        animation: "auto",
-                      }}
-                    />
-                  </button>
-                </div>
-                <div className="w-[440px] h-fit bg-slate-50 rounded-lg p-3 flex flex-row  transition duration-500 ease-in-out relative mb-1 hover:bg-slate-300">
-                  <div className="">
-                    <img
-                      src={foodImg}
-                      className="w-10 h-fit p-0 rounded-xl "
-                      alt="Food Image"
-                    />
-                  </div>
-                  <div className="flex flex-col ml-3">
-                    <h5 className="font-bold text-sm">
-                      Egg whole, Cooked, fried
-                    </h5>
-                    <p className="text-xs">
-                      205 calories, 13.5g protein, 1.4g carbs, 15.7g fat
-                    </p>
-                  </div>
-                  <button className="bg-red-0 text-sm p-2 rounded-xl  absolute right-0">
-                    <span
-                      className="icon-[line-md--remove] hover:bg-red-500"
-                      style={{ width: "24px", height: "24px" }}
-                    />
-                  </button>
+                <div>
+                  {assignedFoods.length > 0 ? (
+                    assignedFoods.map((selectedFood, index) => (
+                      <div
+                        key={index}
+                        className="w-[440px] h-fit bg-slate-50 rounded-lg p-3 flex flex-row transition duration-500 ease-in-out relative mb-1 hover:bg-slate-300"
+                      >
+                        <img
+                          src={selectedFood.imageData}
+                          className="w-10 h-10 p-0 rounded-xl "
+                          alt="Food"
+                        />
+                        <div className="flex flex-col ml-3">
+                          <h5 className="font-bold text-sm">
+                            {selectedFood.name}
+                          </h5>
+                          <p className="text-xs">
+                            {selectedFood.calories} calories,
+                            {selectedFood.protein}g protein,{" "}
+                            {selectedFood.carbs}g carbs, {selectedFood.fat}g fat
+                          </p>
+                        </div>
+                        <button
+                          className="bg-red-0 text-sm p-2 rounded-xl  absolute right-0"
+                          onClick={() => removeFromSelectedFoods(index)}
+                        >
+                          <span
+                            className="icon-[line-md--remove] hover:bg-red-500"
+                            style={{
+                              width: "24px",
+                              height: "24px",
+                              animation: "auto",
+                            }}
+                          />
+                        </button>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="border my-auto">No food selected</p>
+                  )}
                 </div>
               </div>
               {/* Nutrient Levels */}
@@ -172,31 +242,48 @@ export default function AssignDietPlan() {
                     Assigned Nutrient Levels
                   </h1>
                   <p className="font-semibold">
-                    Calories: <span className="text-blue-600">205</span>
+                    Calories:{" "}
+                    <span className="text-blue-600">
+                      {totalNutrients.calories}
+                    </span>
                   </p>
                   <p className="font-semibold">
-                    Protein: <span className="text-blue-600"> 13.5g</span>
+                    Protein:{" "}
+                    <span className="text-blue-600">
+                      {" "}
+                      {totalNutrients.protein}g
+                    </span>
                   </p>
                   <p className="font-semibold">
-                    Carbs: <span className="text-blue-600"> 1.4g</span>
+                    Carbs:{" "}
+                    <span className="text-blue-600">
+                      {totalNutrients.carbs}g
+                    </span>
                   </p>
                   <p className="font-semibold">
-                    Fat: <span className="text-blue-600"> 15.7g</span>
+                    Fat:{" "}
+                    <span className="text-blue-600">
+                      {" "}
+                      {totalNutrients.fat}g
+                    </span>
                   </p>
                 </div>
               </div>
               <button className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
-                <span className="icon-[mdi--food] mr-2" />
-                Assign Diet Plans
+                <span className="icon-[mdi--food] mr-2" /> Assign Diet Plans
               </button>
-              <button className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-red-700 hover:text-slate-50  transition ">
-                <span className="icon-[ic--twotone-clear] mr-2" />
-                Clear Selected Foods
+              <button
+                className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-red-700 hover:text-slate-50  transition "
+                onClick={handleClearAssignedFoods}
+              >
+                <span className="icon-[ic--twotone-clear] mr-2" /> Clear
+                Selected Foods
               </button>
             </div>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

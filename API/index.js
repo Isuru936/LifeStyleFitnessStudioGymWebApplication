@@ -24,4 +24,5 @@ app.listen(3000, () => {
 app.use("/api/food/", foodRouter);
 app.use("/api/employee/", employeeRouter);
 app.use("/api/users/", userRouter);
+// app.use("/api/users/", userRouter);
 app.use("/api/payments/", paymentRouter);
