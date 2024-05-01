@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import profImg from "../../assets/profImg.png";
+import React, { useEffect, useState } from "react";
 import SideBar from "../../components/SideBar";
 import bgImg from "../../assets/bgImg.png";
 import logo from "../../assets/Logo.png";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import notify from "../../components/toasts/toastTemplate";
 import { ToastContainer } from "react-toastify";
@@ -30,7 +28,7 @@ function AddUpdateEmployeeDetails() {
     const fetchEmployee = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/employee/getEmployeeById/${id}`
+          `http://localhost:3000/api/employee/getEmployeeById/${id}` //get by id endpoint
         );
         console.log(response.data);
         setFormData(response.data.data.employee);
@@ -46,7 +44,7 @@ function AddUpdateEmployeeDetails() {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/employee/updateEmployee/${id}`,
+        `http://localhost:3000/api/employee/updateEmployee/${id}`, //update endpoint
         formData,
         {
           headers: {
@@ -63,6 +61,7 @@ function AddUpdateEmployeeDetails() {
   };
 
   const handleFileUpload = async (e) => {
+    //image upload function
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       const storageRef = firebase.storage().ref();
@@ -88,7 +87,7 @@ function AddUpdateEmployeeDetails() {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/employee/deleteEmployee/${id}`
+        `http://localhost:3000/api/employee/deleteEmployee/${id}` //delete endpoint
       );
       console.log(response.data);
       notify("success", "", "Employee deleted successfully");
@@ -227,16 +226,25 @@ function AddUpdateEmployeeDetails() {
                     <span
                       className="icon-[ic--twotone-system-security-update-good] mr-2"
                       style={{ width: "20px", height: "20px" }}
-                    />
+                    />{" "}
                     Update Details
                   </button>
                   <button className="p-3 bg-orange-500 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-orange-600">
                     <span
                       className="icon-[line-md--download-loop] mr-2"
                       style={{ width: "20px", height: "20px" }}
-                    />
+                    />{" "}
                     Download Details
                   </button>
+                  <Link to="/employee-pool">
+                    <button className="p-3 bg-white rounded-xl text-black border font-bold mr-5 mt-5 mb-10 hover:bg-slate-100">
+                      <span
+                        className="icon-[ic--twotone-system-security-update-good] mr-2"
+                        style={{ width: "20px", height: "20px" }}
+                      />{" "}
+                      Back
+                    </button>
+                  </Link>
                 </form>
                 <button
                   className="p-3 bg-red-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-red-700"
@@ -245,9 +253,10 @@ function AddUpdateEmployeeDetails() {
                   <span
                     className="icon-[material-symbols--delete-outline] mr-2"
                     style={{ width: "20px", height: "20px" }}
-                  />
+                  />{" "}
                   Delete Record
                 </button>
+
                 <div className="flex flex-row justify-end w-auto mr-96"></div>
               </div>
             </div>

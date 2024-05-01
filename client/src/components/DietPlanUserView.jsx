@@ -1,7 +1,30 @@
+import axios from "axios";
 import profImg from "../assets/profImg.png";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default function DietPlanUserView() {
+export default function DietPlanUserView({ userId }) {
+  const [user, setUser] = useState([]);
+  const id = userId;
+  console.log("UserNav", id);
+
+  useEffect(() => {
+    try {
+      const fetchUser = async () => {
+        const response = await axios.get(
+          `http://localhost:3000/api/users/bioDataById/${id}`
+        );
+        setUser(response.data.data.bioData);
+        console.log(response.data.data.bioData);
+      };
+
+      fetchUser();
+    } catch (error) {
+      console.error("Error fetching food item:", error);
+    }
+  }, [id]);
+
+  console.log(user.weight);
+
   return (
     <div>
       <div className="hidden lg:block bg-red-0 lg:mt-0 lg:ml-1">
@@ -10,7 +33,8 @@ export default function DietPlanUserView() {
         <div className="bg-slate-200 rounded-xl w-fit ml-1 mr-1 pt-1 pb-1">
           <input
             type="text"
-            placeholder="Search for an User"
+            placeholder="Search for an Email"
+            value={user.userID}
             className="bg-slate-200 p-1 pl-2 rounded-xl  ml-1 outline-none"
           />
           <span
@@ -23,12 +47,21 @@ export default function DietPlanUserView() {
             <div className="w-[104px] h-[104px] bg-red-300 mx-auto rounded-full">
               <img src={profImg} alt="Profile" />
             </div>
-            <p className="font-semibold text-slate-500 mb-1">Weight: </p>
-            <p className="font-semibold text-slate-500 mb-1">Height: </p>
-            <p className="font-semibold text-slate-500 mb-1">Purpose: </p>
-            <p className="font-semibold text-slate-500 mb-1">Age: </p>
             <p className="font-semibold text-slate-500 mb-1">
-              Health Condition:{" "}
+              Weight: {user.weight || "Not available"} kg
+            </p>
+            <p className="font-semibold text-slate-500 mb-1">
+              gender: {user.gender || "Not available"}
+            </p>
+            <p className="font-semibold text-slate-500 mb-1">
+              Height: {user.height || "Not available"} cm
+            </p>
+            <p className="font-semibold text-slate-500 mb-1">
+              Purpose: {user.purpose || "Not available"}
+            </p>
+            <p className="font-semibold text-slate-500 mb-1">Age: {user.age}</p>
+            <p className="font-semibold text-slate-500 mb-1">
+              Health Condition: {user.healthCondition}
             </p>
           </div>
         </div>

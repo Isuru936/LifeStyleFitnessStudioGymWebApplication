@@ -54,7 +54,7 @@ function AddUsers() {
     console.log(formData);
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/employee/addEmployee/",
+        "http://localhost:3000/api/employee/addEmployee/", //add endpoint
         formData,
         {
           headers: {
@@ -63,6 +63,7 @@ function AddUsers() {
         }
       );
       notify("success", "", "New employee added successfully");
+      navigate("/employee-pool");
     } catch (error) {
       console.error("Error adding employee:", error);
       notify("error", "", "Failed to add new employee");

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../components/SideBar";
+import { Icon } from "@iconify/react";
 
 function ViewAllUsers() {
   const [users, setUsers] = useState([]);
@@ -31,8 +32,16 @@ function ViewAllUsers() {
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleNavigation = (id) => {
+  const navigatePayment = (id) => {
     navigate(`/add-payment/${id}`);
+  };
+
+  const navigateAssignDiet = (id) => {
+    navigate(`/assign-diet-plan/${id}`);
+  };
+
+  const navigateWorkoutPlan = (id) => {
+    navigate("/workoutpool");
   };
 
   return (
@@ -86,24 +95,41 @@ function ViewAllUsers() {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {filteredUsers.map((user) => (
-              <tr
-                key={user._id}
-                className="hover:bg-slate-400"
-                onClick={() => handleNavigation(user._id)}
-              >
+              <tr key={user._id} className="hover:bg-slate-400">
                 <td className="px-6 py-4 whitespace-nowrap">{user.username}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
+                <td className="px-6 py-4 whitespace-nowrap border  justify-center">
+                  <button
+                    className="rounded-full w-full p-1 flex justify-center text-slate-50 hover:bg-green-600 bg-green-700 "
+                    onClick={(e) => {
+                      navigateAssignDiet(user._id);
+                    }}
+                  >
+                    <Icon icon="mdi:food-apple" className="w-6 h-6" />
+                    Assign
+                  </button>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap border justify-center">
+                  <button
+                    className="rounded-full w-full p-1 flex justify-center text-slate-50 hover:bg-orange-500 bg-orange-700"
+                    onClick={navigateWorkoutPlan}
+                  >
+                    <Icon
+                      icon="healthicons:exercise-yoga"
+                      className="w-6 h-6"
+                    />{" "}
+                    Assign
+                  </button>
+                </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   {" "}
-                  <div className="w-3 h-3 bg-green-600 rounded-full"></div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap justify-center inline-flex">
-                  {" "}
-                  <div className="w-3 h-3 bg-green-600 rounded-full"></div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {" "}
-                  <div className="w-3 h-3 bg-green-600 rounded-full"></div>
+                  <button
+                    className="rounded-full w-full p-1 flex justify-center text-slate-50 hover:bg-red-500 bg-red-700"
+                    onClick={() => navigatePayment(user._id)}
+                  >
+                    Assign
+                    <Icon icon="mdi:contactless-payment" className="w-6 h-6" />
+                  </button>
                 </td>
               </tr>
             ))}

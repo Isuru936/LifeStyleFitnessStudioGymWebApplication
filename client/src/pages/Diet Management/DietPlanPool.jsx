@@ -13,6 +13,17 @@ const DietPlan = () => {
   const [foods, setFoods] = useState([]);
   const navigate = useNavigate();
 
+  const fetchFoods = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/food/getFoods"
+      );
+      setFoods(response.data.data.foodItems);
+    } catch (error) {
+      console.error("Error fetching foods:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchFoods = async () => {
       Aos.init({ duration: 2000, selector: ".food-card" });
@@ -35,6 +46,18 @@ const DietPlan = () => {
       setFoods((prevFoods) => prevFoods.filter((food) => food._id !== id));
     } catch (error) {
       console.error("Error deleting food:", error);
+    }
+  };
+
+  const handleSearch = async (name) => {
+    try {
+      if (name === "") return fetchFoods();
+      const response = await axios.get(
+        `http://localhost:3000/api/food/searchByName/${name}`
+      );
+      setFoods(response.data.data.food);
+    } catch (error) {
+      console.error("Error searching for food:", error);
     }
   };
 
@@ -70,6 +93,7 @@ const DietPlan = () => {
                 name="searchFood"
                 id="searchFood"
                 placeholder="Search Food Items"
+                onChange={(e) => handleSearch(e.target.value)}
                 className="mt-2 rounded-lg text-black bg-blue-100 outline-none pl-2 pb-2 flex-1 "
               />
               <button className="bg-blue-0 rounded-lg hover:scale-105 transition hover:bg-lightBlue-300">
@@ -85,7 +109,7 @@ const DietPlan = () => {
                 {mobileView ? "" : "Add Foods"}
               </button>
             </Link>
-            <Link to="/assign-diet-plan">
+            <Link to="/view-all-users">
               <button className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
                 <span className="icon-[mdi--food] mr-2" /> Assign Diet Plans
               </button>

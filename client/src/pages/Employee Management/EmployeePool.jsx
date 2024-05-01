@@ -16,7 +16,7 @@ function UserPool() {
     const fetchEmployees = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/employee/getEmployees"
+          "http://localhost:3000/api/employee/getEmployees" //view endpoint
         );
         setEmployees(response.data.data.employees);
         console.log(response.data);
