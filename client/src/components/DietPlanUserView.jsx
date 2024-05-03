@@ -14,7 +14,7 @@ export default function DietPlanUserView({ userId }) {
           `http://localhost:3000/api/users/bioDataById/${id}`
         );
         setUser(response.data.data.bioData);
-        console.log(response.data.data);
+        console.log("bData", response.data.data);
         const nutrientLevels = JSON.stringify(
           response.data.data.nutrientLevels
         );
@@ -52,21 +52,21 @@ export default function DietPlanUserView({ userId }) {
               <img src={profImg} alt="Profile" />
             </div>
             <p className="font-semibold text-slate-500 mb-1">
-              Weight: {user.weight || "Not available"} kg
+              Weight: {user.Weight || "Not available"} kg
             </p>
             <p className="font-semibold text-slate-500 mb-1">
-              gender: {user.gender || "Not available"}
+              gender: {user.Gender || "Not available"}
             </p>
             <p className="font-semibold text-slate-500 mb-1">
-              Height: {user.height || "Not available"} cm
+              Height: {user.Height || "Not available"} cm
             </p>
             <p className="font-semibold text-slate-500 mb-1">
-              Purpose: {user.purpose || "Not available"}
+              Glucose_lvl: {user.Glucose_lvl || "Not available"}
             </p>
-            <p className="font-semibold text-slate-500 mb-1">Age: {user.age}</p>
             <p className="font-semibold text-slate-500 mb-1">
-              Health Condition: {user.healthCondition}
+              Cholesterol_lvl: {user.Cholesterol_lvl || "Not available"}
             </p>
+            <p className="font-semibold text-slate-500 mb-1">Age: {user.Age}</p>
           </div>
         </div>
       </div>

@@ -1,4 +1,3 @@
-import { get } from "mongoose";
 import UserBioData from "../models/userBioData.model.js";
 import calculateNutrientLevels from "../utils/nutrientCalc.js";
 import { ObjectId } from "mongodb";
@@ -20,6 +19,7 @@ export const getBioData = async (req, res) => {
     });
   }
 };
+
 export const getBioDataByUserId = async (req, res) => {
   try {
     console.log("Requested userId:", req.params.userId);
@@ -27,14 +27,14 @@ export const getBioDataByUserId = async (req, res) => {
     console.log("Converted userId to ObjectId:", userId);
 
     const bioData = await UserBioData.findOne({ userID: userId });
-    console.log("Retrieved bioData:", bioData.gender);
+    console.log("Retrieved bioData:", bioData);
 
     const nutrientLevels = calculateNutrientLevels(
-      bioData.weight,
-      bioData.gender,
-      bioData.height,
-      bioData.age,
-      bioData.purpose,
+      bioData.Weight,
+      bioData.Gender,
+      bioData.Height,
+      bioData.Age,
+      "bulking",
       bioData._id
     );
 

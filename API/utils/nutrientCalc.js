@@ -11,10 +11,10 @@ export default function calculateNutrientLevels(
 
   // Step 1: Calculate BMR
   let bmr;
-  if (gender === "male") {
-    bmr = 10 * weight + 6.25 * heightMeters - 5 * age + 5;
-  } else if (gender === "female") {
-    bmr = 10 * weight + 6.25 * heightMeters - 5 * age - 161;
+  if (gender === "Male") {
+    bmr = 10 * weight + 6.25 * heightMeters - 5;
+  } else if (gender === "Female") {
+    bmr = 10 * weight + 6.25 * heightMeters - 5;
   } else {
     throw new Error("Invalid gender");
   }

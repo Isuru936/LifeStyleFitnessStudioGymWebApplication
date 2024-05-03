@@ -1,24 +1,28 @@
 import mongoose from "mongoose";
 
 const quizzesSchema = new mongoose.Schema({
-  weight: {
+  Weight: {
     type: Number,
     required: true,
   },
-  height: {
+  Height: {
     type: Number,
     required: true,
   },
-  purpose: {
+  Cholesterol_lvl: {
+    type: Number,
+    required: true,
+  },
+  Glucose_lvl: {
+    type: Number,
+    required: true,
+  },
+  Gender: {
     type: String,
     required: true,
   },
-  gender: {
+  Age: {
     type: String,
-    required: true,
-  },
-  age: {
-    type: Number,
     required: true,
   },
   healthCondition: {
