@@ -4,6 +4,7 @@ import {
   deleteEmployee,
   getEmployee,
   getEmployees,
+  updateAttendance,
   updateEmployee,
 } from "../controllers/employee.controller.js";
 
@@ -14,5 +15,6 @@ router.get("/getEmployees", getEmployees);
 router.delete("/deleteEmployee/:id", deleteEmployee);
 router.get("/getEmployeeById/:id", getEmployee);
 router.patch("/updateEmployee/:id", updateEmployee);
+router.patch("/markAttendance/:id", updateAttendance);
 
 export default router;

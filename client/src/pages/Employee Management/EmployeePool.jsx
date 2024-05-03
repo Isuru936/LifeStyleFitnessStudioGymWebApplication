@@ -115,7 +115,7 @@ function UserPool() {
                               scope="col"
                               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
-                              Diet Plan
+                              Active
                             </th>
                           </tr>
                         </thead>
@@ -150,7 +150,11 @@ function UserPool() {
                                 {employee.telephone}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                {employee.dietPlan}
+                                {employee.attendance ? (
+                                  <div className="bg-green-600 w-5 h-5 rounded-full"></div>
+                                ) : (
+                                  <div className="bg-red-600 w-5 h-5 rounded-full"></div>
+                                )}
                               </td>
                             </tr>
                           ))}

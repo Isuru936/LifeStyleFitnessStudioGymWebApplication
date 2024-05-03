@@ -29,6 +29,11 @@ const employeeSchema = new mongoose.Schema({
     type: "String",
     required: "true",
   },
+  attendance: {
+    type: "boolean",
+    required: "false",
+    value: "false",
+  },
 });
 
 const Employee = mongoose.model("Employee", employeeSchema);

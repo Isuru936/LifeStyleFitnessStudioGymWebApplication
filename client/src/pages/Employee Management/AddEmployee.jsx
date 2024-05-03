@@ -23,6 +23,7 @@ function AddUsers() {
     nic: "",
     image:
       "https://firebasestorage.googleapis.com/v0/b/lsfs-1a314.appspot.com/o/7922268.png?alt=media&token=68706582-ebbf-4d7d-99ae-d633ee38e70f",
+    attendance: false,
   });
 
   const handleFileUpload = async (e) => {
