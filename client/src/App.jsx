@@ -73,7 +73,7 @@ function App() {
             {/* {Vinuka} */}
             <Route path="/contact-us" element={<ContactUs />} />
             {/* Thamalsha */}
-            {/* <Route path="/UserExercises" element={<UserExercises />} /> */}
+            <Route path="/UserExercises" element={<UserExercises />} />
             {/* Sewmini */}
             <Route
               path="/enter-payment-details"

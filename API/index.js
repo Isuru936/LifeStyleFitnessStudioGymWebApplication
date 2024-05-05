@@ -11,13 +11,10 @@ import paymentRouter from "./routes/payment.route.js";
 import workoutRoutes from "./routes/workoutRoutes.js";
 import quizRoute from "./routes/quiz.route.js";
 import cors from "cors";
-<<<<<<< HEAD
 import getUserRoute from "./routes/getUser.route.js";
-=======
 import { sendEmailRoute } from "./emailSender.js";
-import pdfGenerationRoute from './routes/Report.js'
+import pdfGenerationRoute from "./routes/Report.js";
 
->>>>>>> 10de4085a8735e87d7cce38123206f3692b4f3c5
 dotenv.config();
 
 const app = express();
@@ -54,10 +51,6 @@ app.use("/api/employee/", employeeRouter);
 app.use("/api/users/", userRouter);
 app.use("/api", workoutRoutes);
 app.use("/api/payments/", paymentRouter);
-<<<<<<< HEAD
 app.use("/api/getUsers/", getUserRoute);
-=======
-// Add the sendEmailRoute as a route handler
 app.post("/api/sendEmail", sendEmailRoute);
 app.use("/api", pdfGenerationRoute);
->>>>>>> 10de4085a8735e87d7cce38123206f3692b4f3c5

@@ -1,46 +1,47 @@
 import mongoose from "mongoose";
 
-const quizSchema = new mongoose.Schema({
+const quizSchema = new mongoose.Schema(
+  {
     userID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    email: { 
+    email: {
       type: String,
-      required: true
+      required: true,
     },
     age: {
       type: String,
-      required: true
+      required: true,
     },
     gender: {
       type: String,
-      required: true
+      required: true,
     },
     height: {
       type: String,
-      required: true
+      required: true,
     },
     weight: {
       type: String,
-      required: true
+      required: true,
     },
     NIC: {
       type: String,
-      required: true
+      required: true,
     },
     tele: {
       type: String,
-      required: true
+      required: true,
     },
-    smoker:{
+    smoker: {
       type: String,
-      required: true
+      required: true,
     },
-    alcoholic:{
+    alcoholic: {
       type: String,
-      required: true
+      required: true,
     },
     dietplan: [
       {
@@ -69,7 +70,8 @@ const quizSchema = new mongoose.Schema({
           required: false,
         },
       },
-    ],workoutplan: [
+    ],
+    workoutplan: [
       {
         name: {
           type: String,
@@ -85,8 +87,10 @@ const quizSchema = new mongoose.Schema({
         weight: Number, // Include weight field
       },
     ],
-  },{timestamps: true });
+  },
+  { timestamps: true }
+);
 
-const Quiz = mongoose.model("Quiz", quizSchema);
+const Quiz = mongoose.model("quizzes", quizSchema);
 
 export default Quiz;
