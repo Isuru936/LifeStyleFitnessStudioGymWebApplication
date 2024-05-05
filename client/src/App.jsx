@@ -15,9 +15,9 @@ import PaymentComplete from "./pages/Payment Management/PaymentComplete";
 import PaymentReview from "./pages/Payment Management/PaymentReview";
 import PaymentDetails from "./pages/Payment Management/PaymentDetails";
 
-import WorkoutPool from "./pages/WorkoutManagement/WorkouPool";
-import UserExercises from "./pages/WorkoutManagement/UserExercises";
-import AddWorkout from "./pages/WorkoutManagement/AddWorkout";
+// import WorkoutPool from "./pages/WorkoutManagement/WorkouPool";
+// import UserExercises from "./pages/WorkoutManagement/UserExercises";
+// import AddWorkout from "./pages/WorkoutManagement/AddWorkout";
 
 import InventoryAdd from "./pages/Inventory Management/InventoryAdd";
 import InventoryShow from "./pages/Inventory Management/InventoryShow";
@@ -35,6 +35,7 @@ import Quiz from "./pages/Profile Management/Quiz";
 import UserProfile from "./pages/Profile Management/UserProfile";
 import EditProfile from "./pages/Profile Management/EditProfile";
 import ChangePassword from "./pages/Profile Management/ChangePassword";
+
 function App() {
   return (
     <div>
@@ -46,7 +47,7 @@ function App() {
           {/* {Vinuka} */}
           <Route path="/contact-us" element={<ContactUs />} />
           {/* Thamalsha */}
-          <Route path="/UserExercises" element={<UserExercises />} />
+          {/* <Route path="/UserExercises" element={<UserExercises />} /> */}
           {/* Sewmini */}
           <Route
             path="/enter-payment-details"
@@ -84,8 +85,8 @@ function App() {
           {/* {Sewmini} */}
           <Route path="/payment-view" element={<ViewPayments />} />
           {/* {Vinuka} */}
-          <Route path="/workoutpool" element={<WorkoutPool />} />
-          <Route path="/AddWorkout" element={<AddWorkout />} />
+          {/* <Route path="/workoutpool" element={<WorkoutPool />} /> */}
+          {/* <Route path="/AddWorkout" element={<AddWorkout />} /> */}
 
           {/* {Umaya} */}
           <Route path="/add-inventory" element={<InventoryAdd />} />
