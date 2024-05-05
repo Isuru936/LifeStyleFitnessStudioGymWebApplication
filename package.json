@@ -22,6 +22,28 @@
     "@iconify-json/openmoji": "^1.1.49",
     "@iconify-json/skill-icons": "^1.1.8",
     "@react-pdf/renderer": "^3.4.4",
+<<<<<<< HEAD
+=======
+    "@material-ui/core": "^4.12.4",
+    "axios": "^1.6.8",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "html2canvas": "^1.4.1",
+    "file-saver": "^2.0.5",
+    "html5-qrcode": "^2.3.8",
+    "jspdf": "^2.5.1",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.2.4",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.13",
+    "nodemon": "^3.1.0",
+    "pdf-lib": "^1.17.1",
+    "qrcode.react": "^3.1.0",
+    "react-native-modern-qrscanner": "^1.0.8",
+    "react-pdf": "^8.0.0",
+    "react-qr-code": "^2.0.12",
+>>>>>>> 10de4085a8735e87d7cce38123206f3692b4f3c5
     "@sendgrid/mail": "^8.1.3",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
@@ -41,11 +63,17 @@
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.0",
     "parser": "^0.1.4",
+<<<<<<< HEAD
     "pdf-lib": "^1.17.1",
     "qrcode.react": "^3.1.0",
     "react-native-modern-qrscanner": "^1.0.8",
     "react-pdf": "^8.0.0",
     "react-qr-code": "^2.0.12"
+=======
+    "pdfmake": "^0.2.10",
+    "react-native-modern-qrscanner": "^1.0.8",
+    "react-toastify": "^10.0.5"
+>>>>>>> 10de4085a8735e87d7cce38123206f3692b4f3c5
   },
   "keywords": [],
   "description": ""

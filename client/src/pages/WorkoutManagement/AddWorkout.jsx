@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import bgImg from "../../assets/bg-Img.png";
 import SideBar from "../../components/SideBar";
 import { Link } from "react-router-dom";
+import { Icon } from "@iconify/react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AddWorkout() {
   const [workoutName, setWorkoutName] = useState("");
@@ -11,16 +14,26 @@ function AddWorkout() {
   const [imageUrl, setImageUrl] = useState("");
   const [category, setCategory] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state
+  const storage = firebase.storage();
 
-  const storage = firebase.storage(); // Access the storage object from the imported firebase object
+  useEffect(() => {
+    console.log("Updated imageUrl:", imageUrl);
+  }, [imageUrl]);
 
   const handleFileUpload = async (event) => {
-    const file = event.target.files[0];
-    const storageRef = storage.ref();
-    const imageRef = storageRef.child(`workoutImages/${Date.now()}`);
-    await imageRef.put(file);
-    const url = await imageRef.getDownloadURL();
-    setImageUrl(url);
+    try {
+      const file = event.target.files[0];
+      const storageRef = storage.ref();
+      const imageRef = storageRef.child(`workoutImages/${Date.now()}`);
+      await imageRef.put(file);
+      const url = await imageRef.getDownloadURL();
+      console.log("Firebase image URL:", url);
+      setImageUrl(url); // Set the imageUrl state
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      setError("Error uploading image.");
+    }
   };
 
   const handleCategoryChange = (event) => {
@@ -29,27 +42,28 @@ function AddWorkout() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true); // Set loading to true when submitting
     try {
-      // Save workout details (including image URL) to MongoDB
+      const requestBody = {
+        name: workoutName,
+        description: workoutDescription,
+        imageUrl: imageUrl,
+        category: category,
+      };
+      console.log("Request body:", requestBody);
       const response = await fetch("http://localhost:3000/api/workouts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: workoutName,
-          description: workoutDescription,
-          imageUrl: imageUrl,
-          category: category,
-        }),
+        body: JSON.stringify(requestBody),
       });
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message || "Failed to save workout.");
       }
-      // Handle successful submission, e.g., redirect to another page
-      console.log("Workout saved successfully");
-      // Clear form fields after successful submission
+      console.log("Response from backend:", data);
+      toast.success("Workout saved successfully");
       setWorkoutName("");
       setWorkoutDescription("");
       setImageUrl("");
@@ -57,6 +71,9 @@ function AddWorkout() {
     } catch (error) {
       console.error("Error saving workout:", error.message);
       setError(error.message || "Error saving workout.");
+      toast.error(error.message || "Error saving workout.");
+    } finally {
+      setLoading(false); // Set loading to false after submission
     }
   };
 
@@ -69,6 +86,7 @@ function AddWorkout() {
         backgroundPosition: "center",
       }}
     >
+      <ToastContainer />
       <div className="flex flex-row m-2 w-full justify-center">
         <div className="flex-col">
           <SideBar />
@@ -115,7 +133,9 @@ function AddWorkout() {
                         className="outline-none border-2 border-gray-100 rounded-lg p-2 w-full lg:w-96 mt-2 text-sm lg:text-base resize-y"
                         rows="5"
                         value={workoutDescription}
-                        onChange={(e) => setWorkoutDescription(e.target.value)}
+                        onChange={(e) =>
+                          setWorkoutDescription(e.target.value)
+                        }
                       />
                     </div>
                     <div className="mb-4 lg:mb-6">
@@ -155,10 +175,12 @@ function AddWorkout() {
                     </div>
                     <button
                       type="submit"
+                      disabled={!imageUrl || loading} // Disable button when imageUrl is empty or loading is true
                       className="mt-5 bg-orange-500 text-white p-2 w-full rounded-xl hover:bg-orange-600 transition text-sm lg:text-base"
                     >
-                      Save
+                      {loading ? "Saving..." : "Save"} {/* Button text changes based on loading state */}
                     </button>
+
                     <Link to="/">
                       <button className="mt-5 bg-blue-600 text-white p-2 w-full rounded-xl hover:bg-blue-700 transition text-sm lg:text-base">
                         Back
