@@ -12,9 +12,10 @@ function ViewAllUsers() {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/users/getUsers"
+          "http://localhost:3000/api/getUsers/getUsers"
         );
         const data = await response.json();
+        console.log(data);
         setUsers(data.data.users);
       } catch (error) {
         console.log(error);

@@ -54,7 +54,7 @@ const newPasswordChange = asyncHandler(async (req, res) => {
 // route POST /api/users
 //@access public
 const registerUser = asyncHandler(async (req, res) => {
-  const { username, email, fullName , password } = req.body;
+  const { username, email, fullName, password } = req.body;
 
   const userExists = await User.findOne({ email });
 
@@ -66,7 +66,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     username,
     details: {
-      fullName
+      fullName,
     },
     email,
     password,
@@ -103,9 +103,8 @@ const logoutUser = asyncHandler(async (req, res) => {
 // route GET /api/users/profile
 //@access private
 const getUserProfile = asyncHandler(async (req, res) => {
-
-  const { id} = req.params
-  const user = await User.findById(id)
+  const { id } = req.params;
+  const user = await User.findById(id);
 
   res.status(200).json(user);
 });
@@ -166,7 +165,6 @@ const oneTimePassword = asyncHandler(async (req, res) => {
   }
 });
 
-
 export {
   authUser,
   registerUser,
@@ -175,5 +173,5 @@ export {
   updateUserProfile,
   ConfirmPasswordAndChange,
   oneTimePassword,
-  newPasswordChange
+  newPasswordChange,
 };

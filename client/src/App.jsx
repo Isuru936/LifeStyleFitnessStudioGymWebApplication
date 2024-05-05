@@ -58,42 +58,48 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<CheckLogin><Login /></CheckLogin>} />
-          <Route element = {<ProtectedRouteCustomer/>}>
-          {/* Client Routes */}
-          {/* {Isuru} */}
-          <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
-          <Route path="/pdf/:id" element={<PDFGeneration />} />
-          {/* {Vinuka} */}
-          <Route path="/contact-us" element={<ContactUs />} />
-          {/* Thamalsha */}
-          {/* <Route path="/UserExercises" element={<UserExercises />} /> */}
-          {/* Sewmini */}
           <Route
-            path="/enter-payment-details"
-            element={<EnterPaymentDetails />}
+            path="/login"
+            element={
+              <CheckLogin>
+                <Login />
+              </CheckLogin>
+            }
           />
-          <Route path="/add-card" element={<AddCard />} />
-          <Route path="/payment-complete" element={<PaymentComplete />} />
-          <Route path="/payment-review" element={<PaymentReview />} />
-          <Route path="/payment-details" element={<PaymentDetails />} />
-          <Route
-            path="/membership-plan"
-            element={<MembershipPlanSelection />}
-          />
-          <Route path="/enter-payment" element={<EnterPaymentDetails />} />
-          {/* {Shafry} */}
+          <Route element={<ProtectedRouteCustomer />}>
+            {/* Client Routes */}
+            {/* {Isuru} */}
+            <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
+            {/* {Vinuka} */}
+            <Route path="/contact-us" element={<ContactUs />} />
+            {/* Thamalsha */}
+            {/* <Route path="/UserExercises" element={<UserExercises />} /> */}
+            {/* Sewmini */}
+            <Route
+              path="/enter-payment-details"
+              element={<EnterPaymentDetails />}
+            />
+            <Route path="/add-card" element={<AddCard />} />
+            <Route path="/payment-complete" element={<PaymentComplete />} />
+            <Route path="/payment-review" element={<PaymentReview />} />
+            <Route path="/payment-details" element={<PaymentDetails />} />
+            <Route
+              path="/membership-plan"
+              element={<MembershipPlanSelection />}
+            />
+            <Route path="/enter-payment" element={<EnterPaymentDetails />} />
+            {/* {Shafry} */}
           </Route>
+          <Route path="/pdf/:id" element={<PDFGeneration />} />
           <Route path="/test" element={<Test />} />
-          <Route path="/sign-up" element={<Signup/>} />
+          <Route path="/sign-up" element={<Signup />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/Quiz" element={<Quiz />} />
-          <Route path="/new-password" element={<NewPassword/>}/>
+          <Route path="/new-password" element={<NewPassword />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/otp" element={<OTP />} />
-          
           {/* Admin Routes */}
           {/* Isuru */}
           <Route path="/diet-plan" element={<DietPlan />} />
@@ -122,7 +128,6 @@ function App() {
           {/* Define route for editing workouts */}
           {/* <Route path="/workoutpool" element={<WorkoutPool />} />
           <Route path="/AddWorkout" element={<AddWorkout />} /> */}
-
           {/* {Umaya} */}
           <Route path="/add-inventory" element={<InventoryAdd />} />
           <Route path="/show-inventory" element={<InventoryShow />} />
@@ -133,7 +138,6 @@ function App() {
             path="/update-notifications"
             element={<NotificationUpdateDelete />}
           />
-        
         </Routes>
       </BrowserRouter>
     </AuthProvider>
