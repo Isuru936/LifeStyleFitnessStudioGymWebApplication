@@ -41,7 +41,7 @@ function ViewAllUsers() {
   };
 
   const navigateWorkoutPlan = (id) => {
-    navigate("/workoutpool");
+    navigate(`/workoutpool/${id}`); // Updated navigation to workout plan
   };
 
   return (
@@ -112,7 +112,7 @@ function ViewAllUsers() {
                 <td className="px-6 py-4 whitespace-nowrap border justify-center">
                   <button
                     className="rounded-full w-full p-1 flex justify-center text-slate-50 hover:bg-orange-500 bg-orange-700"
-                    onClick={navigateWorkoutPlan}
+                    onClick={() => navigateWorkoutPlan(user._id)} // Update onClick event
                   >
                     <Icon
                       icon="healthicons:exercise-yoga"
