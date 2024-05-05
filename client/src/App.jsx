@@ -48,11 +48,18 @@ import AddPaymentAdmin from "./pages/Payment Management/AddPaymentAdmin";
 import UpdatePaymentAdmin from "./pages/Payment Management/UpdatePaymentAdmin";
 import QRCodeScanner from "./pages/Attendance Tracking/QRCodeScanner";
 import Scanner from "./pages/Attendance Tracking/QRCodeScanner";
+import Test from "./pages/Profile Management/test";
+import OTP from "./pages/Profile Management/OTP";
+import { AuthProvider } from "./shared/context/auth.context";
+import ProtectedRouteCustomer from "./shared/context/PrivateRoute";
+import CheckLogin from "./shared/context/checkLogin";
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/login" element={<CheckLogin><Login /></CheckLogin>} />
+          <Route element = {<ProtectedRouteCustomer/>}>
           {/* Client Routes */}
           {/* {Isuru} */}
           <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
@@ -60,7 +67,7 @@ function App() {
           {/* {Vinuka} */}
           <Route path="/contact-us" element={<ContactUs />} />
           {/* Thamalsha */}
-          <Route path="/UserExercises" element={<UserExercises />} />
+          {/* <Route path="/UserExercises" element={<UserExercises />} /> */}
           {/* Sewmini */}
           <Route
             path="/enter-payment-details"
@@ -76,13 +83,17 @@ function App() {
           />
           <Route path="/enter-payment" element={<EnterPaymentDetails />} />
           {/* {Shafry} */}
-          <Route path="/" element={<Login />} />
-          <Route path="/sign-up" element={<Signup />} />
+          </Route>
+          <Route path="/test" element={<Test />} />
+          <Route path="/sign-up" element={<Signup/>} />
           <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/new-password" element={<ChangePassword />} />
+          <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/Quiz" element={<Quiz />} />
+          <Route path="/new-password" element={<NewPassword/>}/>
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/editProfile" element={<EditProfile />} />
+          <Route path="/otp" element={<OTP />} />
+          
           {/* Admin Routes */}
           {/* Isuru */}
           <Route path="/diet-plan" element={<DietPlan />} />
@@ -109,6 +120,9 @@ function App() {
           <Route path="/AddWorkout" element={<AddWorkout />} />
           <Route path="/editWorkout/:id" element={<EditWorkout />} />{" "}
           {/* Define route for editing workouts */}
+          {/* <Route path="/workoutpool" element={<WorkoutPool />} />
+          <Route path="/AddWorkout" element={<AddWorkout />} /> */}
+
           {/* {Umaya} */}
           <Route path="/add-inventory" element={<InventoryAdd />} />
           <Route path="/show-inventory" element={<InventoryShow />} />
@@ -119,9 +133,10 @@ function App() {
             path="/update-notifications"
             element={<NotificationUpdateDelete />}
           />
+        
         </Routes>
       </BrowserRouter>
-    </div>
+    </AuthProvider>
   );
 }
 
