@@ -27,6 +27,14 @@ function UserPool() {
       }
     };
     fetchEmployees();
+
+    const intervalId = setInterval(() => {
+      fetchEmployees(); // Fetch data every 5 seconds
+    }, 5000);
+
+    return () => {
+      clearInterval(intervalId); // Cleanup interval on component unmount
+    };
   }, []);
 
   const handleNavigate = (id) => {
@@ -76,8 +84,6 @@ function UserPool() {
                   </div>
                   {loading ? (
                     <div>Loading...</div>
-                  ) : error ? (
-                    <div>{error}</div>
                   ) : (
                     <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                       <table className="min-w-fit divide-y divide-gray-200">

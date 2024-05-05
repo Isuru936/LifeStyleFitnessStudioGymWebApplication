@@ -2,11 +2,13 @@ import axios from "axios";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import CryptoJS from "crypto-js"; // Import CryptoJS for decryption
 
 function Scanner() {
   const [scanResult, setScanResult] = useState(null);
   const [resultJSON, setResultJSON] = useState(null);
   const [error, setError] = useState(null);
+  const [decrytped, setDecrytped] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,16 +17,17 @@ function Scanner() {
     age: 0,
     telephone: "",
     nic: "",
+    attendance: false,
   });
 
-  const handleAttendance = async () => {
+  const handleAttendance = async (mark) => {
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/employee/markAttendance/${scanResult}`,
-        { attendance: true }
+        `http://localhost:3000/api/employee/markAttendance/${decrytped}`,
+        { attendance: mark }
       );
       console.log(response.data);
-      toast.success("Attendance marked successfully.");
+      toast.success("Record marked successfully.");
       toast.info("Refreshing page...");
       setTimeout(() => {
         window.location.reload();
@@ -44,10 +47,40 @@ function Scanner() {
       setScanResult(result);
       setResultJSON({ _id: result });
 
+      console.log(result);
+      try {
+        const decodedResult = decodeURIComponent(result);
+        console.log("Decoded Result:", decodedResult);
+
+        const decryptedId = CryptoJS.AES.decrypt(
+          decodedResult,
+          "secret passphrase"
+        ).toString(CryptoJS.enc.Utf8);
+
+        console.log("Decrypted ID:", decryptedId);
+        setDecrytped(decryptedId);
+        const fetchEmployee = async () => {
+          try {
+            const response = await axios.get(
+              `http://localhost:3000/api/employee/getEmployeeById/${decryptedId}`
+            );
+            console.log(response.data);
+            setFormData(response.data.data.employee);
+          } catch (error) {
+            console.log("Error fetching employee.", error);
+          }
+        };
+
+        fetchEmployee();
+        console.log(decrytped);
+      } catch (error) {
+        console.log("Error decrypting:", error);
+      }
+
       const fetchEmployee = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:3000/api/employee/getEmployeeById/${result}`
+            `http://localhost:3000/api/employee/getEmployeeById/${decrytped}`
           );
           console.log(response.data);
           setFormData(response.data.data.employee);
@@ -56,7 +89,7 @@ function Scanner() {
         }
       };
 
-      fetchEmployee();
+      // fetchEmployee();
     }
 
     function handleError(errorMessage) {
@@ -79,9 +112,8 @@ function Scanner() {
           <img
             src={formData.image}
             alt="profilePic"
-            className="mb-4 rounded-full mx-auto"
+            className="mb-4 rounded-full mx-auto w-32 h-32"
           />
-          {resultJSON && <h1 className="mb-4">ID: {resultJSON._id}</h1>}
           <h1 className="mb-4">
             <span className="font-bold">Name:</span>{" "}
             {formData.name || "Not Available"}
@@ -93,14 +125,26 @@ function Scanner() {
             Telephone: {formData.telephone || "Not Available"}
           </h1>
           <h1 className="mb-4">NIC: {formData.nic || "Not Available"}</h1>
-          <button
-            className="bg-green-500 mr-5 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => {
-              handleAttendance();
-            }}
-          >
-            Mark Attendance
-          </button>
+          {formData.attendance ? (
+            <button
+              className="bg-red-500 mr-5 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => {
+                handleAttendance(false);
+              }}
+            >
+              Mark Leave
+            </button>
+          ) : (
+            <button
+              className="bg-green-500 mr-5 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => {
+                handleAttendance(true);
+              }}
+            >
+              Mark Attendance
+            </button>
+          )}
+          <p> attendance: {formData.attendance ? "true" : "false"}</p>
           <button
             className="bg-blue-500 mr-5 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => {

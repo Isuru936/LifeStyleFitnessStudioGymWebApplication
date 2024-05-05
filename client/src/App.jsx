@@ -24,6 +24,8 @@ import WorkoutPool from "./pages/WorkoutManagement/WorkouPool";
 import UserExercises from "./pages/WorkoutManagement/UserExercises";
 import AddWorkout from "./pages/WorkoutManagement/AddWorkout";
 
+import PDFGeneration from "./pages/PDF Generation/InsertDataToPDF.jsx";
+
 import InventoryAdd from "./pages/Inventory Management/InventoryAdd";
 import InventoryShow from "./pages/Inventory Management/InventoryShow";
 import InventoryUpdateDlt from "./pages/Inventory Management/InventoryUpdateDlt";
@@ -54,6 +56,7 @@ function App() {
           {/* Client Routes */}
           {/* {Isuru} */}
           <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
+          <Route path="/pdf/:id" element={<PDFGeneration />} />
           {/* {Vinuka} */}
           <Route path="/contact-us" element={<ContactUs />} />
           {/* Thamalsha */}
@@ -80,16 +83,13 @@ function App() {
           <Route path="/Quiz" element={<Quiz />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/editProfile" element={<EditProfile />} />
-
           {/* Admin Routes */}
           {/* Isuru */}
           <Route path="/diet-plan" element={<DietPlan />} />
           <Route path="/assign-diet-plan/:id" element={<AssignDietPlan />} />
           <Route path="/add-food" element={<AddFood />} />
           <Route path="/update-food/:id" element={<UpdateFood />} />
-
           <Route path="/QR-CodeScanner" element={<Scanner />} />
-
           {/* Thamalsha */}
           <Route path="/employee-pool" element={<UserPool />} />
           <Route path="/add-employee" element={<AddUsers />} />
@@ -102,21 +102,17 @@ function App() {
           <Route path="/payment-view" element={<ViewPayments />} />
           <Route path="/add-payment/:id" element={<AddPaymentAdmin />} />
           <Route path="/update-payment/:id" element={<UpdatePaymentAdmin />} />
-
           {/* Shafry */}
           <Route path="/view-all-users" element={<ViewAllUsers />} />
-
           {/* {Vinuka} */}
           <Route path="/workoutpool" element={<WorkoutPool />} />
           <Route path="/AddWorkout" element={<AddWorkout />} />
-          <Route path="/editWorkout/:id" element={<EditWorkout/>} /> {/* Define route for editing workouts */}
-    
-
+          <Route path="/editWorkout/:id" element={<EditWorkout />} />{" "}
+          {/* Define route for editing workouts */}
           {/* {Umaya} */}
           <Route path="/add-inventory" element={<InventoryAdd />} />
           <Route path="/show-inventory" element={<InventoryShow />} />
           <Route path="/update-inventory" element={<InventoryUpdateDlt />} />
-
           <Route path="/create-notification" element={<CreateNotification />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route

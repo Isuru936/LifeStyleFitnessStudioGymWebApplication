@@ -3,6 +3,7 @@ import {
   addEmployee,
   deleteEmployee,
   getEmployee,
+  getEmployeeByIdDecrypt,
   getEmployees,
   updateAttendance,
   updateEmployee,
@@ -14,6 +15,8 @@ router.post("/addEmployee", addEmployee);
 router.get("/getEmployees", getEmployees);
 router.delete("/deleteEmployee/:id", deleteEmployee);
 router.get("/getEmployeeById/:id", getEmployee);
+
+router.get("/decryptAndGetId/:id", getEmployeeByIdDecrypt);
 router.patch("/updateEmployee/:id", updateEmployee);
 router.patch("/markAttendance/:id", updateAttendance);
 

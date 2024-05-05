@@ -38,7 +38,6 @@ function AddUsers() {
         const url = await snapshot.ref.getDownloadURL();
         setFormData({ ...formData, image: url });
         notify("success", "", "Image uploaded successfully");
-        navigate("/user-pool");
       } catch (error) {
         console.error("Error uploading file:", error);
         alert("Failed to upload file. Please try again.");
@@ -64,7 +63,6 @@ function AddUsers() {
         }
       );
       notify("success", "", "New employee added successfully");
-      navigate("/employee-pool");
     } catch (error) {
       console.error("Error adding employee:", error);
       notify("error", "", "Failed to add new employee");
@@ -195,18 +193,17 @@ function AddUsers() {
                   />{" "}
                   Add User
                 </button>
-              </form>
-              <div className="flex flex-row justify-end w-auto mr-96">
-                <Link to="/user-pool">
+                <Link to="/employee-pool">
                   <button className="p-3 bg-white rounded-xl text-black border font-bold mr-5 mt-5 mb-10 hover:bg-slate-100">
                     <span
                       className="icon-[ic--twotone-system-security-update-good] mr-2"
+                      type="button"
                       style={{ width: "20px", height: "20px" }}
                     />{" "}
                     Back
                   </button>
                 </Link>
-              </div>
+              </form>
             </div>
           </div>
         </div>

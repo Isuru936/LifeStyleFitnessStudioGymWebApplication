@@ -1,4 +1,5 @@
 import Employee from "../models/employee.model.js";
+import CryptoJS from "crypto-js";
 
 export const addEmployee = async (req, res) => {
   try {
@@ -98,6 +99,31 @@ export const updateAttendance = async (req, res) => {
         runValidators: true,
       }
     );
+    res.status(200).json({
+      status: "success",
+      data: {
+        employee,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+export const getEmployeeByIdDecrypt = async (req, res) => {
+  try {
+    // Decode and decrypt the ID received from the request params
+    const decryptedId = CryptoJS.AES.decrypt(
+      req.params.id,
+      "secret passphrase"
+    ).toString(CryptoJS.enc.Utf8);
+
+    console.log(decryptedId);
+
+    const employee = await Employee.findById(decryptedId);
     res.status(200).json({
       status: "success",
       data: {
