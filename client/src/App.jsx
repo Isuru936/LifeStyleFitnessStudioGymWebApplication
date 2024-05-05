@@ -107,7 +107,7 @@ function App() {
           <Route path="/view-all-users" element={<ViewAllUsers />} />
 
           {/* {Vinuka} */}
-          <Route path="/workoutpool" element={<WorkoutPool />} />
+          <Route path="/workoutpool/:id" element={<WorkoutPool />} />
           <Route path="/AddWorkout" element={<AddWorkout />} />
           <Route path="/editWorkout/:id" element={<EditWorkout/>} /> {/* Define route for editing workouts */}
     

@@ -5,7 +5,7 @@ import bgImg from "../../assets/bg-Img.png";
 import SideBar from "../../components/SideBar";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import exclamationCircleOutlined from "@iconify-icons/ant-design/exclamation-circle-outlined";
+
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 
@@ -176,7 +176,7 @@ function EditWorkout() {
                       htmlFor="file-upload"
                       className="font-semibold cursor-pointer text-sm lg:text-base text-blue-600 flex items-center"
                     >
-                      <Icon icon={exclamationCircleOutlined} />
+                     
                       Choose an image
                     </label>
                     <input

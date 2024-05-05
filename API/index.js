@@ -7,6 +7,9 @@ import userRouter from "./routes/user.route.js";
 import paymentRouter from "./routes/payment.route.js";
 import workoutRoutes from './routes/workoutRoutes.js';
 import cors from "cors";
+import { sendEmailRoute } from "./emailSender.js";
+import pdfGenerationRoute from './routes/Report.js'
+
 dotenv.config();
 
 const app = express();
@@ -27,3 +30,6 @@ app.use("/api/employee/", employeeRouter);
 app.use("/api/users/", userRouter);
 app.use('/api', workoutRoutes);
 app.use("/api/payments/", paymentRouter);
+// Add the sendEmailRoute as a route handler
+app.post("/api/sendEmail", sendEmailRoute);
+app.use("/api", pdfGenerationRoute);
