@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LOGO from "../../assets/Logo.png";
 import MENU from "../../assets/MENU.png";
 import model from "../../assets/model.jpg";
 import gym from "../../assets/gym.jpg";
 import bg from "../../assets/860.jpg";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../shared/context/auth.context";
+import axios from "axios";
 
 const UserProfile = () => {
+
+  const Auth = useContext(AuthContext)
+  const [profile , setProfile] = useState({});
+
+  useEffect(() => {
+    axios
+    .get(`http://localhost:3000//api/users/${Auth.userID}`)
+    .then((response) => {
+      setProfile(response.data)
+      console.log(response.data)
+    })
+    .catch((error) => {
+      console.log(error);
+      Toast("Something went wrong", "error");
+    });
+  })
   return (
-    <div className="bg-gray-200 h-full relative">
+    <div className="bg-gray-200 h-screen lg:h-full relative">
       <img
         src={bg}
         alt="background"
@@ -29,7 +47,7 @@ const UserProfile = () => {
           <div className="w-full h-[250px]">
             <img
               src={gym}
-              className="w-full h-full rounded-tl-lg rounded-tr-lg"
+              className="w-full h-full rounded-tl-lg rounded-tr-lg object-cover"
               alt="Profile Background"
             />
           </div>
@@ -40,7 +58,7 @@ const UserProfile = () => {
               alt="Profile"
             />
             <div className="flex items-center mt-2">
-              <label className="text-2xl text-black font-bold">Micheal</label>
+              <label className="text-2xl text-black font-bold"></label>
             </div>
           </div>
           <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
@@ -50,7 +68,7 @@ const UserProfile = () => {
                   <span>Update Profile</span>
                 </button>
               </Link>
-              <Link to="/new-password">
+              <Link to="/change-password">
                 <button className="flex items-center bg-orange-600 hover:bg-orange-700 text-gray-100  rounded text-[12px]  transition duration-100 w-[130px] h-7 justify-center">
                   <span>Change Password</span>
                 </button>
@@ -85,7 +103,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center bg-white p-2 absolute bottom-0 left-0 w-full">
+      <div className="flex justify-center bg-white absolute bottom-0 left-0 w-full">
         <p className="text-black">Copyright© All rights Reserved.</p>
       </div>
     </div>

@@ -1,11 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import wmodel from "../../assets/dc907d1437465e2b0d94230b9086304c.png";
 import logo from "../../assets/Logo.png";
-import { Link } from "react-router-dom";
+import { HiEye, HiEyeOff } from "react-icons/hi";
+import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
+import Toast from "../../shared/toast/Toast";
 
 export const NewPassword = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [NewPassword, setNewPassword] = useState("");
+  const [ConfirmPassword, setConfirmPassword] = useState("");
+  const [touch, setTouch] = useState(false);
+
+  const handleSave = () => {
+    axios
+      .put("/api/users/newpassword", {
+        mail: location.state.email,
+        NewPassword: NewPassword,
+      })
+      .then((response) => {
+        if (response.data.message === "Password updated successfully") {
+          Toast("Password updated successfully", "success");
+          navigate("/login")
+        }
+      })
+      .catch((error) => {
+        Toast("Current Password is Invalid", "error");
+      });
+  };
+
+  const toggleShowNewPassword = () => {
+    setShowNewPassword(!showNewPassword);
+  };
+
+  const toggleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   return (
-    <div className="bg-white">
+    <div className="absolute h-screen w-screen lg:w-screen flex justify-center align-middle">
       <img
         src={wmodel}
         className="absolute inset-0 w-full h-full object-cover"
@@ -16,49 +52,69 @@ export const NewPassword = () => {
         className="w-[107px] h-12 absolute bottom-0 right-0 mb-4 mr-4"
         alt="background"
       />
-      <div className=" bg-white bg-opacity-40 rounded-[20px] border border-stone-800 backdrop-blur-sm justify-center p-6 shadow-lg backdrop filter relative">
-        <div>
-          <h1 className="text-center static text-neutral-950 text-xl mb-6 font-bold font-['Josefin Slab']">
-            Lifestyle Fitness Studio
-          </h1>
+      <div className=" w-fit flex h-screen ">
+        <div className="bg-opacity-40 bg-white align-middle w-fit h-fit mt-auto mb-auto rounded-xl border border-stone-800 backdrop-blur-sm justify-center p-6 shadow-lg backdrop filter relative lg:p-10">
           <div>
-            <h2 className="text-center static text-stone-800 text-x font-bold font-['Inria Sans'] mb-4">
-              Enter A New Password.
-            </h2>
-            <div className="flex justify-center">
-              <form action="">
-                <div className="h-5 text-black text-sm font-normal font-['Inria Sans'] mb-2 ">
-                  <label htmlFor="Password">New Password</label>
+            <h1 className="text-center static text-neutral-980 text-2xl mb-6 font-bold font-['Josefin Slab']">
+              Lifestyle Fitness Studio
+            </h1>
+            <div>
+              <h2 className="text-xl text-center static text-stone-800 font-bold font-['Inria Sans'] mb-4">
+                Enter A New Password.
+              </h2>
+              <div className="flex justify-center">
+                <div>
+                  <div className=" h-5 text-black text-lg font-normal font-['Inria Sans'] mb-2 ">
+                    <label htmlFor="Password">New Password</label>
+                  </div>
+                  <div className="mb-5 relative">
+                    <input
+                      type={showNewPassword ? "text" : "password"}
+                      className="rounded-[10px] bg-gray-500 opacity-65 h-7 w-full"
+                      onChange={(event) => setNewPassword(event.target.value)}
+                    />
+                    <button className="" onClick={toggleShowNewPassword}>
+                      {showNewPassword ? <HiEyeOff /> : <HiEye />}
+                    </button>
+                  </div>
+                  <div className=" h-5 text-black text-lg font-normal font-['Inria Sans'] mb-2">
+                    <label htmlFor="Password">Confirm Password</label>
+                  </div>
+                  <div className="mb-5">
+                    <input
+                      onBlur={() => setTouch(true)}
+                      className="rounded-[10px] bg-gray-500 opacity-65 h-7 w-full"
+                      type="password"
+                      id="confirm_password"
+                      onChange={(event) =>
+                        setConfirmPassword(event.target.value)
+                      }
+                    />
+                  </div>
+                  {touch && NewPassword !== ConfirmPassword && (
+                    <h2 className="text-red-700">Password Mismatch </h2>
+                  )}
+                  <div className="flex justify-center mb-3">
+                    <button
+                      className={`text-xl w-[100px] h-[45px] ${
+                        NewPassword !== ConfirmPassword || NewPassword === ""
+                          ? "bg-gray-600"
+                          : "bg-amber-600"
+                      } rounded-[10px]`}
+                      type="submit"
+                      onClick={handleSave}
+                      disabled={
+                        NewPassword !== ConfirmPassword || NewPassword === ""
+                      }
+                    >
+                      Submit
+                    </button>
+                  </div>
+                  <label className="flex justify-center text-black opacity-75 mt-7">
+                    "Decipline Work Miracles."
+                  </label>
                 </div>
-                <div className="mb-5">
-                  <input
-                    className="rounded-[10px] bg-gray-500 opacity-65"
-                    type="password"
-                    id="new_password"
-                  />
-                </div>
-                <div className="h-5 text-black text-sm font-normal font-['Inria Sans'] mb-2 ">
-                  <label htmlFor="Password">Confirm Password</label>
-                </div>
-                <div className="mb-5">
-                  <input
-                    className="rounded-[10px] bg-gray-500 opacity-65"
-                    type="password"
-                    id="confirm_password"
-                  />
-                </div>
-                <div className="flex justify-center mb-3">
-                  <button
-                    className=" w-[108px] h-[35px] bg-amber-600 rounded-[10px]"
-                    type="submit"
-                  >
-                    Login
-                  </button>
-                </div>
-                <label className="flex justify-center text-black opacity-50 mt-7">
-                  "Decipline Work Miracles."
-                </label>
-              </form>
+              </div>
             </div>
           </div>
         </div>

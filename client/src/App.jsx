@@ -15,9 +15,9 @@ import PaymentComplete from "./pages/Payment Management/PaymentComplete";
 import PaymentReview from "./pages/Payment Management/PaymentReview";
 import PaymentDetails from "./pages/Payment Management/PaymentDetails";
 
-import WorkoutPool from "./pages/WorkoutManagement/WorkouPool";
-import UserExercises from "./pages/WorkoutManagement/UserExercises";
-import AddWorkout from "./pages/WorkoutManagement/AddWorkout";
+// import WorkoutPool from "./pages/WorkoutManagement/WorkouPool";
+// import UserExercises from "./pages/WorkoutManagement/UserExercises";
+// import AddWorkout from "./pages/WorkoutManagement/AddWorkout";
 
 import InventoryAdd from "./pages/Inventory Management/InventoryAdd";
 import InventoryShow from "./pages/Inventory Management/InventoryShow";
@@ -35,18 +35,25 @@ import Quiz from "./pages/Profile Management/Quiz";
 import UserProfile from "./pages/Profile Management/UserProfile";
 import EditProfile from "./pages/Profile Management/EditProfile";
 import ChangePassword from "./pages/Profile Management/ChangePassword";
+import Test from "./pages/Profile Management/test";
+import OTP from "./pages/Profile Management/OTP";
+import { AuthProvider } from "./shared/context/auth.context";
+import ProtectedRouteCustomer from "./shared/context/PrivateRoute";
+import CheckLogin from "./shared/context/checkLogin";
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/login" element={<CheckLogin><Login /></CheckLogin>} />
+          <Route element = {<ProtectedRouteCustomer/>}>
           {/* Client Routes */}
           {/* {Isuru} */}
           <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
           {/* {Vinuka} */}
           <Route path="/contact-us" element={<ContactUs />} />
           {/* Thamalsha */}
-          <Route path="/UserExercises" element={<UserExercises />} />
+          {/* <Route path="/UserExercises" element={<UserExercises />} /> */}
           {/* Sewmini */}
           <Route
             path="/enter-payment-details"
@@ -62,14 +69,17 @@ function App() {
           />
           <Route path="/enter-payment" element={<EnterPaymentDetails />} />
           {/* {Shafry} */}
-          <Route path="/" element={<Login />} />
-          <Route path="/sign-up" element={<Signup />} />
+          </Route>
+          <Route path="/test" element={<Test />} />
+          <Route path="/sign-up" element={<Signup/>} />
           <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/new-password" element={<ChangePassword />} />
+          <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/Quiz" element={<Quiz />} />
+          <Route path="/new-password" element={<NewPassword/>}/>
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/editProfile" element={<EditProfile />} />
-
+          <Route path="/otp" element={<OTP />} />
+          
           {/* Admin Routes */}
           {/* Isuru */}
           <Route path="/diet-plan" element={<DietPlan />} />
@@ -84,8 +94,8 @@ function App() {
           {/* {Sewmini} */}
           <Route path="/payment-view" element={<ViewPayments />} />
           {/* {Vinuka} */}
-          <Route path="/workoutpool" element={<WorkoutPool />} />
-          <Route path="/AddWorkout" element={<AddWorkout />} />
+          {/* <Route path="/workoutpool" element={<WorkoutPool />} />
+          <Route path="/AddWorkout" element={<AddWorkout />} /> */}
 
           {/* {Umaya} */}
           <Route path="/add-inventory" element={<InventoryAdd />} />
@@ -98,9 +108,10 @@ function App() {
             path="/update-notifications"
             element={<NotificationUpdateDelete />}
           />
+        
         </Routes>
       </BrowserRouter>
-    </div>
+    </AuthProvider>
   );
 }
 
