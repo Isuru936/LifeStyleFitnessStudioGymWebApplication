@@ -31,7 +31,7 @@ export const getBioDataByUserId = async (req, res) => {
 
     const nutrientLevels = calculateNutrientLevels(
       bioData.Weight,
-      bioData.Gender,
+      "Male",
       bioData.Height,
       bioData.Age,
       "bulking",

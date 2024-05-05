@@ -41,7 +41,7 @@ export default function AssignDietPlan() {
   useEffect(() => {
     fetchFoods();
     console.log(id);
-    getRecommendedNutrient();
+    // getRecommendedNutrient();
   }, []);
 
   const addToSelectedFoods = (food) => {

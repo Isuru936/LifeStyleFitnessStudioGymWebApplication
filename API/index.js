@@ -14,6 +14,7 @@ import cors from "cors";
 import getUserRoute from "./routes/getUser.route.js";
 import { sendEmailRoute } from "./emailSender.js";
 import pdfGenerationRoute from "./routes/Report.js";
+import BioDataRoutes from "./routes/bioData.route.js";
 
 dotenv.config();
 
@@ -54,3 +55,4 @@ app.use("/api/payments/", paymentRouter);
 app.use("/api/getUsers/", getUserRoute);
 app.post("/api/sendEmail", sendEmailRoute);
 app.use("/api", pdfGenerationRoute);
+app.use("/api/bioData/", BioDataRoutes);

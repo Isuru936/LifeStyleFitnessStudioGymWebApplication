@@ -11,7 +11,7 @@ export default function DietPlanUserView({ userId }) {
     try {
       const fetchUser = async () => {
         const response = await axios.get(
-          `http://localhost:3000/api/users/bioDataById/${id}`
+          `http://localhost:3000/api/bioData/bioDataById/${id}`
         );
         setUser(response.data.data.bioData);
         console.log("bData", response.data.data);
