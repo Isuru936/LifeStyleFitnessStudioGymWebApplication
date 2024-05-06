@@ -1,8 +1,10 @@
-const express = require('express');
+import express from 'express';
+import { createMessage, getNotifications, markNotificationAsRead } from '../controllers/Notification.controller.js';
+
 const router = express.Router();
-const messageController = require('../controllers/messageController');
 
-// POST route to create a new message
-router.post('/CreateMsg', createMessage);
+router.post('/create-notification', createMessage);
+router.get('/notifications', getNotifications);
+router.put('/notifications/:id', markNotificationAsRead);
 
-module.exports = router;
+export default router;

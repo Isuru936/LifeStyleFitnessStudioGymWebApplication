@@ -1,5 +1,3 @@
-
-
 import Inventory from "../models/inventory.model.js";
 
 export const addInventory = async (req, res) => {
@@ -36,6 +34,21 @@ export const getInventory = async (req, res) => {
   }
 };
 
+export const getInventoryById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Find the inventory item by ID
+    const inventoryItem = await Inventory.findById(id);
+    if (!inventoryItem) {
+      return res.status(404).json({ message: "Inventory item not found" });
+    }
+    res.status(200).json({ inventoryItem });
+  } catch (error) {
+    console.error("Error fetching inventory item by ID:", error);
+    res.status(500).json({ message: "Failed to fetch inventory item" });
+  }
+};
+
 export const deleteInventoryItem = async (req, res) => {
   try {
     const { id } = req.params;
@@ -69,9 +82,18 @@ export const updateInventoryItem = async (req, res) => {
     console.error("Error updating inventory item:", error);
     res.status(500).json({ message: "Failed to update inventory item" });
   }
-  // res.status(200).json({ message: "Inventory item updated successfully" });
-  // } catch (error) {
-  //   console.error("Error updating inventory item:", error);
-  //   res.status(500).json({ message: "Failed to update inventory item" });
-  // }
+};
+
+export const searchInventoryByItemName = async (req, res) => {
+  try {
+    const { itemName } = req.query;
+    // Perform a case-insensitive search using regex
+    const inventoryItems = await Inventory.find({
+      itemName: { $regex: new RegExp(itemName, "i") },
+    });
+    res.json({ inventoryItems });
+  } catch (error) {
+    console.error("Error searching inventory by itemName:", error);
+    res.status(500).json({ message: "Failed to search inventory by itemName" });
+  }
 };

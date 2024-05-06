@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import backgroundImage from "../../assets/sim.jpg";
 import SideBar from "../../components/SideBar";
+import { Link } from "react-router-dom";
 
 function NewCreateNotification() {
   const [subject, setSubject] = useState("");
@@ -10,7 +11,7 @@ function NewCreateNotification() {
   const handleSubmit = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/messages/create",
+        "http://localhost:3000/api/messages/create-notification",
         {
           method: "POST",
           headers: {
@@ -27,6 +28,7 @@ function NewCreateNotification() {
       if (response.ok) {
         // Message created successfully
         console.log("Message created successfully");
+        alert("Notified Successfully");
         // Reset form fields
         setSubject("");
         setMessage("");
@@ -107,9 +109,11 @@ function NewCreateNotification() {
                   >
                     Create
                   </button>
-                  <button className="bg-orange-500 text-white py-2 px-4 rounded">
-                    Back
-                  </button>
+                  <Link to="/notifications">
+                    <button className="bg-orange-500 text-white py-2 px-4 rounded">
+                      Back
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

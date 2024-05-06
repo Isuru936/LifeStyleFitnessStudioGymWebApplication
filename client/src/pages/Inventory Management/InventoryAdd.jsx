@@ -3,6 +3,7 @@ import SideBar from "../../components/SideBar";
 import backgroundImage from "../../assets/sim.jpg";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
+import { Link } from "react-router-dom";
 
 function InventoryAdd() {
   const [itemName, setItemName] = useState("");
@@ -45,19 +46,20 @@ function InventoryAdd() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: itemName,
+          itemName,
           description,
           status,
           // imageUrl,
         }),
       });
+      console.log(itemName, description, status);
 
       if (response.ok) {
         setSuccessMessage("Inventory item added successfully");
+        alert("Inventory Added");
         setItemName("");
         setDescription("");
         setStatus("underMaintenance");
-        setImageUrl("");
       } else {
         setErrorMessage("Failed to add inventory item");
       }
@@ -150,30 +152,14 @@ function InventoryAdd() {
                   >
                     Add Inventory
                   </button>
-                </div>
-              </div>
-              <div className="w-96 mt-0 ">
-                <div className="w-full h-96 border border-dashed rounded-lg flex flex-col items-center justify-center mx-auto">
-                  <img
-                    // src={imageUrl}
-                    alt="Uploaded"
-                    className="w-80 h-80 ml-4"
-                  />
-                  <div className="mt-4 text-center">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      // onChange={handleFileUpload}
-                      style={{ display: "none" }}
-                      id="imageUpload"
-                    />
-                    <label
-                      htmlFor="imageUpload"
-                      className="bg-blue-500 text-white py-2 px-4 rounded cursor-pointer"
+                  <Link to="/show-inventory">
+                    <button
+                      className="bg-slate-500 ml-5 text-white py-2 px-4 rounded"
+                      onClick={handleAddInventory}
                     >
-                      Add Image
-                    </label>
-                  </div>
+                      Back{" "}
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

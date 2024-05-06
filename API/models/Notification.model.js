@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const messageSchema = new mongoose.Schema({
   subject: {
@@ -12,9 +12,13 @@ const messageSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  read: {
+    type: Boolean,
+    default: false
   }
 });
 
 const Message = mongoose.model('Message', messageSchema);
 
-module.exports = Message;
+export default Message;
