@@ -7,43 +7,35 @@ const quizSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    Age: {
+    email: {
       type: String,
       required: true,
     },
-    Gender: {
+    age: {
       type: String,
       required: true,
     },
-    Height: {
+    gender: {
       type: String,
       required: true,
     },
-    Weight: {
+    height: {
       type: String,
       required: true,
     },
-    Systolic_BP: {
+    weight: {
+      type: Number,
+      required: true,
+    },
+    tele: {
       type: String,
       required: true,
     },
-    Diastolic_BP: {
+    smoker: {
       type: String,
       required: true,
     },
-    Cholesterol_lvl: {
-      type: String,
-      required: true,
-    },
-    Glucose_lvl: {
-      type: String,
-      required: true,
-    },
-    Smoker: {
-      type: String,
-      required: true,
-    },
-    Alcoholic: {
+    alcoholic: {
       type: String,
       required: true,
     },
@@ -75,6 +67,10 @@ const quizSchema = new mongoose.Schema(
         },
       },
     ],
+    workoutplan: {
+      type: Array,
+      default: [],
+    },
   },
   { timestamps: true }
 );

@@ -102,7 +102,7 @@ function App() {
           <Route path="/otp" element={<OTP />} />
           {/* Admin Routes */}
           {/* Isuru */}
-          <Route path="/diet-plan" element={<DietPlan />} />
+          <Route path="/" element={<DietPlan />} />
           <Route path="/assign-diet-plan/:id" element={<AssignDietPlan />} />
           <Route path="/add-food" element={<AddFood />} />
           <Route path="/update-food/:id" element={<UpdateFood />} />
