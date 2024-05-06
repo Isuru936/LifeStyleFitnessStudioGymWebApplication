@@ -2,20 +2,30 @@ import SideBar from "../../components/SideBar";
 import bgImg from "../../assets/bg-Img.png";
 import DietPlanUserView from "../../components/DietPlanUserView";
 import DropDownBar from "../../components/DropDownNavBar";
-import foodImg from "../../assets/proImage.png";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { useParams } from "react-router-dom";
 
 export default function AssignDietPlan() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [foods, setFoods] = useState([]);
   const [assignedFoods, setAssignedFoods] = useState([]);
-  const selectedFoodClass = "bg-green-300";
+  const [recNutrients, setRecNutrients] = useState("");
+  const [userId, setUserId] = useState("");
+  const [email, setEmail] = useState([]);
+
+  const getRecommendedNutrient = () => {
+    const storedNutrientLevels = JSON.parse(
+      localStorage.getItem("nutrientsRecommend")
+    );
+    setRecNutrients(storedNutrientLevels);
+    setUserId(storedNutrientLevels.userId);
+    console.log("from me", storedNutrientLevels);
+  };
 
   const fetchFoods = async () => {
     Aos.init({ duration: 2000, selector: ".food-card" });
@@ -29,9 +39,20 @@ export default function AssignDietPlan() {
       console.error("Error fetching foods:", error);
     }
   };
+
+  const fetchUser = async () => {
+    const response = await axios.get(
+      `http://localhost:3000/api/bioData/bioDataById/${id}`
+    );
+    setEmail(response.data.data.bioData.email);
+    console.log("bData from main page", response.data.data.bioData.email);
+  };
+
   useEffect(() => {
     fetchFoods();
+    fetchUser();
     console.log(id);
+    getRecommendedNutrient();
   }, []);
 
   const addToSelectedFoods = (food) => {
@@ -77,6 +98,61 @@ export default function AssignDietPlan() {
       setFoods(response.data.data.food);
     } catch (error) {
       console.error("Error searching for food:", error);
+    }
+  };
+  const handleSubmit = async (e) => {
+    console.log(userId);
+    e.preventDefault();
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/api/bioData/bioDataUpdate/${userId}`,
+        { dietplan: assignedFoods }
+      );
+      console.log(response.data);
+      console.log(`http://localhost:3000/api/users/bioDataUpdate/${userId}`);
+      handleClearAssignedFoods();
+      let emailContent = `
+      <h1 style="text-align: center; color: #333;">Assigned Diet Plans</h1>
+      <div style="text-align: center;">
+        <img src="https://firebasestorage.googleapis.com/v0/b/lsfs-1a314.appspot.com/o/Logo.png?alt=media&token=117322bf-b255-4114-b29e-b58a55e5a58e" alt="Company Logo" style="max-width: 100px;">
+      </div>
+      <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+        Dear Sir/ Madam,
+      </p>
+      <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+        We are excited to inform you that a new diet plan has been assigned to you by our admin. This personalized diet plan has been carefully curated to help you achieve your fitness goals effectively.
+      </p>
+      <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+        You can find detailed information about your diet plan by logging into your account on our platform. If you have any questions or need further assistance, feel free to reach out to our support team.
+      </p>
+      <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+        Thank you for choosing LSFS for your fitness journey!
+      </p>
+      <p style="margin-top: 20px; line-height: 1.6; color: #555; text-align: center;">
+        Sincerely,<br>
+        LSFS Team
+      </p>
+    `;
+
+      // Send the email
+      axios
+        .post("http://localhost:3000/api/sendEmail", {
+          userEmail: email,
+          subject: "Assigned Diet Plans",
+          html: emailContent,
+        })
+        .then((response) => {
+          console.log("Email sent successfully");
+          toast.success("Diet plans assigned and email sent successfully");
+        })
+        .catch((error) => {
+          console.error("Error sending email:", error);
+        });
+      toast.success("Diet plan Assigned Successfully");
+      navigate("/view-all-users");
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
@@ -143,7 +219,7 @@ export default function AssignDietPlan() {
                       assignedFoods.some(
                         (selectedFood) => selectedFood._id === food._id
                       )
-                        ? "bg-[#26e326]"
+                        ? "bg-[#26e326] border-2"
                         : "bg-white"
                     }`}
                     onClick={() => addToSelectedFoods(food)}
@@ -225,16 +301,25 @@ export default function AssignDietPlan() {
                     Recommended Nutrient Levels
                   </h1>
                   <p className="font-semibold">
-                    Calories: <span className="text-blue-600">205</span>
+                    Calories:{" "}
+                    <span className="text-blue-600">
+                      {recNutrients.calories}
+                    </span>
                   </p>
                   <p className="font-semibold">
-                    Protein: <span className="text-blue-600"> 13.5g</span>
+                    Protein:{" "}
+                    <span className="text-blue-600">
+                      {" "}
+                      {recNutrients.protein}g
+                    </span>
                   </p>
                   <p className="font-semibold">
-                    Carbs: <span className="text-blue-600"> 1.4g</span>
+                    Carbs:{" "}
+                    <span className="text-blue-600">{recNutrients.carbs}g</span>
                   </p>
                   <p className="font-semibold">
-                    Fat: <span className="text-blue-600"> 15.7g</span>
+                    Fat:{" "}
+                    <span className="text-blue-600"> {recNutrients.fats}g</span>
                   </p>
                 </div>
                 <div className="p-4 flex-1 bg-red-0 rounded-xl  ">
@@ -269,7 +354,10 @@ export default function AssignDietPlan() {
                   </p>
                 </div>
               </div>
-              <button className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
+              <button
+                className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition "
+                onClick={handleSubmit}
+              >
                 <span className="icon-[mdi--food] mr-2" /> Assign Diet Plans
               </button>
               <button

@@ -27,6 +27,14 @@ function UserPool() {
       }
     };
     fetchEmployees();
+
+    const intervalId = setInterval(() => {
+      fetchEmployees(); // Fetch data every 5 seconds
+    }, 5000);
+
+    return () => {
+      clearInterval(intervalId); // Cleanup interval on component unmount
+    };
   }, []);
 
   const handleNavigate = (id) => {
@@ -76,8 +84,6 @@ function UserPool() {
                   </div>
                   {loading ? (
                     <div>Loading...</div>
-                  ) : error ? (
-                    <div>{error}</div>
                   ) : (
                     <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                       <table className="min-w-fit divide-y divide-gray-200">
@@ -115,7 +121,7 @@ function UserPool() {
                               scope="col"
                               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
-                              Diet Plan
+                              Active
                             </th>
                           </tr>
                         </thead>
@@ -150,7 +156,11 @@ function UserPool() {
                                 {employee.telephone}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                {employee.dietPlan}
+                                {employee.attendance ? (
+                                  <div className="bg-green-600 w-5 h-5 rounded-full"></div>
+                                ) : (
+                                  <div className="bg-red-600 w-5 h-5 rounded-full"></div>
+                                )}
                               </td>
                             </tr>
                           ))}

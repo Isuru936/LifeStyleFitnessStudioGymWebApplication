@@ -5,9 +5,11 @@ import logo from "../../assets/Logo.png";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import notify from "../../components/toasts/toastTemplate";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
+import QRCode from "react-qr-code";
+import PDFGeneration from "../PDF Generation/InsertDataToPDF";
 
 function AddUpdateEmployeeDetails() {
   const { id } = useParams();
@@ -28,7 +30,7 @@ function AddUpdateEmployeeDetails() {
     const fetchEmployee = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/employee/getEmployeeById/${id}` //get by id endpoint
+          `http://localhost:3000/api/employee/getEmployeeById/${id}`
         );
         console.log(response.data);
         setFormData(response.data.data.employee);
@@ -44,7 +46,7 @@ function AddUpdateEmployeeDetails() {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/employee/updateEmployee/${id}`, //update endpoint
+        `http://localhost:3000/api/employee/updateEmployee/${id}`,
         formData,
         {
           headers: {
@@ -57,11 +59,11 @@ function AddUpdateEmployeeDetails() {
       navigate("/employee-pool");
     } catch (error) {
       console.log("Error updating employee.", error);
+      toast.error("Failed to update employee details");
     }
   };
 
   const handleFileUpload = async (e) => {
-    //image upload function
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       const storageRef = firebase.storage().ref();
@@ -87,7 +89,7 @@ function AddUpdateEmployeeDetails() {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/employee/deleteEmployee/${id}` //delete endpoint
+        `http://localhost:3000/api/employee/deleteEmployee/${id}`
       );
       console.log(response.data);
       notify("success", "", "Employee deleted successfully");
@@ -220,7 +222,7 @@ function AddUpdateEmployeeDetails() {
                     />
                   </div>
                   <button
-                    className="p-3 bg-blue-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-blue-700"
+                    className="p-3 bg-blue-800 rounded-xl w-full text-white font-bold mr-5 mt-5 mb-10 hover:bg-blue-700"
                     onClick={handleSubmit}
                   >
                     <span
@@ -229,13 +231,30 @@ function AddUpdateEmployeeDetails() {
                     />{" "}
                     Update Details
                   </button>
-                  <button className="p-3 bg-orange-500 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-orange-600">
+                </form>
+                <div className="mx-auto">
+                  <button
+                    className="p-3 bg-red-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-red-700"
+                    onClick={handleDelete}
+                  >
                     <span
-                      className="icon-[line-md--download-loop] mr-2"
+                      className="icon-[material-symbols--delete-outline] mr-2"
                       style={{ width: "20px", height: "20px" }}
                     />{" "}
-                    Download Details
+                    Delete Record
                   </button>
+                  <Link to={`/pdf/${formData._id}`} target="_blank">
+                    <button
+                      className="p-3 bg-orange-500 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-orange-600"
+                      type="none"
+                    >
+                      <span
+                        className="icon-[line-md--download-loop] mr-2"
+                        style={{ width: "20px", height: "20px" }}
+                      />{" "}
+                      Download QR Code
+                    </button>
+                  </Link>
                   <Link to="/employee-pool">
                     <button className="p-3 bg-white rounded-xl text-black border font-bold mr-5 mt-5 mb-10 hover:bg-slate-100">
                       <span
@@ -245,19 +264,7 @@ function AddUpdateEmployeeDetails() {
                       Back
                     </button>
                   </Link>
-                </form>
-                <button
-                  className="p-3 bg-red-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-red-700"
-                  onClick={handleDelete}
-                >
-                  <span
-                    className="icon-[material-symbols--delete-outline] mr-2"
-                    style={{ width: "20px", height: "20px" }}
-                  />{" "}
-                  Delete Record
-                </button>
-
-                <div className="flex flex-row justify-end w-auto mr-96"></div>
+                </div>
               </div>
             </div>
           </div>

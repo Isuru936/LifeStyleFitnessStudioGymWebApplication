@@ -1,4 +1,5 @@
 import Employee from "../models/employee.model.js";
+import CryptoJS from "crypto-js";
 
 export const addEmployee = async (req, res) => {
   try {
@@ -9,6 +10,7 @@ export const addEmployee = async (req, res) => {
         employee: newEmployee,
       },
     });
+    console.log(req.body);
   } catch (err) {
     res.status(400).json({
       status: "fail",
@@ -73,6 +75,55 @@ export const updateEmployee = async (req, res) => {
 export const getEmployee = async (req, res) => {
   try {
     const employee = await Employee.findById(req.params.id);
+    res.status(200).json({
+      status: "success",
+      data: {
+        employee,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+export const updateAttendance = async (req, res) => {
+  try {
+    const employee = await Employee.findByIdAndUpdate(
+      req.params.id,
+      { attendance: req.body.attendance },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      data: {
+        employee,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+export const getEmployeeByIdDecrypt = async (req, res) => {
+  try {
+    // Decode and decrypt the ID received from the request params
+    const decryptedId = CryptoJS.AES.decrypt(
+      req.params.id,
+      "secret passphrase"
+    ).toString(CryptoJS.enc.Utf8);
+
+    console.log(decryptedId);
+
+    const employee = await Employee.findById(decryptedId);
     res.status(200).json({
       status: "success",
       data: {

@@ -1,16 +1,24 @@
 import express from "express";
 import {
-  getAllUsers,
-  getUser,
-  searchByEmail,
+  authUser,
+  registerUser,
+  logoutUser,
+  getUserProfile,
+  updateUserProfile,
+  ConfirmPasswordAndChange,
+  oneTimePassword,
+  newPasswordChange,
 } from "../controllers/user.controller.js";
-import { getBioDataByUserId } from "../controllers/userBioData.controller.js";
+import { protect } from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 
-router.get("/getUsers", getAllUsers);
-router.get("/searchByEmail/:email", searchByEmail);
-router.get("/getUser/:id", getUser);
-
-router.get("/bioDataById/:userId", getBioDataByUserId);
+router.post("/", registerUser);
+router.post("/auth", authUser);
+router.post("/logout", logoutUser);
+router.get("/:id", getUserProfile);
+router.put("/changepassword", ConfirmPasswordAndChange);
+router.put("/newpassword", newPasswordChange);
+router.post("/SendOTP", oneTimePassword);
 
 export default router;
