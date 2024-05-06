@@ -1,26 +1,43 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import LOGO from "../../assets/Logo.png";
 import MENU from "../../assets/MENU.png";
 import bg from "../../assets/gym.jpg";
+import axios from "axios";
+import { AuthContext } from "../../shared/context/auth.context";
+import Toast from "../../shared/toast/Toast";
 
 const ChangePassword = () => {
+  const Auth = useContext(AuthContext);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [touch , setTouch] = useState(false);
 
   const isChangeEnabled =
-    currentPassword !== "" && newPassword !== "" && confirmPassword !== "";
+    currentPassword !== "" &&
+    newPassword !== "" &&
+    confirmPassword !== "" &&
+    newPassword === confirmPassword;
 
   const handleSave = () => {
-    if (isChangeEnabled) {
-      alert("Password Changed Successfully");
-    } else {
-      alert("Please fill in all fields with valid values before saving.");
-    }
+    axios
+      .put("/api/users/changepassword", {
+        userID: Auth.userID,
+        Oldpassword: currentPassword,
+        NewPassword: newPassword,
+      })
+      .then((response) => {
+        if(response.data.message === "Password updated successfully"){
+          Toast("Password updated successfully","success")
+        }
+      })
+      .catch((error) => {
+        Toast("Current Password is Invalid","error")
+      });
   };
 
   const toggleShowCurrentPassword = () => {
@@ -35,8 +52,9 @@ const ChangePassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+
   return (
-    <div className="bg-gray-200 h-full relative">
+    <div className="bg-gray-200 h-screen relative">
       <img
         src={bg}
         alt="background"
@@ -68,7 +86,8 @@ const ChangePassword = () => {
                   id="currentPassword"
                   className="bg-slate-300 rounded-lg w-full h-8 px-2 text-black pr-10"
                   value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  onChange={(e) => setCurrentPassword(e.target.value) }
+
                 />
                 <button
                   className="absolute inset-y-0 right-0 flex items-center justify-center mr-2 focus:outline-none"
@@ -104,11 +123,12 @@ const ChangePassword = () => {
               </label>
               <div className="relative">
                 <input
+                  onBlur={() => setTouch(true)}
                   type={showConfirmPassword ? "text" : "password"}
                   id="confirmPassword"
                   className="bg-slate-300 rounded-lg w-full h-8 px-2 text-black pr-10"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={(e) =>setConfirmPassword(e.target.value)}
                 />
                 <button
                   className="absolute inset-y-0 right-0 flex items-center justify-center mr-2 focus:outline-none"
@@ -117,6 +137,7 @@ const ChangePassword = () => {
                   {showConfirmPassword ? <HiEyeOff /> : <HiEye />}
                 </button>
               </div>
+                {touch && newPassword !== confirmPassword && <h2 className="text-red-700" >Password Mismatch </h2>}
             </li>
             {isChangeEnabled && (
               <li className="flex justify-center">

@@ -58,28 +58,24 @@ function NavigationBar() {
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
             Payments
-            <span className="underline"></span>
           </Link>
           <Link
             to="/contact-us"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
             Contact Us
-            <span className="underline"></span>
           </Link>
           <Link
             to="/dashboard"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
             Dashboard
-            <span className="underline"></span>
           </Link>
           <Link
             to="/UserExercises"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
             My Workout Plan
-            <span className="underline"></span>
           </Link>
           <Link
             to="/user-view-diet-plans"

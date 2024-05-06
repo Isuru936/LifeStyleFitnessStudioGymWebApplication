@@ -7,21 +7,21 @@ import m4 from "../../assets/Weights.png";
 import m5 from "../../assets/mma.jpg";
 import m6 from "../../assets/Sit.png";
 import m7 from "../../assets/MB.jpg";
-import m8 from "../../assets/Sit.png";
-import m9 from "../../assets/Weights.png";
 import maleIcon from "../../assets/selMaMod.jpg";
 import femaleIcon from "../../assets/selLadMod.jpg";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../shared/context/auth.context";
 
-const backgroundImg = [m0, m1, m2, m3, m4, m5, m6, m7, m8, m9];
+const backgroundImg = [m0, m1, m2, m3, m4, m5, m6, m7];
 
 const questions = [
   {
     id: 1,
     question: "Select Your Age",
-    options: ["Age : 18 - 29", "Age : 30 - 39", "Age : 40 - 49", "Age : 50+"],
+    options: ["18 - 29", " 30 - 39", " 40 - 49", "Age : 50+"],
   },
   {
     id: 2,
@@ -40,31 +40,21 @@ const questions = [
   },
   {
     id: 5,
-    question: "Whats your systolic blood Pressure ?",
+    question: "Enter your NIC Number",
     answer: [],
   },
   {
     id: 6,
-    question: "whats your diastolic blood pressure?",
+    question: "Enter your Telephone Number",
     answer: [],
   },
   {
     id: 7,
-    question: "whats your Cholesterol Level?",
-    answer: [],
-  },
-  {
-    id: 8,
-    question: "whats your Glucose Level?",
-    answer: [],
-  },
-  {
-    id: 9,
     question: "Do you smoke?",
     options: ["Yes", "No"],
   },
   {
-    id: 10,
+    id: 8,
     question: "Do you consume alcohol?",
     options: ["Yes", "No"],
   },
@@ -72,25 +62,42 @@ const questions = [
 
 const Quiz = () => {
   const navigate = useNavigate();
+  const location = useLocation()
+  const auth = useContext(AuthContext)
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [answers, setAnswers] = useState(Array(questions.length).fill(""));
   const [backgroundImage, setBackgroundImage] = useState(backgroundImg[0]);
+  const [QandA, setQandA] = useState([{}]);
+
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
   };
 
   const handleNextQuestion = () => {
-    if (selectedOption !== null || currentQuestion >= 3) {
-      if (currentQuestion >= 3) {
-        const newAnswers = [...answers];
-        newAnswers[currentQuestion] = selectedOption;
-        setAnswers(newAnswers);
-      }
+    if (selectedOption !== null && selectedOption !== "") {
+      const newAnswers = [...answers];
+      newAnswers[currentQuestion] = selectedOption;
+      setAnswers(newAnswers);
+
       if (currentQuestion === questions.length - 1) {
-        // Redirect when reaching the last question
-        navigate("/UserExercises");
+        const newQandA = newAnswers.map((ans, index) => ({
+          questions: questions[index].question,
+          answer: ans,
+        }));
+        console.log(location.state.id);
+        axios.post("http://localhost:3000/api/quiz/", {
+          userID: location.state.id,
+          QandA: newQandA
+        })
+          .then(res => {
+            console.log(res);
+            navigate("/login");
+          })
+          .catch(err => {
+            console.error("Error:", err);
+          });
       } else {
         setCurrentQuestion(currentQuestion + 1);
         setSelectedOption(null);
@@ -98,11 +105,12 @@ const Quiz = () => {
       }
     }
   };
+
   const handlePreviousQuestion = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
       setSelectedOption(null);
-      setBackgroundImage(backgroundImg[currentQuestion - 1]); // Change background image
+      setBackgroundImage(backgroundImg[currentQuestion - 1]);
     }
   };
 
@@ -116,15 +124,15 @@ const Quiz = () => {
       <div className="bg-black bg-opacity-40 rounded-[20px] border border-stone-800 backdrop-blur-sm justify-center shadow-lg backdrop filter relative p-5">
         <div className=" p-8 ">
           <div className="mb-12 flex justify-center">
-            <h2 className="text-xl text-balance text-center">
+            <h2 className="text-xl text-balance text-center text-stone-400">
               {questions[currentQuestion].question}
             </h2>
           </div>
           <div>
-            {currentQuestion >= 2 && currentQuestion <= 7 ? (
+            {currentQuestion >= 2 && currentQuestion <= 5 ? (
               <div className="flex justify-center">
                 <input
-                  type="text"
+                  type="number"
                   className=" text-gray-400 bg-transparent border-b-2 border-gray-400"
                   placeholder="Enter a value"
                   value={selectedOption || answers[currentQuestion]}

@@ -1,23 +1,30 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
-import UserPool from "./pages/User Management/UserPool";
+
+import UserPool from "./pages/Employee Management/EmployeePool";
 import ContactUs from "./pages/Customer Feedback/ContactUs";
 import CustomerFeedbacks from "./pages/Customer Feedback/CustomerFeedbacks";
+
+import ViewAllUsers from "./components/ViewAllUsers";
+
 import DietPlan from "./pages/Diet Management/DietPlanPool";
 import AssignDietPlan from "./pages/Diet Management/AssignDietPlan";
-import EnterPaymentDetails from "./pages/Payment Management/EnterPaymentDetails";
-import AddUpdateUserDetails from "./pages/User Management/ViewUpdateUsers";
 import ShowDietPlan from "./pages/Diet Management/ShowDietPlan";
-import AddUsers from "./pages/User Management/AddUser";
+
+import EnterPaymentDetails from "./pages/Payment Management/EnterPaymentDetails";
+import AddUsers from "./pages/Employee Management/AddEmployee";
 import AddCard from "./pages/Payment Management/AddCard";
 import MembershipPlanSelection from "./pages/Payment Management/MembershipPlanSelection";
 import PaymentComplete from "./pages/Payment Management/PaymentComplete";
 import PaymentReview from "./pages/Payment Management/PaymentReview";
 import PaymentDetails from "./pages/Payment Management/PaymentDetails";
 
-// import WorkoutPool from "./pages/WorkoutManagement/WorkouPool";
-// import UserExercises from "./pages/WorkoutManagement/UserExercises";
-// import AddWorkout from "./pages/WorkoutManagement/AddWorkout";
+import EditWorkout from "./pages/WorkoutManagement/EditWorkout";
+import WorkoutPool from "./pages/WorkoutManagement/WorkouPool";
+import UserExercises from "./pages/WorkoutManagement/UserExercises";
+import AddWorkout from "./pages/WorkoutManagement/AddWorkout";
+
+import PDFGeneration from "./pages/PDF Generation/InsertDataToPDF.jsx";
 
 import InventoryAdd from "./pages/Inventory Management/InventoryAdd";
 import InventoryShow from "./pages/Inventory Management/InventoryShow";
@@ -35,58 +42,92 @@ import Quiz from "./pages/Profile Management/Quiz";
 import UserProfile from "./pages/Profile Management/UserProfile";
 import EditProfile from "./pages/Profile Management/EditProfile";
 import ChangePassword from "./pages/Profile Management/ChangePassword";
-
+import UpdateFood from "./pages/Diet Management/UpdateFood";
+import AddUpdateEmployeeDetails from "./pages/Employee Management/ViewUpdateEmployee";
+import AddPaymentAdmin from "./pages/Payment Management/AddPaymentAdmin";
+import UpdatePaymentAdmin from "./pages/Payment Management/UpdatePaymentAdmin";
+import QRCodeScanner from "./pages/Attendance Tracking/QRCodeScanner";
+import Scanner from "./pages/Attendance Tracking/QRCodeScanner";
+import Test from "./pages/Profile Management/test";
+import OTP from "./pages/Profile Management/OTP";
+import { AuthProvider } from "./shared/context/auth.context";
+import ProtectedRouteCustomer from "./shared/context/PrivateRoute";
+import CheckLogin from "./shared/context/checkLogin";
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <BrowserRouter>
         <Routes>
-          {/* Client Routes */}
-          {/* {Isuru} */}
-          <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
-          {/* {Vinuka} */}
-          <Route path="/contact-us" element={<ContactUs />} />
-          {/* Thamalsha */}
-          {/* <Route path="/UserExercises" element={<UserExercises />} /> */}
-          {/* Sewmini */}
           <Route
-            path="/enter-payment-details"
-            element={<EnterPaymentDetails />}
+            path="/login"
+            element={
+              <CheckLogin>
+                <Login />
+              </CheckLogin>
+            }
           />
-          <Route path="/add-card" element={<AddCard />} />
-          <Route path="/payment-complete" element={<PaymentComplete />} />
-          <Route path="/payment-review" element={<PaymentReview />} />
-          <Route path="/payment-details" element={<PaymentDetails />} />
-          <Route
-            path="/membership-plan"
-            element={<MembershipPlanSelection />}
-          />
-          <Route path="/enter-payment" element={<EnterPaymentDetails />} />
-          {/* {Shafry} */}
-          <Route path="/" element={<Login />} />
+          <Route element={<ProtectedRouteCustomer />}>
+            {/* Client Routes */}
+            {/* {Isuru} */}
+            <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
+            {/* {Vinuka} */}
+            <Route path="/contact-us" element={<ContactUs />} />
+            {/* Thamalsha */}
+            <Route path="/UserExercises" element={<UserExercises />} />
+            {/* Sewmini */}
+            <Route
+              path="/enter-payment-details"
+              element={<EnterPaymentDetails />}
+            />
+            <Route path="/add-card" element={<AddCard />} />
+            <Route path="/payment-complete" element={<PaymentComplete />} />
+            <Route path="/payment-review" element={<PaymentReview />} />
+            <Route path="/payment-details" element={<PaymentDetails />} />
+            <Route
+              path="/membership-plan"
+              element={<MembershipPlanSelection />}
+            />
+            <Route path="/enter-payment" element={<EnterPaymentDetails />} />
+            {/* {Shafry} */}
+          </Route>
+          <Route path="/pdf/:id" element={<PDFGeneration />} />
+          <Route path="/test" element={<Test />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/new-password" element={<ChangePassword />} />
+          <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/Quiz" element={<Quiz />} />
+          <Route path="/new-password" element={<NewPassword />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/editProfile" element={<EditProfile />} />
-
+          <Route path="/otp" element={<OTP />} />
           {/* Admin Routes */}
           {/* Isuru */}
-          <Route path="/diet-plan" element={<DietPlan />} />
-          <Route path="/assign-diet-plan" element={<AssignDietPlan />} />
+          <Route path="/" element={<DietPlan />} />
+          <Route path="/assign-diet-plan/:id" element={<AssignDietPlan />} />
           <Route path="/add-food" element={<AddFood />} />
-
+          <Route path="/update-food/:id" element={<UpdateFood />} />
+          <Route path="/QR-CodeScanner" element={<Scanner />} />
           {/* Thamalsha */}
-          <Route path="/user-pool" element={<UserPool />} />
-          <Route path="/add-user" element={<AddUsers />} />
-          <Route path="/update-user" element={<AddUpdateUserDetails />} />
+          <Route path="/employee-pool" element={<UserPool />} />
+          <Route path="/add-employee" element={<AddUsers />} />
+          <Route
+            path="/update-employee/:id"
+            element={<AddUpdateEmployeeDetails />}
+          />
           <Route path="/customer-feedbacks" element={<CustomerFeedbacks />} />
           {/* {Sewmini} */}
           <Route path="/payment-view" element={<ViewPayments />} />
+          <Route path="/add-payment/:id" element={<AddPaymentAdmin />} />
+          <Route path="/update-payment/:id" element={<UpdatePaymentAdmin />} />
+          {/* Shafry */}
+          <Route path="/view-all-users" element={<ViewAllUsers />} />
           {/* {Vinuka} */}
-          {/* <Route path="/workoutpool" element={<WorkoutPool />} /> */}
-          {/* <Route path="/AddWorkout" element={<AddWorkout />} /> */}
+          <Route path="/workoutpool/:id" element={<WorkoutPool />} />
+          <Route path="/AddWorkout" element={<AddWorkout />} />
+          <Route path="/editWorkout/:id" element={<EditWorkout />} />{" "}
+          {/* Define route for editing workouts */}
+          {/* <Route path="/workoutpool" element={<WorkoutPool />} />
+          <Route path="/AddWorkout" element={<AddWorkout />} /> */}
 
           {/* {Umaya} */}
           <Route path="/add-inventory" element={<InventoryAdd />} />
@@ -104,7 +145,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-    </div>
+    </AuthProvider>
   );
 }
 
