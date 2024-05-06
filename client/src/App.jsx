@@ -102,7 +102,7 @@ function App() {
           <Route path="/otp" element={<OTP />} />
           {/* Admin Routes */}
           {/* Isuru */}
-          <Route path="/diet-plan" element={<DietPlan />} />
+          <Route path="/" element={<DietPlan />} />
           <Route path="/assign-diet-plan/:id" element={<AssignDietPlan />} />
           <Route path="/add-food" element={<AddFood />} />
           <Route path="/update-food/:id" element={<UpdateFood />} />
@@ -128,10 +128,15 @@ function App() {
           {/* Define route for editing workouts */}
           {/* <Route path="/workoutpool" element={<WorkoutPool />} />
           <Route path="/AddWorkout" element={<AddWorkout />} /> */}
+
           {/* {Umaya} */}
           <Route path="/add-inventory" element={<InventoryAdd />} />
           <Route path="/show-inventory" element={<InventoryShow />} />
-          <Route path="/update-inventory" element={<InventoryUpdateDlt />} />
+          <Route
+            path="/update-inventory/:id"
+            element={<InventoryUpdateDlt />}
+          />
+
           <Route path="/create-notification" element={<CreateNotification />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route

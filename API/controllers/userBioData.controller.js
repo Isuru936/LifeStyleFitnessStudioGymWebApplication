@@ -20,6 +20,36 @@ export const getBioData = async (req, res) => {
   }
 };
 
+export const getBioDataByUserIdClient = async (req, res) => {
+  try {
+    console.log("Requested userId:", req.params.userId);
+    const userID = req.params.userId;
+
+    const bioData = await UserBioData.findOne({ userID });
+    console.log("Retrieved bioData:", bioData);
+
+    if (!bioData) {
+      return res.status(404).json({
+        status: "fail",
+        message: "BioData not found",
+      });
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        bioData,
+      },
+    });
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).json({
+      status: "error",
+      message: "Internal server error",
+    });
+  }
+};
+
 export const getBioDataByUserId = async (req, res) => {
   try {
     console.log("Requested userId:", req.params.userId);
@@ -30,10 +60,10 @@ export const getBioDataByUserId = async (req, res) => {
     console.log("Retrieved bioData:", bioData);
 
     const nutrientLevels = calculateNutrientLevels(
-      bioData.Weight,
-      "Male",
-      bioData.Height,
-      bioData.Age,
+      bioData.weight,
+      bioData.gender,
+      bioData.height,
+      bioData.age,
       "bulking",
       bioData._id
     );

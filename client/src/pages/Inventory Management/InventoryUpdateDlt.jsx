@@ -1,10 +1,69 @@
-// TODO: Addd Logo
-// Import your background image
-import React from "react";
+import React, { useEffect, useState } from "react";
 import backgroundImage from "../../assets/sim.jpg";
 import SideBar from "../../components/SideBar";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 function InventoryUpdateDlt() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [inventoryItem, setInventoryItem] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchItemByID = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/${id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch item");
+        }
+        const data = await response.json();
+        console.log(data.inventoryItem);
+        setInventoryItem(data.inventoryItem);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchItemByID();
+  }, [id]);
+
+  const handleUpdate = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inventoryItem), // Send the updated inventoryItem object
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update item");
+      }
+      console.log("Item updated successfully");
+      alert("Item Updated Successfully");
+      navigate("/show-inventory");
+      // Optionally, you can redirect the user or show a success message here
+    } catch (error) {
+      console.error("Error updating item:", error);
+      // Handle error
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!inventoryItem) {
+    return <div>No item found</div>;
+  }
+
   return (
     <div className="">
       <div
@@ -37,6 +96,13 @@ function InventoryUpdateDlt() {
                     type="text"
                     id="itemName"
                     className="border rounded py-1 px-2 w-full"
+                    value={inventoryItem.itemName}
+                    onChange={(e) =>
+                      setInventoryItem({
+                        ...inventoryItem,
+                        itemName: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="flex flex-col mt-4">
@@ -48,7 +114,14 @@ function InventoryUpdateDlt() {
                   </label>
                   <textarea
                     id="description"
-                    className="border rounded py-1 px-2 h-24 w-full" // Adjust the 'h-24' value for a longer textarea
+                    className="border rounded py-1 px-2 h-24 w-full"
+                    value={inventoryItem.description}
+                    onChange={(e) =>
+                      setInventoryItem({
+                        ...inventoryItem,
+                        description: e.target.value,
+                      })
+                    }
                   ></textarea>
                 </div>
                 <div className="flex flex-col mt-4">
@@ -61,6 +134,13 @@ function InventoryUpdateDlt() {
                   <select
                     id="status"
                     className="border rounded py-1 px-2 w-full"
+                    value={inventoryItem.status}
+                    onChange={(e) =>
+                      setInventoryItem({
+                        ...inventoryItem,
+                        status: e.target.value,
+                      })
+                    }
                   >
                     <option value="underMaintenance">Under Maintenance</option>
                     <option value="outOfWork">Out of Work</option>
@@ -68,31 +148,17 @@ function InventoryUpdateDlt() {
                   </select>
                 </div>
                 <div className="mt-4 flex flex-col md:flex-row">
-                  <button className="bg-red-500 text-white py-2 px-4 rounded mb-2 md:mb-0 md:mr-2">
-                    Delete
-                  </button>
-                  <button className="bg-green-500 text-white py-2 px-4 rounded mb-2 md:mb-0 md:mr-2">
+                  <button
+                    className="bg-green-500 text-white py-2 px-4 rounded mb-2 md:mb-0 md:mr-2"
+                    onClick={handleUpdate}
+                  >
                     Update
                   </button>
-                  <button className="bg-orange-500 text-white py-2 px-4 rounded">
-                    Back
-                  </button>
-                </div>
-              </div>
-              <div className="w-ful mt-4">
-                <div className="w-full h-96 border border-dashed rounded-lg flex items-center justify-center mx-auto">
-                  {/* You can add an image or any other content here */}
-                  <img
-                    src="your_image_path.jpg"
-                    alt=""
-                    className="w-80 h-80 ml-4"
-                  />
-                </div>
-                {/* Button below the even larger image */}
-                <div className="mt-4 text-center">
-                  <button className="bg-blue-500 text-white py-2 px-4 rounded">
-                    Add Image
-                  </button>
+                  <Link to="/show-inventory">
+                    <button className="bg-orange-500 text-white py-2 px-4 rounded">
+                      Back
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
