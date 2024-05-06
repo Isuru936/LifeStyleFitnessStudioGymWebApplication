@@ -36,7 +36,7 @@ function SideBar() {
           >
             <p className="text-3xl font-bold">Content</p>
             <div className="pt-5 pr-5">
-              <NavLink to="/user-pool" acc>
+              <NavLink to="/employee-pool" acc>
                 <div className="p-2 my-2 rounded-xl  hover:bg-slate-200 transition">
                   <p className="text-l font-bold">
                     <span
@@ -45,8 +45,9 @@ function SideBar() {
                         width: "20px",
                         height: "20px",
                       }}
-                    />
-                    Users
+                    />{" "}
+                    {""}
+                    Employees
                   </p>
                 </div>
               </NavLink>
@@ -59,7 +60,7 @@ function SideBar() {
                         width: "22px",
                         height: "22px",
                       }}
-                    />
+                    />{" "}
                     Workouts
                   </p>
                 </div>
@@ -73,24 +74,26 @@ function SideBar() {
                         width: "22px",
                         height: "22px",
                       }}
-                    />
+                    />{" "}
                     Payments
                   </p>
                 </div>
               </Link>
-              <div className="p-2 my-2 rounded-xl hover:bg-slate-200 transition">
-                <p className="text-l font-bold">
-                  <span
-                    className="icon-[bi--qr-code-scan] mx-2"
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                  QR Scan
-                </p>
-              </div>
-              <Link to="/">
+              <Link to="/QR-CodeScanner">
+                <div className="p-2 my-2 rounded-xl hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[bi--qr-code-scan] mx-2"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                      }}
+                    />{" "}
+                    QR Scan
+                  </p>
+                </div>
+              </Link>
+              <Link to="/diet-plan">
                 <div className="p-2  w-50 my-2 rounded-xl  hover:bg-slate-200 transition">
                   <p className="text-l font-bold">
                     <span
@@ -99,7 +102,7 @@ function SideBar() {
                         width: "22px",
                         height: "22px",
                       }}
-                    />
+                    />{" "}
                     Diet Plan
                   </p>
                 </div>
@@ -113,8 +116,22 @@ function SideBar() {
                         width: "22px",
                         height: "22px",
                       }}
-                    />
+                    />{" "}
                     Inventory
+                  </p>
+                </div>
+              </Link>
+              <Link to="/view-all-users">
+                <div className="p-2  w-50 my-2 rounded-xl hover:bg-slate-200 transition">
+                  <p className="text-l font-bold">
+                    <span
+                      className="icon-[ph--users] mx-2"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                      }}
+                    />{" "}
+                    Users
                   </p>
                 </div>
               </Link>
@@ -127,12 +144,12 @@ function SideBar() {
                         width: "22px",
                         height: "22px",
                       }}
-                    />
+                    />{" "}
                     Customer Feedback
                   </p>
                 </div>
               </Link>
-              <Link to="/notifications">
+              <Link to="/create-notification">
                 <div className="p-2  w-50 my-2 rounded-xl  hover:bg-slate-200 transition">
                   <p className="text-l font-bold">
                     <span
@@ -141,7 +158,7 @@ function SideBar() {
                         width: "22px",
                         height: "22px",
                       }}
-                    />
+                    />{" "}
                     Notifications
                   </p>
                 </div>

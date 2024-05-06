@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 
-// Define the schema for the user model
 const foodSchema = new mongoose.Schema({
-  foodname: {
+  name: {
     type: String,
     required: true,
   },
@@ -10,11 +9,7 @@ const foodSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  fats: {
-    type: Number,
-    required: true,
-  },
-  proteins: {
+  protein: {
     type: Number,
     required: true,
   },
@@ -22,11 +17,16 @@ const foodSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  uploadImage: {
-    type: Buffer,
+  fat: {
+    type: Number,
+    required: true,
+  },
+  imageData: {
+    type: String,
     required: false,
   },
 });
 
 const Food = mongoose.model("Food", foodSchema);
+
 export default Food;

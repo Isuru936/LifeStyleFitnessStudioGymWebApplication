@@ -1,17 +1,24 @@
 import express from "express";
-
 import {
-  addUser,
-  getUsers,
-  getUserById,
-  deleteUserById,
+  authUser,
+  registerUser,
+  logoutUser,
+  getUserProfile,
+  updateUserProfile,
+  ConfirmPasswordAndChange,
+  oneTimePassword,
+  newPasswordChange,
 } from "../controllers/user.controller.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/users", addUser);
-router.get("/users", getUsers);
-router.get("/users/:id", getUserById);
-router.delete("/users/:id", deleteUserById);
+router.post("/", registerUser);
+router.post("/auth", authUser);
+router.post("/logout", logoutUser);
+router.get("/:id", getUserProfile);
+router.put("/changepassword", ConfirmPasswordAndChange);
+router.put("/newpassword", newPasswordChange);
+router.post("/SendOTP", oneTimePassword);
 
 export default router;

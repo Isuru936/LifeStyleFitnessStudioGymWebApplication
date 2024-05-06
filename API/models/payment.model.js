@@ -1,25 +1,26 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
-const paymentSchema = new mongoose.Schema({
-  packageName: {
-    type: String,
-    required: true,
+const paymentSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: "String",
+      unique: "true",
+    },
+    email: {
+      type: "String",
+    },
+    username: {
+      type: "String",
+    },
+    paymentType: {
+      type: "String",
+    },
+    amount: {
+      type: "Number",
+    },
   },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: false,
-    default: 14,
-  },
-  paymentDate: {
-    type: String,
-    default: "2024-04-02T00:00:00.000Z",
-  },
-});
+  { timestamps: true }
+);
 
 const Payment = mongoose.model("Payment", paymentSchema);
 

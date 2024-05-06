@@ -1,26 +1,29 @@
 import React from "react";
-import { createRoot } from "react-dom";
+import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+import ToastContainer from "./shared/toast/ToastContainer.jsx";
 import "./index.css";
-import { initializeApp } from "firebase/app";
+
 import firebase from "firebase/compat/app";
+import { initializeApp } from "firebase/app";
 
 import "firebase/storage"; // Import specific Firebase services if you need them
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBl3Nf7HJoBFhq-vgtxXCD5D_h6Ow9VnkQ",
-  authDomain: "exmplepject.firebaseapp.com",
-  projectId: "exmplepject",
-  storageBucket: "exmplepject.appspot.com",
-  messagingSenderId: "315274215064",
-  appId: "1:315274215064:web:5e92acac0a9c121de69aed",
-  measurementId: "G-D5CYVVDHGJ",
+  apiKey: "AIzaSyCceotHODUfYQZMFAUmL-zdYxpJ545-xbM",
+  authDomain: "lsfs-1a314.firebaseapp.com",
+  projectId: "lsfs-1a314",
+  storageBucket: "lsfs-1a314.appspot.com",
+  messagingSenderId: "513428141349",
+  appId: "1:513428141349:web:e34962f0fcf32aa68e96cc",
+  measurementId: "G-NN99VZ7JF5",
 };
 
 firebase.initializeApp(firebaseConfig);
 
-createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
+    <ToastContainer />
   </React.StrictMode>
 );

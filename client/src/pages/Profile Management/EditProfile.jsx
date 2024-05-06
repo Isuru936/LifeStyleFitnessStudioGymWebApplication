@@ -27,13 +27,13 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="bg-gray-200 h-full relative">
+    <div className="bg-gray-200 h-screen relative">
       <img
         src={bg}
         alt="background"
-        className="absolute inset-0 object-cover w-full h-full opacity-80 grayscale brightness-50"
+        className="absolute inset-0 object-cover w-full h-screen opacity-80 grayscale brightness-50"
       />
-      <div className="p-5 relative z-10 max-w-screen-lg mx-auto">
+      <div className="p-5 relative">
         <img
           src={LOGO}
           alt="logo"
@@ -45,7 +45,7 @@ const UserProfile = () => {
           alt="menu"
         />
         <div className="bg-white bg-opacity-50 rounded-lg shadow-xl mt-16 pt-3 ">
-          <h4 className="text-black text-2xl font-bold bg-transparent w-[380px] pl-4 mb-10 mt-2">
+          <h4 className="text-black text-2xl font-bold bg-transparent w-[380px] pl-4 mt-2">
             Edit profile
           </h4>
           <ul className="p-6 flex flex-col space-y-8">
@@ -106,9 +106,9 @@ const UserProfile = () => {
           </ul>
         </div>
       </div>
-      <div className="flex justify-center bg-white bg-opacity-50 p-2 absolute bottom-0 left-0 w-full">
+       <div className="text-center bg-white bg-opacity-50 p-2 absolute bottom-0 left-0 w-full">
         <p className="text-black">Copyright© All rights Reserved.</p>
-      </div>
+        </div>
     </div>
   );
 };

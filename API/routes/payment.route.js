@@ -1,14 +1,18 @@
 import express from "express";
 import {
-  storePayment,
-  getPaymentDetails,
+  addPayment,
   deletePayment,
+  getPayment,
+  getPayments,
+  updatePayment,
 } from "../controllers/payment.controller.js";
 
 const router = express.Router();
 
-router.post("/payment", storePayment); //add = post
-router.get("/payment", getPaymentDetails); //recieve payments = get
-router.delete("/payment/:id", deletePayment); //delete = delete
+router.post("/addPayment", addPayment);
+router.get("/getPayments", getPayments);
+router.get("/getPayment/:id", getPayment);
+router.put("/updatePayment/:id", updatePayment);
+router.delete("/deletePayment/:id", deletePayment);
 
 export default router;
