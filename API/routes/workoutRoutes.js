@@ -2,7 +2,7 @@
 import express from "express";
 const router = express.Router();
 import Workout from '../models/workout.models.js';
-import quizzes from "../models/userBioData.model.js";
+import Quiz from "../models/quiz.model.js";
 
 // Route to add a new workout
 router.post('/workouts', async (req, res) => {
@@ -93,7 +93,7 @@ router.post('/saveWorkouts', async (req, res) => {
     console.log('User ID:', userId); // Log the userID
 
     // Find the document by userId
-    const user = await quizzes.findOne({ userID: userId });
+    const user = await Quiz.findOne({ userID: userId });
 
     console.log('User:', user); // Log the user object
 

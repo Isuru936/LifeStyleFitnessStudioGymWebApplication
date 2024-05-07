@@ -10,7 +10,6 @@ import userRouter from "./routes/user.route.js";
 import paymentRouter from "./routes/payment.route.js";
 import workoutRoutes from "./routes/workoutRoutes.js";
 import quizRoute from "./routes/quiz.route.js";
-import cors from "cors";
 import getUserRoute from "./routes/getUser.route.js";
 import { sendEmailRoute } from "./emailSender.js";
 import pdfGenerationRoute from "./routes/Report.js";

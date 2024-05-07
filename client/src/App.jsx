@@ -53,11 +53,13 @@ import OTP from "./pages/Profile Management/OTP";
 import { AuthProvider } from "./shared/context/auth.context";
 import ProtectedRouteCustomer from "./shared/context/PrivateRoute";
 import CheckLogin from "./shared/context/checkLogin";
+import DashBoard from "./pages/DashBoard.jsx";
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<DashBoard />} />
           <Route
             path="/login"
             element={
@@ -102,7 +104,7 @@ function App() {
           <Route path="/otp" element={<OTP />} />
           {/* Admin Routes */}
           {/* Isuru */}
-          <Route path="/" element={<DietPlan />} />
+          <Route path="/diet-plan" element={<DietPlan />} />
           <Route path="/assign-diet-plan/:id" element={<AssignDietPlan />} />
           <Route path="/add-food" element={<AddFood />} />
           <Route path="/update-food/:id" element={<UpdateFood />} />
@@ -128,7 +130,6 @@ function App() {
           {/* Define route for editing workouts */}
           {/* <Route path="/workoutpool" element={<WorkoutPool />} />
           <Route path="/AddWorkout" element={<AddWorkout />} /> */}
-
           {/* {Umaya} */}
           <Route path="/add-inventory" element={<InventoryAdd />} />
           <Route path="/show-inventory" element={<InventoryShow />} />
@@ -136,7 +137,6 @@ function App() {
             path="/update-inventory/:id"
             element={<InventoryUpdateDlt />}
           />
-
           <Route path="/create-notification" element={<CreateNotification />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route
