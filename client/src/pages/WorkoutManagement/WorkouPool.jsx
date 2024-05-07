@@ -11,8 +11,10 @@ import "firebase/compat/storage";
 import logo from "../../assets/Logo.png";
 import backgroundImage from "../../assets/bg-Img.png";
 import WorkoutReport from "../../components/WorkoutReport";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import SideBar from "../../components/SideBar";
+import DietPlanUserView from "../../components/DietPlanUserView";
 
 function WorkoutPool() {
   const [workoutCategories, setWorkoutCategories] = useState([]);
@@ -41,7 +43,7 @@ function WorkoutPool() {
   useEffect(() => {
     setUserId(id); // Set userId from URL parameter
     axios
-      .get(`http://localhost:3000/api/users/bioDataById/${id}`)
+      .get(`http://localhost:3000/api/bioData/bioDataById/${id}`)
       .then((response) => {
         setUserEmail(response.data.data.bioData.email);
       })
@@ -200,9 +202,7 @@ function WorkoutPool() {
         let emailContent = `<h1>Assigned Workouts</h1>`;
 
         // Loop through categories and include workouts
-        for (const [category, workouts] of Object.entries(
-          workoutsByCategory
-        )) {
+        for (const [category, workouts] of Object.entries(workoutsByCategory)) {
           emailContent += `<h2>${category}</h2>`;
           workouts.forEach((workout) => {
             emailContent += `
@@ -230,7 +230,7 @@ function WorkoutPool() {
           })
           .then((response) => {
             console.log("Email sent successfully");
-            toast.success('Workouts assigned and email sent successfully');
+            toast.success("Workouts assigned and email sent successfully");
           })
           .catch((error) => {
             console.error("Error sending email:", error);
@@ -281,6 +281,11 @@ function WorkoutPool() {
         backgroundPosition: "center",
       }}
     >
+      {/* side bar, select user */}
+      <div className="flex-col">
+        <SideBar />
+        <DietPlanUserView userId={id} />
+      </div>
       <div className="ml-16 pt-16 flex-grow">
         <div className="container mx-auto">
           <img
@@ -312,44 +317,47 @@ function WorkoutPool() {
                     />
                     {category}
                   </p>
-                  {workoutsByCategory[category] && openDropdown === category && (
-                    <div className="ml-14">
-                      <ul>
-                        {workoutsByCategory[category].map((workout, index) => (
-                          <li key={index}>
-                            <label className="flex items-center space-x-2">
-                              <input
-                                type="checkbox"
-                                className="form-checkbox text-indigo-600"
-                                onChange={(e) => e.stopPropagation()}
-                                onClick={() =>
-                                  handleSelectWorkout(category, index)
-                                }
-                                checked={selectedWorkouts.some(
-                                  (w) => w._id === workout._id
-                                )}
-                              />
-                              <span>{workout.name}</span>
-                              <Icon
-                                icon={trashAlt}
-                                className="cursor-pointer text-red-500"
-                                onClick={() =>
-                                  handleDeleteWorkout(category, index)
-                                }
-                              />
-                              <Icon
-                                icon={editIcon}
-                                className="cursor-pointer text-blue-500"
-                                onClick={(event) =>
-                                  handleEditWorkout(category, index, event)
-                                }
-                              />
-                            </label>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  {workoutsByCategory[category] &&
+                    openDropdown === category && (
+                      <div className="ml-14">
+                        <ul>
+                          {workoutsByCategory[category].map(
+                            (workout, index) => (
+                              <li key={index}>
+                                <label className="flex items-center space-x-2">
+                                  <input
+                                    type="checkbox"
+                                    className="form-checkbox text-indigo-600"
+                                    onChange={(e) => e.stopPropagation()}
+                                    onClick={() =>
+                                      handleSelectWorkout(category, index)
+                                    }
+                                    checked={selectedWorkouts.some(
+                                      (w) => w._id === workout._id
+                                    )}
+                                  />
+                                  <span>{workout.name}</span>
+                                  <Icon
+                                    icon={trashAlt}
+                                    className="cursor-pointer text-red-500"
+                                    onClick={() =>
+                                      handleDeleteWorkout(category, index)
+                                    }
+                                  />
+                                  <Icon
+                                    icon={editIcon}
+                                    className="cursor-pointer text-blue-500"
+                                    onClick={(event) =>
+                                      handleEditWorkout(category, index, event)
+                                    }
+                                  />
+                                </label>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    )}
                 </div>
               </div>
             ))}
@@ -371,7 +379,10 @@ function WorkoutPool() {
       </div>
       <div className="text-right py-20 pr-10 mx-20">
         <h1 className="text-2xl font-bold mx-12">Assigned Workouts</h1>
-        <div className="mt-8 bg-white rounded-md p-4 shadow-md overflow-auto border border-gray-300 h-80" style={{ maxWidth: '600px' }}>
+        <div
+          className="mt-8 bg-white rounded-md p-4 shadow-md overflow-auto border border-gray-300 h-80"
+          style={{ maxWidth: "600px" }}
+        >
           {selectedWorkouts.map((workout, index) => (
             <div key={index} className="relative flex items-center mb-4">
               <button
@@ -421,21 +432,20 @@ function WorkoutPool() {
           ))}
         </div>
         <div className="text-center mt-4 flex justify-center">
-  <button
-    className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-600"
-    onClick={handleAssignWorkout}
-  >
-    Assign workout
-  </button>
-  <button
-    className="bg-green-500 text-white px-10 py-2 rounded-md mr-2 hover:bg-green-600 flex items-center"
-    onClick={fetchUserDataAndGenerateReport}
-  >
-    <span>Generate Report</span>
-    <Icon icon={downloadIcon} className="ml-2" />
-  </button>
-</div>
-
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-600"
+            onClick={handleAssignWorkout}
+          >
+            Assign workout
+          </button>
+          <button
+            className="bg-green-500 text-white px-10 py-2 rounded-md mr-2 hover:bg-green-600 flex items-center"
+            onClick={fetchUserDataAndGenerateReport}
+          >
+            <span>Generate Report</span>
+            <Icon icon={downloadIcon} className="ml-2" />
+          </button>
+        </div>
       </div>
     </div>
   );
