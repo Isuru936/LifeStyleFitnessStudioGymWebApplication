@@ -47,6 +47,7 @@
     "pdf-lib": "^1.17.1",
     "pdfmake": "^0.2.10",
     "qrcode.react": "^3.1.0",
+    "react-dom": "^18.0.0",
     "react-native-modern-qrscanner": "^1.0.8",
     "react-pdf": "^8.0.0",
     "react-qr-code": "^2.0.12",
