@@ -13,6 +13,9 @@ import backgroundImage from "../../assets/bg-Img.png";
 import WorkoutReport from "../../components/WorkoutReport";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DietPlanUserView from "../../components/DietPlanUserView";
+import SideBar from "../../components/SideBar";
+
 
 function WorkoutPool() {
   const [workoutCategories, setWorkoutCategories] = useState([]);
@@ -41,7 +44,7 @@ function WorkoutPool() {
   useEffect(() => {
     setUserId(id); // Set userId from URL parameter
     axios
-      .get(`http://localhost:3000/api/users/bioDataById/${id}`)
+      .get(`http://localhost:3000/api/bioData/bioDataById/${id}`)
       .then((response) => {
         setUserEmail(response.data.data.bioData.email);
       })
@@ -246,7 +249,7 @@ function WorkoutPool() {
 
   const fetchUserDataAndGenerateReport = () => {
     axios
-      .get(`http://localhost:3000/api/users/bioDataById/${userId}`)
+      .get(`http://localhost:3000/api/bioData/bioDataById/${userId}`)
       .then((response) => {
         const userData = response.data;
 
@@ -280,9 +283,13 @@ function WorkoutPool() {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-    >
+    > <div>
+    <SideBar />
+    <DietPlanUserView userId={userId} />
+  </div>
       <div className="ml-16 pt-16 flex-grow">
         <div className="container mx-auto">
+          
           <img
             src={logo}
             alt="Logo"
