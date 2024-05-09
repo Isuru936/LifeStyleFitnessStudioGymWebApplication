@@ -95,10 +95,7 @@ function App() {
           <Route path="/pdf/:id" element={<PDFGeneration />} />
           <Route path="/test" element={<Test />} />
           <Route path="/sign-up" element={<Signup />} />
-          <Route>
           <Route path="/forget-password" element={<ForgetPassword />} />
-
-          </Route>
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/Quiz" element={<Quiz />} />
           <Route path="/otp" element={<OTP />} />
