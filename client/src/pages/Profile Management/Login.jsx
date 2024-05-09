@@ -27,6 +27,7 @@ export const Login = () => {
     }).catch((error) => {
       console.log("error")
       setloading(true);
+      Toast("Invalid email or password","")
     });
   };
 

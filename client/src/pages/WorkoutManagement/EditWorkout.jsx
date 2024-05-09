@@ -5,6 +5,8 @@ import bgImg from "../../assets/bg-Img.png";
 import SideBar from "../../components/SideBar";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
@@ -75,9 +77,11 @@ function EditWorkout() {
       // Update workout details (including image URL) in MongoDB
       const response = await axios.put(`http://localhost:3000/api/workouts/${id}`, workout);
       console.log('Workout updated successfully:', response.data);
+      toast.success("Workout updated successfully!");
     } catch (error) {
       console.error('Error updating workout:', error);
       setError(error.message || "Error updating workout.");
+      toast.error("Error updating workout.");
     }
   };
   
@@ -94,6 +98,7 @@ function EditWorkout() {
         backgroundPosition: "center",
       }}
     >
+      <ToastContainer />
       <div className="flex flex-row m-2 w-full justify-center">
         <div className="flex-col">
           <SideBar />
@@ -106,17 +111,17 @@ function EditWorkout() {
               </h1>
               <hr className="mb-2 mt-2" />
               <div className="flex items-center justify-center"> {/* Add this container div */}
-  <img 
-    src={workout.imageUrl} 
-    alt="Workout" 
-    style={{ 
-      width: "200px", // Set a fixed width for the image
-      height: "200px", // Set a fixed height for the image to make it square
-      objectFit: "cover", // Maintain aspect ratio by cropping if needed
-      borderRadius: "8px" // Add border radius for rounded corners
-    }} 
-  />
-</div>
+                <img 
+                  src={workout.imageUrl} 
+                  alt="Workout" 
+                  style={{ 
+                    width: "200px", // Set a fixed width for the image
+                    height: "200px", // Set a fixed height for the image to make it square
+                    objectFit: "cover", // Maintain aspect ratio by cropping if needed
+                    borderRadius: "8px" // Add border radius for rounded corners
+                  }} 
+                />
+              </div>
             </div>
             
             {error && <div className="text-red-500">{error}</div>}
@@ -168,6 +173,10 @@ function EditWorkout() {
                       <option value="Flexibility">Flexibility</option>
                       <option value="arms">arms</option>
                       <option value="legs">legs</option>
+                      <option value="chest">upper body</option>
+                      <option value="weigth loss">weight loss</option>
+                      <option value="back">back</option>
+                      <option value="abs">abs</option>
                       {/* Add more options as needed */}
                     </select>
                   </div>

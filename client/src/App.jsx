@@ -73,6 +73,7 @@ function App() {
             {/* {Isuru} */}
             <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
             {/* {Vinuka} */}
+            {/* TODO code This hadnle backend as well */}
             <Route path="/contact-us" element={<ContactUs />} />
             {/* Thamalsha */}
             <Route path="/UserExercises" element={<UserExercises />} />
@@ -91,6 +92,8 @@ function App() {
             />
             <Route path="/enter-payment" element={<EnterPaymentDetails />} />
             {/* {Shafry} */}
+          <Route path="/editProfile" element={<EditProfile />} />
+          <Route path="/profile" element={<UserProfile />} />
           </Route>
           <Route path="/pdf/:id" element={<PDFGeneration />} />
           <Route path="/test" element={<Test />} />
@@ -98,10 +101,9 @@ function App() {
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/Quiz" element={<Quiz />} />
-          <Route path="/new-password" element={<NewPassword />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/otp" element={<OTP />} />
+          <Route path="/new-password" element={<NewPassword/>} />
+
           {/* Admin Routes */}
           {/* Isuru */}
           <Route path="/diet-plan" element={<DietPlan />} />

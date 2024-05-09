@@ -10,6 +10,18 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 import QRCode from "react-qr-code";
 import PDFGeneration from "../PDF Generation/InsertDataToPDF";
+import { saveAs } from "file-saver";
+import {
+  PDFViewer,
+  Document,
+  Page,
+  pdf,
+  Text,
+  Image,
+  View,
+  StyleSheet,
+} from "@react-pdf/renderer";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 function AddUpdateEmployeeDetails() {
   const { id } = useParams();
@@ -99,6 +111,55 @@ function AddUpdateEmployeeDetails() {
     }
   };
 
+  const handlePDFDownnload = async () => {
+    // Generate PDF content
+    const pdfContent = (
+      <Document>
+        <Page size="A4" style={styles.page}>
+          <View style={styles.section}>
+            <View style={styles.headerSection}>
+              <Image src={logo} style={styles.logo} />
+              <Text style={styles.header}>Employee Credentials</Text>
+            </View>
+            <hr />
+            <View style={styles.infoSection}>
+              <View style={styles.infoRow}>
+                <Text style={styles.label}>Name:</Text>
+                <Text style={styles.text}>{formData.name}</Text>
+              </View>
+              <View style={styles.infoRow}>
+                <Text style={styles.label}>Email:</Text>
+                <Text style={styles.text}>{formData.email}</Text>
+              </View>
+              <View style={styles.infoRow}>
+                <Text style={styles.label}>Role:</Text>
+                <Text style={styles.text}>{formData.role}</Text>
+              </View>
+              <View style={styles.infoRow}>
+                <Text style={styles.label}>Age:</Text>
+                <Text style={styles.text}>{formData.age}</Text>
+              </View>
+              <View style={styles.infoRow}>
+                <Text style={styles.label}>Telephone:</Text>
+                <Text style={styles.text}>{formData.telephone}</Text>
+              </View>
+              <View style={styles.infoRow}>
+                <Text style={styles.label}>NIC:</Text>
+                <Text style={styles.text}>{formData.nic}</Text>
+              </View>
+            </View>
+          </View>
+        </Page>
+      </Document>
+    );
+
+    // Generate PDF blob
+    const blob = await pdf(pdfContent).toBlob();
+
+    // Download PDF
+    saveAs(blob, `${formData.name} Employee Details.pdf`);
+  };
+
   return (
     <>
       <div
@@ -118,7 +179,9 @@ function AddUpdateEmployeeDetails() {
             <div className="p-4 mt-3  w-full ">
               <div className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold ">User Details</h1>
-                <img src={logo} className="w-24 h-12 mr-5" alt="" />
+                <Link to="/diet-plan">
+                  <img src={logo} className="w-24 h-12 mr-5" alt="" />
+                </Link>
               </div>
               <hr />
               <div className="flex flex-col  justify-center w-full">
@@ -233,6 +296,11 @@ function AddUpdateEmployeeDetails() {
                   </button>
                 </form>
                 <div className="mx-auto">
+                  <Link to="/employee-pool">
+                    <button className="p-3 bg-white rounded-xl text-black border font-bold mr-5 mt-5 mb-10 hover:bg-slate-100">
+                      <Icon icon="ion:chevron-back-circle-sharp" />
+                    </button>
+                  </Link>
                   <button
                     className="p-3 bg-red-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-red-700"
                     onClick={handleDelete}
@@ -243,6 +311,7 @@ function AddUpdateEmployeeDetails() {
                     />{" "}
                     Delete Record
                   </button>
+
                   <Link to={`/pdf/${formData._id}`} target="_blank">
                     <button
                       className="p-3 bg-orange-500 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-orange-600"
@@ -255,15 +324,17 @@ function AddUpdateEmployeeDetails() {
                       Download QR Code
                     </button>
                   </Link>
-                  <Link to="/employee-pool">
-                    <button className="p-3 bg-white rounded-xl text-black border font-bold mr-5 mt-5 mb-10 hover:bg-slate-100">
-                      <span
-                        className="icon-[ic--twotone-system-security-update-good] mr-2"
-                        style={{ width: "20px", height: "20px" }}
-                      />{" "}
-                      Back
-                    </button>
-                  </Link>
+                  <button
+                    className="p-3 bg-green-600 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-green-700"
+                    onClick={handlePDFDownnload}
+                    type="none"
+                  >
+                    <span
+                      className="icon-[line-md--download-loop] mr-2"
+                      style={{ width: "20px", height: "20px" }}
+                    />{" "}
+                    Download Employee Details
+                  </button>
                 </div>
               </div>
             </div>
@@ -274,5 +345,48 @@ function AddUpdateEmployeeDetails() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: "column",
+    backgroundColor: "#ffffff",
+    padding: 60,
+    border: "1px solid #000",
+  },
+  section: {
+    marginBottom: 10,
+  },
+  headerSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  logo: {
+    width: 100,
+    height: 50,
+    marginRight: 10,
+  },
+  header: {
+    fontSize: 32,
+    fontWeight: "extrabold",
+  },
+  infoSection: {
+    marginBottom: 20,
+  },
+  infoRow: {
+    display: "flex",
+    justifyContent: "flex-end",
+    flexDirection: "row",
+    marginBottom: 5,
+    margin: "10px",
+  },
+  label: {
+    fontWeight: "bold",
+    width: 80,
+  },
+  text: {
+    flex: 1,
+  },
+});
 
 export default AddUpdateEmployeeDetails;

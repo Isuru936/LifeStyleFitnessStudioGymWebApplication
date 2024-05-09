@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import notify from "../../components/toasts/toastTemplate";
 import { ToastContainer } from "react-toastify";
+import { motion } from "framer-motion";
 
 const ViewPayments = () => {
   // Dummy data for demonstration
@@ -47,8 +48,7 @@ const ViewPayments = () => {
           <div className="flex justify-between">
             <h1 className="text-4xl font-bold my-8">User Payments</h1>
             <button
-              className="border border-black w-fit h-fit flex  p-3 rounded-lg hover:bg-orange-500 hover:border-none hover:text-white transition-colors duration-300 ease-in-out
-            "
+              className="border border-black w-fit h-fit flex  p-3 rounded-lg hover:bg-orange-500 hover:border-none hover:text-white transition-colors duration-300 ease-in-out"
               onClick={() => {
                 notify(
                   "info",
@@ -67,15 +67,23 @@ const ViewPayments = () => {
             </button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {payments.map((payment) => (
-              <div
+            {payments.map((payment, index) => (
+              <motion.div
                 key={payment.id}
-                className="bg-white rounded-lg shadow-md hover:shadow-xl p-6"
+                className="bg-white rounded-lg shadow-md hover:shadow-xl p-6 flip-card"
+                initial={{ opacity: 0, y: 20, rotateX: -180 }} // Adjust initial rotation
+                animate={{ opacity: 1, y: 0, rotateX: 0 }} // Adjust final rotation
+                variants={{
+                  hidden: { opacity: 0, x: 50 },
+                  visible: { opacity: 1, x: 0 },
+                }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                }}
               >
                 <div className="flex justify-between">
-                  <h2 className="text-xl font-semibold mb-2">
-                    {payment.username}
-                  </h2>
+                  <h2 className="text-xl font-semibold mb-2">#{payment._id}</h2>
                   <button
                     className="text-blue-700"
                     onClick={(e) => {
@@ -92,7 +100,7 @@ const ViewPayments = () => {
                 <p className="text-gray-600">
                   Package Type: ${payment.paymentType}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
