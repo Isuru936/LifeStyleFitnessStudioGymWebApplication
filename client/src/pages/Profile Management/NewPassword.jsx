@@ -44,7 +44,7 @@ export const NewPassword = () => {
     <div className="absolute h-screen w-screen lg:w-screen flex justify-center align-middle">
       <img
         src={wmodel}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-none"
         alt="Background"
       />
       <img
@@ -64,13 +64,13 @@ export const NewPassword = () => {
               </h2>
               <div className="flex justify-center">
                 <div>
-                  <div className=" h-5 text-black text-lg font-normal font-['Inria Sans'] mb-2 ">
+                  <div className=" h-5 text-black text-lg font-normal font-['Inria Sans'] mb-3 ">
                     <label htmlFor="Password">New Password</label>
                   </div>
-                  <div className="mb-5 relative">
+                  <div className="rounded-[10px] pr-1 mb-5 relative flex bg-slate-500">
                     <input
                       type={showNewPassword ? "text" : "password"}
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-7 w-full"
+                      className="bg-transparent h-7 w-full"
                       onChange={(event) => setNewPassword(event.target.value)}
                     />
                     <button className="" onClick={toggleShowNewPassword}>
@@ -80,19 +80,22 @@ export const NewPassword = () => {
                   <div className=" h-5 text-black text-lg font-normal font-['Inria Sans'] mb-2">
                     <label htmlFor="Password">Confirm Password</label>
                   </div>
-                  <div className="mb-5">
+                  <div className="rounded-[10px] pr-1 mb-1 relative flex bg-slate-500">
                     <input
                       onBlur={() => setTouch(true)}
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-7 w-full"
-                      type="password"
-                      id="confirm_password"
+                      className="bg-transparent opacity-65 h-7 w-full"
+                      type={showConfirmPassword ? "text" : "password"}
+                      id="confirmPassword"
                       onChange={(event) =>
                         setConfirmPassword(event.target.value)
                       }
                     />
+                    <button onClick={toggleShowConfirmPassword}>
+                    {showNewPassword ? <HiEyeOff /> : <HiEye />}
+                    </button>
                   </div>
                   {touch && NewPassword !== ConfirmPassword && (
-                    <h2 className="text-red-700">Password Mismatch </h2>
+                    <h2 className="text-red-700 mb-5">Password Mismatch </h2>
                   )}
                   <div className="flex justify-center mb-3">
                     <button

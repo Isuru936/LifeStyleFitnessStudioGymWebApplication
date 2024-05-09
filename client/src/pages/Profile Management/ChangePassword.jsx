@@ -6,6 +6,7 @@ import bg from "../../assets/gym.jpg";
 import axios from "axios";
 import { AuthContext } from "../../shared/context/auth.context";
 import Toast from "../../shared/toast/Toast";
+import {  useNavigate } from "react-router-dom";
 
 const ChangePassword = () => {
   const Auth = useContext(AuthContext);
@@ -16,6 +17,7 @@ const ChangePassword = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [touch , setTouch] = useState(false);
+  const navigate = useNavigate();
 
   const isChangeEnabled =
     currentPassword !== "" &&
@@ -33,11 +35,13 @@ const ChangePassword = () => {
       .then((response) => {
         if(response.data.message === "Password updated successfully"){
           Toast("Password updated successfully","success")
+          navigate("/profile")
         }
       })
       .catch((error) => {
-        Toast("Current Password is Invalid","error")
+        Toast("Password Doesn't Match","error")
       });
+      
   };
 
   const toggleShowCurrentPassword = () => {
@@ -150,7 +154,9 @@ const ChangePassword = () => {
               </li>
             )}
             <li className="flex justify-center">
-              <button className="text-black underline hover:no-underline">
+              <button 
+                className="text-black underline hover:no-underline" onClick={() => navigate("/forget-password")}>
+                
                 Forget Password ?
               </button>
             </li>
