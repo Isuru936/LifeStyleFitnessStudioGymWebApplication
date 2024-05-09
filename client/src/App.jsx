@@ -54,6 +54,8 @@ import { AuthProvider } from "./shared/context/auth.context";
 import ProtectedRouteCustomer from "./shared/context/PrivateRoute";
 import CheckLogin from "./shared/context/checkLogin";
 import DashBoard from "./pages/DashBoard.jsx";
+import AdminRegistration from "./pages/AdminLogin/AdminReg.jsx";
+import AdminLogin from "./pages/AdminLogin/AdminLogin.jsx";
 function App() {
   return (
     <AuthProvider>
@@ -106,6 +108,8 @@ function App() {
 
           {/* Admin Routes */}
           {/* Isuru */}
+          <Route path="/admin" element={<AdminRegistration />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/diet-plan" element={<DietPlan />} />
           <Route path="/assign-diet-plan/:id" element={<AssignDietPlan />} />
           <Route path="/add-food" element={<AddFood />} />
