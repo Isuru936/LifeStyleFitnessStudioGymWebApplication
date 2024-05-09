@@ -25,6 +25,7 @@ function WorkoutPool() {
   const [weightValues, setWeightValues] = useState({});
   const [userId, setUserId] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [workoutPlanEmpty, setWorkoutPlanEmpty] = useState(true);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -46,10 +47,11 @@ function WorkoutPool() {
       .get(`http://localhost:3000/api/bioData/bioDataById/${id}`)
       .then((response) => {
         setUserEmail(response.data.data.bioData.email);
+        setWorkoutPlanEmpty(response.data.data.bioData.workoutplan.length === 0);
       })
       .catch((error) => {
-        console.error("Error fetching user email:", error);
-        setError("Error fetching user email");
+        console.error("Error fetching user data:", error);
+        setError("Error fetching user data");
       });
   }, [id]);
 
@@ -170,7 +172,86 @@ function WorkoutPool() {
     }
   };
 
-  4
+  const handleAssignWorkout = () => {
+    const selectedWorkoutsData = selectedWorkouts.map((workout) => ({
+      _id: workout._id,
+      name: workout.name,
+      reps: workout.reps,
+      sets: workout.sets,
+      description:workout.description,
+      weight: weightValues[workout._id] || 0,
+      imageUrl: workout.imageUrl,
+      category: workout.category,
+    }));
+
+    axios
+      .post(`http://localhost:3000/api/saveWorkouts`, {
+        userId: userId,
+        workouts: selectedWorkoutsData,
+      })
+      .then((response) => {
+        setSelectedWorkouts([]);
+
+        // Group workouts by category
+        const workoutsByCategory = {};
+        selectedWorkoutsData.forEach((workout) => {
+          if (!workoutsByCategory[workout.category]) {
+            workoutsByCategory[workout.category] = [];
+          }
+          workoutsByCategory[workout.category].push(workout);
+        });
+
+        // Construct email content
+        let emailContent = `<h1>Assigned Workouts</h1>`;
+
+        // Loop through categories and include workouts
+        for (const [category, workouts] of Object.entries(
+          workoutsByCategory
+        )) {
+          emailContent += `<h2>${category}</h2>`;
+          workouts.forEach((workout) => {
+            emailContent += `
+              <div style="display: flex;">
+                <img src="${workout.imageUrl}" alt="${workout.name}" style="max-width: 70px;">
+                <div style="margin-left: 20px;">
+                  <strong>${workout.name}</strong><br>
+                  Reps: ${workout.reps}<br>
+                  Sets: ${workout.sets}<br>
+                  Weight: ${workout.weight}<br>
+                </div>
+              </div>
+              <br>`;
+          });
+        }
+
+       // Replace the logo variable with the URL of the new logo image
+const image = "https://firebasestorage.googleapis.com/v0/b/lsfs-1a314.appspot.com/o/Logo.png?alt=media&token=117322bf-b255-4114-b29e-b58a55e5a58e";
+
+// Add company logo to email
+emailContent += `<img src="${image}" alt="Company Logo" style="max-width: 100px;">`;
+
+
+        axios
+          .post("http://localhost:3000/api/sendEmail", {
+            userEmail: userEmail,
+            subject: "Assigned Workouts",
+            html: emailContent,
+          })
+          .then((response) => {
+            console.log("Email sent successfully");
+            toast.success('Workouts assigned and email sent successfully');
+          })
+          .catch((error) => {
+            console.error("Error sending email:", error);
+          });
+
+        navigate(`/workoutpool/${userId}`);
+      })
+      .catch((error) => {
+        console.error("Error assigning workouts:", error);
+        setError("Error assigning workouts");
+      });
+  };
 
   const generatePdf = () => {
     axios
@@ -231,12 +312,19 @@ function WorkoutPool() {
         console.error("Error fetching user data:", error);
       });
   };
-  
-  
-  
-  
 
-  
+  const handleClearWorkouts = () => {
+    axios
+      .delete(`http://localhost:3000/api/clearWorkouts/${userId}`)
+      .then((response) => {
+        toast.success('Workouts cleared successfully');
+        setWorkoutPlanEmpty(true);
+      })
+      .catch((error) => {
+        console.error("Error clearing workouts:", error);
+        setError("Error clearing workouts");
+      });
+  };
 
   return (
     <div
@@ -253,7 +341,6 @@ function WorkoutPool() {
       </div>
       <div className="ml-16 pt-16 flex-grow">
         <div className="container mx-auto">
-          
           <img
             src={logo}
             alt="Logo"
@@ -327,7 +414,7 @@ function WorkoutPool() {
           </div>
           <div className="text-right py-4 pr-10">
             <button
-              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mr-2"
+              className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 mr-2"
               onClick={() => setSelectedWorkouts([])}
             >
               Deselect All
@@ -338,6 +425,24 @@ function WorkoutPool() {
               </Link>
             </button>
           </div>
+          {workoutPlanEmpty ? (
+            <div className="text-center my-4">
+              <p className="text-red-500">No workouts have been assigned for this user yet.</p>
+            </div>
+          ) : (
+            <div className="text-center my-4">
+               <p className="text-l  ">
+               Assigned workouts exist for this user. Would you like to clear them? <br/>
+also you can, click 'Generate Report' to view the assigned workouts.
+            </p>
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                onClick={handleClearWorkouts}
+              >
+                Clear Assigned Workouts
+              </button>
+            </div>
+          )}
         </div>
       </div>
       <div className="text-right py-20 pr-10 mx-20">
@@ -407,9 +512,7 @@ function WorkoutPool() {
           </button>
         </div>
       </div>
-     
     </div>
   );
 }
-
 export default WorkoutPool;
