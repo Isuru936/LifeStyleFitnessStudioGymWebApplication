@@ -36,8 +36,6 @@ function NavigationBar() {
     setShowNotifications(!showNotifications);
   };
 
-  // TODO: modify the url to dashboard
-
   return (
     <div className="bg-white h-16 flex items-center justify-between px-6 font-sans relative z-50">
       <div className="flex items-center">
@@ -115,7 +113,7 @@ function NavigationBar() {
           to="/user-view-diet-plans"
           className="text-black text-base font-semibold mr-6 hover:text-gray-400 transition duration-300 relative text-link"
         >
-          Diet Planlas
+          Diet Plan
         </Link>
       </div>
       <div className="flex items-center">
@@ -125,7 +123,7 @@ function NavigationBar() {
           onClick={toggleNotifications}
         />
         {showNotifications && (
-          <div className="absolute w-72 top-16 right-5 bg-white shadow-lg rounded-b-lg p-4">
+          <div className="absolute w-72 top-16 right-5 bg-white shadow-lg rounded-b-lg p-4 max-h-[1000px] overflow-y-auto">
             <h3 className="text-xl font-semibold mb-2">Notifications</h3>
             {notifications
               .slice(0)

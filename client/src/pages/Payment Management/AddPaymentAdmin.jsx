@@ -3,6 +3,18 @@ import { useParams, useNavigate } from "react-router-dom";
 import notify from "../../components/toasts/toastTemplate";
 import { ToastContainer } from "react-toastify";
 import axios from "axios";
+import { pdf } from "@react-pdf/renderer";
+import { saveAs } from "file-saver";
+import logo from "../../assets/Logo.png";
+import {
+  PDFViewer,
+  Document,
+  Page,
+  Text,
+  Image,
+  View,
+  StyleSheet,
+} from "@react-pdf/renderer";
 
 function AddPaymentAdmin() {
   const { id } = useParams();
@@ -20,8 +32,6 @@ function AddPaymentAdmin() {
         );
         const data = await response.json();
         setUserData(data.data.bioData);
-        console.log(data.data.bioData);
-        console.log(data.data.bioData.email);
         setEmail(data.data.bioData.email);
       } catch (error) {
         console.log(error);
@@ -48,7 +58,7 @@ function AddPaymentAdmin() {
   const handlePaymentAmountChange = (e) => {
     setPaymentAmount(e.target.value);
   };
-  // Function to handle payment submission
+
   const handlePaymentSubmission = async () => {
     if (!paymentType) {
       notify("error", "", "Please select a payment type");
@@ -75,33 +85,76 @@ function AddPaymentAdmin() {
 
       if (response.ok) {
         notify("success", "", "Payment submitted successfully");
+
+        // Generate PDF content
+        const pdfContent = (
+          <Document>
+            <Page size="A4" style={styles.page}>
+              <View style={styles.section}>
+                <Image src={logo} style={styles.logo} />
+                <Text style={styles.header}>Payment Details</Text>
+                <View style={styles.section}>
+                  <Text style={[styles.label, styles.text]}>Email:</Text>
+                  <Text style={styles.text}>{userData.email}</Text>
+                </View>
+                <View style={styles.section}>
+                  <Text style={[styles.label, styles.text]}>
+                    {" "}
+                    Please Aknowleged this as the payment reciept. For your
+                    payment.
+                  </Text>
+                  <Text style={styles.text}>{userData.email}</Text>
+                </View>
+                <View style={styles.section}>
+                  <Text style={[styles.label, styles.text]}>Username:</Text>
+                  <Text style={styles.text}>{userData.username}</Text>
+                </View>
+                <View style={styles.section}>
+                  <Text style={[styles.label, styles.text]}>Payment Type:</Text>
+                  <Text style={styles.text}>{paymentType}</Text>
+                </View>
+                <View style={styles.section}>
+                  <Text style={[styles.label, styles.text]}>Amount:</Text>
+                  <Text style={styles.text}>{paymentAmount}</Text>
+                </View>
+              </View>
+            </Page>
+          </Document>
+        );
+
+        // Generate PDF blob
+        const blob = await pdf(pdfContent).toBlob();
+
+        // Download PDF
+        saveAs(blob, "payment_details.pdf");
+
         let emailContent = `
-  <h1 style="text-align: center; color: #333;">Payment Details Updated</h1>
-  <div style="text-align: center;">
-    <img src="https://firebasestorage.googleapis.com/v0/b/lsfs-1a314.appspot.com/o/Logo.png?alt=media&token=117322bf-b255-4114-b29e-b58a55e5a58e" alt="Company Logo" style="max-width: 100px;">
-  </div>
-  <p style="margin-top: 20px; line-height: 1.6; color: #555;">
-    Dear Sir/ Madam,
-  </p>
-  <p style="margin-top: 20px; line-height: 1.6; color: #555;">
-    We are writing to inform you that your payment details have been successfully updated by our admin.
-  </p>
-  <p style="margin-top: 20px; line-height: 1.6; color: #555;">
-    If you have any questions or concerns regarding your payment, feel free to contact our support team.
-  </p>
-  <p style="margin-top: 20px; line-height: 1.6; color: #555;">
-    Thank you for choosing LSFS.
-  </p>
-  <p style="margin-top: 20px; line-height: 1.6; color: #555; text-align: center;">
-    Sincerely,<br>
-    LSFS Team
-  </p>
-`;
+          <h1 style="text-align: center; color: #333;">Payment Details Updated</h1>
+          <div style="text-align: center;">
+            <img src="https://firebasestorage.googleapis.com/v0/b/lsfs-1a314.appspot.com/o/Logo.png?alt=media&token=117322bf-b255-4114-b29e-b58a55e5a58e" alt="Company Logo" style="max-width: 100px;">
+          </div>
+          <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+            Dear Sir/ Madam,
+          </p>
+          <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+            We are writing to inform you that your payment details have been successfully updated by our admin.
+          </p>
+          <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+            If you have any questions or concerns regarding your payment, feel free to contact our support team.
+          </p>
+          <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+            Thank you for choosing LSFS.
+          </p>
+          <p style="margin-top: 20px; line-height: 1.6; color: #555; text-align: center;">
+            Sincerely,<br>
+            LSFS Team
+          </p>
+        `;
 
         // Send the email
         try {
           await axios.post("http://localhost:3000/api/sendEmail", {
-            userEmail: `{${email} }`, // Fixed the data structure
+            userEmail: `{${email} }`,
             subject: "Payment Notice has been Updated",
             html: emailContent,
           });
@@ -144,7 +197,6 @@ function AddPaymentAdmin() {
           <option value="">Select Payment Type</option>
           <option value="Yearly">Yearly</option>
           <option value="Monthly">Monthly</option>
-          {/* Add more payment types as needed */}
         </select>
         <label htmlFor="paymentAmount" className="block mb-1">
           Amount:
@@ -161,7 +213,7 @@ function AddPaymentAdmin() {
           onClick={handlePaymentSubmission}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
         >
-          Submit Payment
+          Add Payment
         </button>
         <button
           onClick={handleBack}
@@ -174,5 +226,35 @@ function AddPaymentAdmin() {
     </div>
   );
 }
+
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: "column",
+    backgroundColor: "#ffffff",
+    padding: 20,
+  },
+  section: {
+    marginBottom: 10,
+  },
+  header: {
+    fontSize: 24,
+    marginBottom: 10,
+    textAlign: "center",
+    textDecoration: "underline",
+  },
+  text: {
+    fontSize: 12,
+    marginBottom: 5,
+  },
+  label: {
+    fontWeight: "bold",
+  },
+  logo: {
+    marginBottom: 20, // Adjust as needed
+    width: 100, // Adjust as needed
+    height: 50, // Adjust as needed
+    alignSelf: "center",
+  },
+});
 
 export default AddPaymentAdmin;
