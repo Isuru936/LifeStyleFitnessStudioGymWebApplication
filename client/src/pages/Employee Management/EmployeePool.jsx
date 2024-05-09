@@ -5,6 +5,7 @@ import logo from "../../assets/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
+import { motion } from "framer-motion";
 
 function UserPool() {
   const [employees, setEmployees] = useState([]);
@@ -16,10 +17,9 @@ function UserPool() {
     const fetchEmployees = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/employee/getEmployees" //view endpoint
+          "http://localhost:3000/api/employee/getEmployees"
         );
         setEmployees(response.data.data.employees);
-        console.log(response.data);
         setLoading(false);
       } catch (error) {
         setError("Error fetching employees.");
@@ -29,11 +29,11 @@ function UserPool() {
     fetchEmployees();
 
     const intervalId = setInterval(() => {
-      fetchEmployees(); // Fetch data every 5 seconds
+      fetchEmployees();
     }, 5000);
 
     return () => {
-      clearInterval(intervalId); // Cleanup interval on component unmount
+      clearInterval(intervalId);
     };
   }, []);
 
@@ -77,96 +77,123 @@ function UserPool() {
                     />
                     <Link to="/add-employee">
                       <button className="p-3 border rounded-xl bg-blue-700 text-white hover:bg-blue-800">
-                        <span className="icon-[mingcute--user-add-fill] mr-2" />{" "}
-                        Add New Employee
+                        <span className="icon-[mingcute--user-add-fill]" />{" "}
                       </button>
                     </Link>
                   </div>
                   {loading ? (
                     <div>Loading...</div>
                   ) : (
-                    <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                      <table className="min-w-fit divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
-                          <tr>
-                            <th
-                              scope="col"
-                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            ></th>
-                            <th
-                              scope="col"
-                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
-                              Name
-                            </th>
-                            <th
-                              scope="col"
-                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
-                              Email
-                            </th>
-                            <th
-                              scope="col"
-                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
-                              NIC
-                            </th>
-                            <th
-                              scope="col"
-                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
-                              Telephone
-                            </th>
-                            <th
-                              scope="col"
-                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
-                              Active
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                          {employees.map((employee) => (
-                            <tr
-                              key={employee.id}
-                              className="hover:bg-slate-200"
-                              onClick={() => handleNavigate(employee._id)}
-                            >
-                              <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="flex items-center">
-                                  <div className="flex-shrink-0 h-10 w-10">
-                                    <img
-                                      className="h-10 w-10 rounded-full"
-                                      src={employee.image}
-                                      alt={employee.name}
-                                    />
-                                  </div>
-                                </div>
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                {employee.name}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                {employee.email}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                {employee.nic}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                {employee.telephone}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
-                                {employee.attendance ? (
-                                  <div className="bg-green-600 w-5 h-5 rounded-full"></div>
-                                ) : (
-                                  <div className="bg-red-600 w-5 h-5 rounded-full"></div>
-                                )}
-                              </td>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.5 }}
+                      variants={{
+                        hidden: { opacity: 0 },
+                        visible: {
+                          opacity: 1,
+                          transition: { staggerChildren: 0.1 },
+                        },
+                      }}
+                    >
+                      <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <motion.table
+                          className="w-[1000px] divide-y divide-gray-200"
+                          variants={{
+                            visible: { transition: { staggerChildren: 0.1 } },
+                          }}
+                        >
+                          <thead className="bg-gray-50">
+                            <tr>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                              ></th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                              >
+                                Name
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                              >
+                                Email
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                              >
+                                NIC
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                              >
+                                Telephone
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                              >
+                                Active
+                              </th>
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                          </thead>
+                          <tbody className="bg-white divide-y divide-gray-200">
+                            {employees.map((employee, index) => (
+                              <motion.tr
+                                key={employee.id}
+                                variants={{
+                                  hidden: { opacity: 0, y: -20 },
+                                  visible: { opacity: 1, y: 0 },
+                                }}
+                                initial="hidden"
+                                animate="visible"
+                                transition={{
+                                  duration: 0.5,
+                                  delay: index * 0.1,
+                                }}
+                                className="hover:bg-slate-200"
+                                onClick={() => handleNavigate(employee._id)}
+                              >
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="flex items-center">
+                                    <div className="flex-shrink-0 h-10 w-10">
+                                      <img
+                                        className="h-10 w-10 rounded-full"
+                                        src={employee.image}
+                                        alt={employee.name}
+                                      />
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
+                                  {employee.name}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
+                                  {employee.email}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
+                                  {employee.nic}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
+                                  {employee.telephone}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-extralight">
+                                  {employee.attendance ? (
+                                    <div className="bg-green-600 w-5 h-5 rounded-full"></div>
+                                  ) : (
+                                    <div className="bg-red-600 w-5 h-5 rounded-full"></div>
+                                  )}
+                                </td>
+                              </motion.tr>
+                            ))}
+                          </tbody>
+                        </motion.table>
+                      </div>
+                    </motion.div>
                   )}
                 </div>
               </div>

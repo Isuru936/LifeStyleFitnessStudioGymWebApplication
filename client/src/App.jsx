@@ -73,6 +73,7 @@ function App() {
             {/* {Isuru} */}
             <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
             {/* {Vinuka} */}
+            {/* TODO code This hadnle backend as well */}
             <Route path="/contact-us" element={<ContactUs />} />
             {/* Thamalsha */}
             <Route path="/UserExercises" element={<UserExercises />} />
