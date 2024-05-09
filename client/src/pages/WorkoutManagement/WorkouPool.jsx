@@ -10,12 +10,11 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 import logo from "../../assets/Logo.png";
 import backgroundImage from "../../assets/bg-Img.png";
-import WorkoutReport from "../../components/WorkoutReport";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DietPlanUserView from "../../components/DietPlanUserView";
 import SideBar from "../../components/SideBar";
-
+import { jsPDF } from "jspdf";
 
 function WorkoutPool() {
   const [workoutCategories, setWorkoutCategories] = useState([]);
@@ -171,109 +170,73 @@ function WorkoutPool() {
     }
   };
 
-  const handleAssignWorkout = () => {
-    const selectedWorkoutsData = selectedWorkouts.map((workout) => ({
-      _id: workout._id,
-      name: workout.name,
-      reps: workout.reps,
-      sets: workout.sets,
-      weight: weightValues[workout._id] || 0,
-      imageUrl: workout.imageUrl,
-      category: workout.category,
-    }));
+  4
 
-    axios
-      .post(`http://localhost:3000/api/saveWorkouts`, {
-        userId: userId,
-        workouts: selectedWorkoutsData,
-      })
-      .then((response) => {
-        setSelectedWorkouts([]);
-
-        // Group workouts by category
-        const workoutsByCategory = {};
-        selectedWorkoutsData.forEach((workout) => {
-          if (!workoutsByCategory[workout.category]) {
-            workoutsByCategory[workout.category] = [];
-          }
-          workoutsByCategory[workout.category].push(workout);
-        });
-
-        // Construct email content
-        let emailContent = `<h1>Assigned Workouts</h1>`;
-
-        // Loop through categories and include workouts
-        for (const [category, workouts] of Object.entries(
-          workoutsByCategory
-        )) {
-          emailContent += `<h2>${category}</h2>`;
-          workouts.forEach((workout) => {
-            emailContent += `
-              <div style="display: flex;">
-                <img src="${workout.imageUrl}" alt="${workout.name}" style="max-width: 70px;">
-                <div style="margin-left: 20px;">
-                  <strong>${workout.name}</strong><br>
-                  Reps: ${workout.reps}<br>
-                  Sets: ${workout.sets}<br>
-                  Weight: ${workout.weight}<br>
-                </div>
-              </div>
-              <br>`;
-          });
-        }
-
-        // Add company logo to email
-        emailContent += `<img src="${logo}" alt="Company Logo" style="max-width: 100px;">`;
-
-        axios
-          .post("http://localhost:3000/api/sendEmail", {
-            userEmail: userEmail,
-            subject: "Assigned Workouts",
-            html: emailContent,
-          })
-          .then((response) => {
-            console.log("Email sent successfully");
-            toast.success('Workouts assigned and email sent successfully');
-          })
-          .catch((error) => {
-            console.error("Error sending email:", error);
-          });
-
-        navigate(`/workoutpool/${userId}`);
-      })
-      .catch((error) => {
-        console.error("Error assigning workouts:", error);
-        setError("Error assigning workouts");
-      });
-  };
-
-  const fetchUserDataAndGenerateReport = () => {
+  const generatePdf = () => {
     axios
       .get(`http://localhost:3000/api/bioData/bioDataById/${userId}`)
       .then((response) => {
-        const userData = response.data;
-
-        // Extract necessary data
-        const userEmail = userData.email;
-        const workoutPlan = userData.workoutplan || [];
-
-        // Extract workout details from workoutPlan
-        const selectedWorkoutsData = workoutPlan.map((workout) => ({
-          name: workout.name,
-          reps: workout.reps,
-          sets: workout.sets,
-          weight: workout.weight || 0,
-          imageUrl: workout.imageUrl,
-        }));
-
-        // Call WorkoutReport component with data
-        WorkoutReport(selectedWorkoutsData, userEmail);
+        const userData = response.data.data;
+  
+        if (
+          userData &&
+          userData.bioData &&
+          userData.bioData.workoutplan &&
+          userData.bioData.workoutplan.length > 0
+        ) {
+          const doc = new jsPDF();
+          let yOffset = 20;
+  
+          // Add "Assigned Workouts" heading
+          doc.setFontSize(16);
+          doc.setFont("helvetica", "bold");
+          doc.text("Assigned Workouts", 105, yOffset, { align: "center" });
+          yOffset += 10; // Increase Y offset for spacing
+  
+          // Add user ID and email
+          doc.setFontSize(12);
+          doc.setFont("helvetica", "normal");
+          doc.text(20, yOffset, `ID: ${userData.bioData._id}`);
+          doc.text(20, yOffset + 7, `Email: ${userData.bioData.email}`);
+          yOffset += 20; // Increase Y offset for spacing
+  
+          // Loop through workoutplan
+          userData.bioData.workoutplan.forEach((workout, index) => {
+            // Add category heading if it's the first workout in a category
+            if (index === 0 || workout.category !== userData.bioData.workoutplan[index - 1].category) {
+              yOffset += 10; // Add spacing between categories
+              doc.setFontSize(14);
+              doc.setFont("helvetica", "bold");
+              doc.text(`Category: ${workout.category}`, 105, yOffset, { align: "center" });
+              yOffset += 10; // Increase Y offset for category heading
+            }
+  
+            // Add exercise details to the PDF
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "normal");
+            doc.text(20, yOffset, `Exercise: ${workout.name}`);
+            doc.text(20, yOffset + 7, `Reps: ${workout.reps}`);
+            doc.text(20, yOffset + 14, `Sets: ${workout.sets}`);
+            doc.text(20, yOffset + 21, `Weight: ${workout.weight}`);
+  
+            yOffset += 30; // Increase Y offset for next workout
+          });
+  
+          doc.save("workout_report.pdf");
+        } else {
+          console.error("No workout data found");
+        }
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
-        setError("Error fetching user data");
       });
   };
+  
+  
+  
+  
+
+  
 
   return (
     <div
@@ -283,10 +246,11 @@ function WorkoutPool() {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-    > <div>
-    <SideBar />
-    <DietPlanUserView userId={userId} />
-  </div>
+    >
+      <div>
+        <SideBar />
+        <DietPlanUserView userId={userId} />
+      </div>
       <div className="ml-16 pt-16 flex-grow">
         <div className="container mx-auto">
           
@@ -428,22 +392,22 @@ function WorkoutPool() {
           ))}
         </div>
         <div className="text-center mt-4 flex justify-center">
-  <button
-    className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-600"
-    onClick={handleAssignWorkout}
-  >
-    Assign workout
-  </button>
-  <button
-    className="bg-green-500 text-white px-10 py-2 rounded-md mr-2 hover:bg-green-600 flex items-center"
-    onClick={fetchUserDataAndGenerateReport}
-  >
-    <span>Generate Report</span>
-    <Icon icon={downloadIcon} className="ml-2" />
-  </button>
-</div>
-
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-600"
+            onClick={handleAssignWorkout}
+          >
+            Assign workout
+          </button>
+          <button
+            className="bg-green-500 text-white px-10 py-2 rounded-md mr-2 hover:bg-green-600 flex items-center"
+            onClick={generatePdf}
+          >
+            <span>Generate Report</span>
+            <Icon icon={downloadIcon} className="ml-2" />
+          </button>
+        </div>
       </div>
+     
     </div>
   );
 }
