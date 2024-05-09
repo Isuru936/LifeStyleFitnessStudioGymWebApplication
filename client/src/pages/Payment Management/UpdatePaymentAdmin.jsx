@@ -3,12 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import notify from "../../components/toasts/toastTemplate";
+import axios from "axios";
 
 function UpdatePaymentAdmin() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Initialize payment state
   const [payment, setPayment] = useState({
     email: "",
     userId: "",
@@ -17,7 +17,6 @@ function UpdatePaymentAdmin() {
     amount: 0,
   });
 
-  // Initialize payment type state
   const [paymentType, setPaymentType] = useState("");
 
   useEffect(() => {
@@ -38,7 +37,6 @@ function UpdatePaymentAdmin() {
   }, [id]);
 
   useEffect(() => {
-    // Calculate payment amount based on selected payment type
     if (paymentType === "Monthly") {
       setPayment((prevPayment) => ({
         ...prevPayment,
@@ -61,14 +59,18 @@ function UpdatePaymentAdmin() {
     console.log(payment);
   }, [paymentType]);
 
-  // Function to handle payment type selection
   const handlePaymentTypeChange = (e) => {
     setPaymentType(e.target.value);
   };
+
   const handleUpdatePayment = async () => {
+    const updatedPayment = { ...payment }; // Include paymentType in the updated payment object
+    if (updatedPayment.paymentType === "") {
+      toast.error("Please select a payment type");
+      return;
+    }
+
     try {
-      const updatedPayment = { ...payment }; // Include paymentType in the updated payment object
-      // console.log(`http://localhost:3000/api/payments/updatePayment/${id}`);
       const response = await fetch(
         `http://localhost:3000/api/payments/updatePayment/${id}`,
         {
@@ -81,16 +83,56 @@ function UpdatePaymentAdmin() {
       );
       const data = await response.json();
       if (response.ok) {
-        toast.success(data.message);
-        navigate("/payment-view");
+        notify("success", "", "Payment Updated successfully");
+        let emailContent = `
+          <h1 style="text-align: center; color: #333;">Payment Record Modified</h1>
+          <div style="text-align: center;">
+            <img src="https://firebasestorage.googleapis.com/v0/b/lsfs-1a314.appspot.com/o/Logo.png?alt=media&token=117322bf-b255-4114-b29e-b58a55e5a58e" alt="Company Logo" style="max-width: 100px;">
+          </div>
+          <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+            Dear Sir/ Madam,
+          </p>
+          <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+            We are writing to inform you that your payment record has been successfully modified by our admin.
+          </p>
+          <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+            If you have any questions or concerns, feel free to contact our support team.
+          </p>
+          <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+            Thank you for choosing LSFS.
+          </p>
+          <p style="margin-top: 20px; line-height: 1.6; color: #555; text-align: center;">
+            Sincerely,<br>
+            LSFS Team
+          </p>
+        `;
+        toast.info("Sending email to user...");
+        // Send the email
+        try {
+          await axios.post("http://localhost:3000/api/sendEmail", {
+            userEmail: `{${payment.email} }`, // Fixed the data structure
+            subject: "Payment Notice",
+            html: emailContent,
+          });
+          console.log("Email sent successfully");
+          toast.success("Notified User");
+          navigate("/view-all-users");
+        } catch (error) {
+          console.error("Error sending email:", error);
+          notify("error", "", "Error sending email");
+        }
       } else {
-        toast.error(data.error);
+        notify("error", "", "Error submitting payment");
       }
+      setTimeout(() => {
+        toast.success(data.message);
+        toast.success("Payment updated successfully!");
+      }, 10);
     } catch (error) {
       console.error("Error updating payment:", error);
-      // toast.error("Error updating payment. Please try again later.");
     }
   };
+
   const handleDeletePayment = async () => {
     try {
       const response = await fetch(
@@ -107,7 +149,6 @@ function UpdatePaymentAdmin() {
       }
     } catch (error) {
       console.error("Error deleting payment:", error);
-      // toast.error("Error deleting payment. Please try again later.");
     }
   };
 
@@ -121,8 +162,8 @@ function UpdatePaymentAdmin() {
         <h1 className="text-3xl text-center mb-5 font-extrabold">
           Update Payment
         </h1>
+        <p className="mb-3 text-slate-500">#{payment._id}</p>
         <p className="mb-3">Email: {payment.email} </p>
-        <p className="mb-3">Username: {payment.username}</p>
         <div className="border border-1 rounded-lg p-3">
           <p className="mb-3">Payment Type: {payment.paymentType}</p>
           <p className="mb-3">Payment Amount: {payment.amount}</p>

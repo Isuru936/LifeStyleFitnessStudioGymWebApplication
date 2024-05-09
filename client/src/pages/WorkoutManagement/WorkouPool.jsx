@@ -10,9 +10,11 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 import logo from "../../assets/Logo.png";
 import backgroundImage from "../../assets/bg-Img.png";
-import WorkoutReport from "../../components/WorkoutReport";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DietPlanUserView from "../../components/DietPlanUserView";
+import SideBar from "../../components/SideBar";
+import { jsPDF } from "jspdf";
 
 function WorkoutPool() {
   const [workoutCategories, setWorkoutCategories] = useState([]);
@@ -23,6 +25,7 @@ function WorkoutPool() {
   const [weightValues, setWeightValues] = useState({});
   const [userId, setUserId] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [workoutPlanEmpty, setWorkoutPlanEmpty] = useState(true);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -41,13 +44,14 @@ function WorkoutPool() {
   useEffect(() => {
     setUserId(id); // Set userId from URL parameter
     axios
-      .get(`http://localhost:3000/api/users/bioDataById/${id}`)
+      .get(`http://localhost:3000/api/bioData/bioDataById/${id}`)
       .then((response) => {
         setUserEmail(response.data.data.bioData.email);
+        setWorkoutPlanEmpty(response.data.data.bioData.workoutplan.length === 0);
       })
       .catch((error) => {
-        console.error("Error fetching user email:", error);
-        setError("Error fetching user email");
+        console.error("Error fetching user data:", error);
+        setError("Error fetching user data");
       });
   }, [id]);
 
@@ -174,6 +178,7 @@ function WorkoutPool() {
       name: workout.name,
       reps: workout.reps,
       sets: workout.sets,
+      description:workout.description,
       weight: weightValues[workout._id] || 0,
       imageUrl: workout.imageUrl,
       category: workout.category,
@@ -219,8 +224,12 @@ function WorkoutPool() {
           });
         }
 
-        // Add company logo to email
-        emailContent += `<img src="${logo}" alt="Company Logo" style="max-width: 100px;">`;
+       // Replace the logo variable with the URL of the new logo image
+const image = "https://firebasestorage.googleapis.com/v0/b/lsfs-1a314.appspot.com/o/Logo.png?alt=media&token=117322bf-b255-4114-b29e-b58a55e5a58e";
+
+// Add company logo to email
+emailContent += `<img src="${image}" alt="Company Logo" style="max-width: 100px;">`;
+
 
         axios
           .post("http://localhost:3000/api/sendEmail", {
@@ -244,31 +253,76 @@ function WorkoutPool() {
       });
   };
 
-  const fetchUserDataAndGenerateReport = () => {
+  const generatePdf = () => {
     axios
-      .get(`http://localhost:3000/api/users/bioDataById/${userId}`)
+      .get(`http://localhost:3000/api/bioData/bioDataById/${userId}`)
       .then((response) => {
-        const userData = response.data;
-
-        // Extract necessary data
-        const userEmail = userData.email;
-        const workoutPlan = userData.workoutplan || [];
-
-        // Extract workout details from workoutPlan
-        const selectedWorkoutsData = workoutPlan.map((workout) => ({
-          name: workout.name,
-          reps: workout.reps,
-          sets: workout.sets,
-          weight: workout.weight || 0,
-          imageUrl: workout.imageUrl,
-        }));
-
-        // Call WorkoutReport component with data
-        WorkoutReport(selectedWorkoutsData, userEmail);
+        const userData = response.data.data;
+  
+        if (
+          userData &&
+          userData.bioData &&
+          userData.bioData.workoutplan &&
+          userData.bioData.workoutplan.length > 0
+        ) {
+          const doc = new jsPDF();
+          let yOffset = 20;
+  
+          // Add "Assigned Workouts" heading
+          doc.setFontSize(16);
+          doc.setFont("helvetica", "bold");
+          doc.text("Assigned Workouts", 105, yOffset, { align: "center" });
+          yOffset += 10; // Increase Y offset for spacing
+  
+          // Add user ID and email
+          doc.setFontSize(12);
+          doc.setFont("helvetica", "normal");
+          doc.text(20, yOffset, `ID: ${userData.bioData._id}`);
+          doc.text(20, yOffset + 7, `Email: ${userData.bioData.email}`);
+          yOffset += 20; // Increase Y offset for spacing
+  
+          // Loop through workoutplan
+          userData.bioData.workoutplan.forEach((workout, index) => {
+            // Add category heading if it's the first workout in a category
+            if (index === 0 || workout.category !== userData.bioData.workoutplan[index - 1].category) {
+              yOffset += 10; // Add spacing between categories
+              doc.setFontSize(14);
+              doc.setFont("helvetica", "bold");
+              doc.text(`Category: ${workout.category}`, 105, yOffset, { align: "center" });
+              yOffset += 10; // Increase Y offset for category heading
+            }
+  
+            // Add exercise details to the PDF
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "normal");
+            doc.text(20, yOffset, `Exercise: ${workout.name}`);
+            doc.text(20, yOffset + 7, `Reps: ${workout.reps}`);
+            doc.text(20, yOffset + 14, `Sets: ${workout.sets}`);
+            doc.text(20, yOffset + 21, `Weight: ${workout.weight}`);
+  
+            yOffset += 30; // Increase Y offset for next workout
+          });
+  
+          doc.save("workout_report.pdf");
+        } else {
+          console.error("No workout data found");
+        }
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
-        setError("Error fetching user data");
+      });
+  };
+
+  const handleClearWorkouts = () => {
+    axios
+      .delete(`http://localhost:3000/api/clearWorkouts/${userId}`)
+      .then((response) => {
+        toast.success('Workouts cleared successfully');
+        setWorkoutPlanEmpty(true);
+      })
+      .catch((error) => {
+        console.error("Error clearing workouts:", error);
+        setError("Error clearing workouts");
       });
   };
 
@@ -281,6 +335,10 @@ function WorkoutPool() {
         backgroundPosition: "center",
       }}
     >
+      <div>
+        <SideBar />
+        <DietPlanUserView userId={userId} />
+      </div>
       <div className="ml-16 pt-16 flex-grow">
         <div className="container mx-auto">
           <img
@@ -356,7 +414,7 @@ function WorkoutPool() {
           </div>
           <div className="text-right py-4 pr-10">
             <button
-              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mr-2"
+              className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 mr-2"
               onClick={() => setSelectedWorkouts([])}
             >
               Deselect All
@@ -367,6 +425,24 @@ function WorkoutPool() {
               </Link>
             </button>
           </div>
+          {workoutPlanEmpty ? (
+            <div className="text-center my-4">
+              <p className="text-red-500">No workouts have been assigned for this user yet.</p>
+            </div>
+          ) : (
+            <div className="text-center my-4">
+               <p className="text-l  ">
+               Assigned workouts exist for this user. Would you like to clear them? <br/>
+also you can, click 'Generate Report' to view the assigned workouts.
+            </p>
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                onClick={handleClearWorkouts}
+              >
+                Clear Assigned Workouts
+              </button>
+            </div>
+          )}
         </div>
       </div>
       <div className="text-right py-20 pr-10 mx-20">
@@ -421,24 +497,22 @@ function WorkoutPool() {
           ))}
         </div>
         <div className="text-center mt-4 flex justify-center">
-  <button
-    className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-600"
-    onClick={handleAssignWorkout}
-  >
-    Assign workout
-  </button>
-  <button
-    className="bg-green-500 text-white px-10 py-2 rounded-md mr-2 hover:bg-green-600 flex items-center"
-    onClick={fetchUserDataAndGenerateReport}
-  >
-    <span>Generate Report</span>
-    <Icon icon={downloadIcon} className="ml-2" />
-  </button>
-</div>
-
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-600"
+            onClick={handleAssignWorkout}
+          >
+            Assign workout
+          </button>
+          <button
+            className="bg-green-500 text-white px-10 py-2 rounded-md mr-2 hover:bg-green-600 flex items-center"
+            onClick={generatePdf}
+          >
+            <span>Generate Report</span>
+            <Icon icon={downloadIcon} className="ml-2" />
+          </button>
+        </div>
       </div>
     </div>
   );
 }
-
 export default WorkoutPool;

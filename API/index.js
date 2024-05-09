@@ -10,15 +10,19 @@ import userRouter from "./routes/user.route.js";
 import paymentRouter from "./routes/payment.route.js";
 import workoutRoutes from "./routes/workoutRoutes.js";
 import quizRoute from "./routes/quiz.route.js";
-import cors from "cors";
 import getUserRoute from "./routes/getUser.route.js";
 import { sendEmailRoute } from "./emailSender.js";
 import pdfGenerationRoute from "./routes/Report.js";
 import BioDataRoutes from "./routes/bioData.route.js";
 
+import InventoryRoute from "./routes/inventoryroute.js";
+import NotificationRoute from "./routes/Notificationroute.js"
+ import cors from "cors";
+// import userRouter from "./routes/user.route.js";
 dotenv.config();
 
 const app = express();
+app.use(cors())
 
 app.use(bodyParser.json());
 app.use(CookieParser());
@@ -56,3 +60,7 @@ app.use("/api/getUsers/", getUserRoute);
 app.post("/api/sendEmail", sendEmailRoute);
 app.use("/api", pdfGenerationRoute);
 app.use("/api/bioData/", BioDataRoutes);
+app.use("/api/", InventoryRoute);
+app.use("/api/messages", NotificationRoute)
+
+// app.get("/", testRoute);

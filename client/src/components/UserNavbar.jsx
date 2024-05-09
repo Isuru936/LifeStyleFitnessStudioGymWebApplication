@@ -1,14 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import menuIcon from "@iconify-icons/fa-solid/bars";
 import bellIcon from "@iconify-icons/fa-solid/bell";
 import userIcon from "@iconify-icons/fa-solid/user";
 import Logo from "../assets/Logo.png";
+import axios from "axios";
 
 function NavigationBar() {
   const [showMenu, setShowMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
+  const fetchNotifications = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/messages/notifications"
+      );
+      setNotifications(response.data.notifications);
+      console.log(response.data.notifications);
+    } catch (error) {
+      setError("Error fetching notifications. Please try again later.");
+    }
+  };
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -38,36 +56,31 @@ function NavigationBar() {
             to="/membership-plan"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
-            Payments
-            <span className="underline"></span>
+            Paymentsaslsdasd
           </Link>
           <Link
             to="/contact-us"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
             Contact Us
-            <span className="underline"></span>
           </Link>
           <Link
-            to="/dashboard"
+            to="/"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
             Dashboard
-            <span className="underline"></span>
           </Link>
           <Link
             to="/UserExercises"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
             My Workout Plan
-            <span className="underline"></span>
           </Link>
           <Link
             to="/user-view-diet-plans"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
             Diet Plan
-            <span className="underline"></span>
           </Link>
         </div>
       </div>
@@ -77,35 +90,30 @@ function NavigationBar() {
           className="text-black text-base font-semibold mr-6 hover:text-gray-400 transition duration-300 relative text-link"
         >
           Payments
-          <span className="underline"></span>
         </Link>
         <Link
           to="/contact-us"
           className="text-black text-base font-semibold mr-6 hover:text-gray-400 transition duration-300 relative text-link"
         >
           Contact Us
-          <span className="underline"></span>
         </Link>
         <Link
           to="/dashboard"
           className="text-black text-base font-semibold mr-6 hover:text-gray-400 transition duration-300 relative text-link"
         >
           Dashboard
-          <span className="underline"></span>
         </Link>
         <Link
           to="/UserExercises"
           className="text-black text-base font-semibold mr-6 hover:text-gray-400 transition duration-300 relative text-link"
         >
           My Workout Plan
-          <span className="underline"></span>
         </Link>
         <Link
           to="/user-view-diet-plans"
           className="text-black text-base font-semibold mr-6 hover:text-gray-400 transition duration-300 relative text-link"
         >
           Diet Plan
-          <span className="underline"></span>
         </Link>
       </div>
       <div className="flex items-center">
@@ -115,12 +123,23 @@ function NavigationBar() {
           onClick={toggleNotifications}
         />
         {showNotifications && (
-          <div className="absolute top-16 right-0 bg-white shadow-lg rounded-md p-4">
-            <p>Notification 1</p>
-            <p>Notification 2</p>
-            <p>Notification 3</p>
+          <div className="absolute w-72 top-16 right-5 bg-white shadow-lg rounded-b-lg p-4 max-h-[1000px] overflow-y-auto">
+            <h3 className="text-xl font-semibold mb-2">Notifications</h3>
+            {notifications
+              .slice(0)
+              .reverse()
+              .map((notification, index) => (
+                <div key={index} className="mb-2">
+                  <p className="text-sm text-wrap">
+                    <span className="font-bold">{notification.subject}: </span>
+                    {notification.message}
+                  </p>
+                  <hr className="my-1 border-gray-300" />
+                </div>
+              ))}
           </div>
         )}
+
         <Link to="/profile">
           <Icon
             icon={userIcon}

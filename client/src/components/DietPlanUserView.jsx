@@ -14,7 +14,7 @@ export default function DietPlanUserView({ userId }) {
           `http://localhost:3000/api/bioData/bioDataById/${id}`
         );
         setUser(response.data.data.bioData);
-        console.log("bData", response.data.data);
+        console.log("bData", response.data.data.bioData);
         const nutrientLevels = JSON.stringify(
           response.data.data.nutrientLevels
         );
@@ -27,46 +27,26 @@ export default function DietPlanUserView({ userId }) {
     }
   }, [id]);
 
-  console.log(user.weight);
-
   return (
     <div>
       <div className="hidden lg:block bg-red-0 lg:mt-0 lg:ml-1">
         <hr className="h-3" />
 
-        <div className="bg-slate-200 rounded-xl w-fit ml-1 mr-1 pt-1 pb-1">
-          <input
-            type="text"
-            placeholder="Search for an Email"
-            value={user.userID}
-            className="bg-slate-200 p-1 pl-2 rounded-xl  ml-1 outline-none"
-          />
-          <span
-            className="icon-[material-symbols--search] bg-slate-500 pl-4 pr-4"
-            style={{ width: "20px", height: "20px" }}
-          />
-        </div>
         <div>
-          <div className="p-3">
-            <div className="w-[104px] h-[104px] bg-red-300 mx-auto rounded-full">
-              <img src={profImg} alt="Profile" />
-            </div>
+          <div className="p-8 border">
+            <h1 className="text-xl font-bold mb-2">User Stats</h1>
             <p className="font-semibold text-slate-500 mb-1">
-              Weight: {user.Weight || "Not available"} kg
+              Age: {user.age || "Not available"}
             </p>
             <p className="font-semibold text-slate-500 mb-1">
-              gender: {user.Gender || "Not available"}
+              Weight: {user.weight || "Not available"} kg
             </p>
             <p className="font-semibold text-slate-500 mb-1">
-              Height: {user.Height || "Not available"} cm
+              gender: {user.gender || "Not available"}
             </p>
             <p className="font-semibold text-slate-500 mb-1">
-              Glucose_lvl: {user.Glucose_lvl || "Not available"}
+              Height: {user.height || "Not available"} cm
             </p>
-            <p className="font-semibold text-slate-500 mb-1">
-              Cholesterol_lvl: {user.Cholesterol_lvl || "Not available"}
-            </p>
-            <p className="font-semibold text-slate-500 mb-1">Age: {user.Age}</p>
           </div>
         </div>
       </div>
