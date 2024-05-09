@@ -16,6 +16,7 @@ export default function AssignDietPlan() {
   const [assignedFoods, setAssignedFoods] = useState([]);
   const [recNutrients, setRecNutrients] = useState("");
   const [userId, setUserId] = useState("");
+  const [email, setEmail] = useState([]);
 
   const getRecommendedNutrient = () => {
     const storedNutrientLevels = JSON.parse(
@@ -38,10 +39,20 @@ export default function AssignDietPlan() {
       console.error("Error fetching foods:", error);
     }
   };
+
+  const fetchUser = async () => {
+    const response = await axios.get(
+      `http://localhost:3000/api/bioData/bioDataById/${id}`
+    );
+    setEmail(response.data.data.bioData.email);
+    console.log("bData from main page", response.data.data.bioData.email);
+  };
+
   useEffect(() => {
     fetchFoods();
+    fetchUser();
     console.log(id);
-    // getRecommendedNutrient();
+    getRecommendedNutrient();
   }, []);
 
   const addToSelectedFoods = (food) => {
@@ -94,15 +105,54 @@ export default function AssignDietPlan() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/users/bioDataUpdate/${userId}`,
+        `http://localhost:3000/api/bioData/bioDataUpdate/${userId}`,
         { dietplan: assignedFoods }
       );
+      console.log(response.data);
+      console.log(`http://localhost:3000/api/users/bioDataUpdate/${userId}`);
       handleClearAssignedFoods();
+      let emailContent = `
+      <h1 style="text-align: center; color: #333;">Assigned Diet Plans</h1>
+      <div style="text-align: center;">
+        <img src="https://firebasestorage.googleapis.com/v0/b/lsfs-1a314.appspot.com/o/Logo.png?alt=media&token=117322bf-b255-4114-b29e-b58a55e5a58e" alt="Company Logo" style="max-width: 100px;">
+      </div>
+      <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+        Dear Sir/ Madam,
+      </p>
+      <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+        We are excited to inform you that a new diet plan has been assigned to you by our admin. This personalized diet plan has been carefully curated to help you achieve your fitness goals effectively.
+      </p>
+      <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+        You can find detailed information about your diet plan by logging into your account on our platform. If you have any questions or need further assistance, feel free to reach out to our support team.
+      </p>
+      <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+        Thank you for choosing LSFS for your fitness journey!
+      </p>
+      <p style="margin-top: 20px; line-height: 1.6; color: #555; text-align: center;">
+        Sincerely,<br>
+        LSFS Team
+      </p>
+    `;
+
+      // Send the email
+      axios
+        .post("http://localhost:3000/api/sendEmail", {
+          userEmail: email,
+          subject: "Assigned Diet Plans",
+          html: emailContent,
+        })
+        .then((response) => {
+          console.log("Email sent successfully");
+          toast.success("Diet plans assigned and email sent successfully");
+        })
+        .catch((error) => {
+          console.error("Error sending email:", error);
+        });
       toast.success("Diet plan Assigned Successfully");
       navigate("/view-all-users");
       console.log(response.data);
     } catch (error) {
-      console.error("Error:", error.response.data.message);
+      console.error("Error:", error);
     }
   };
 

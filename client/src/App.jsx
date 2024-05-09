@@ -53,11 +53,13 @@ import OTP from "./pages/Profile Management/OTP";
 import { AuthProvider } from "./shared/context/auth.context";
 import ProtectedRouteCustomer from "./shared/context/PrivateRoute";
 import CheckLogin from "./shared/context/checkLogin";
+import DashBoard from "./pages/DashBoard.jsx";
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<DashBoard />} />
           <Route
             path="/login"
             element={
@@ -131,7 +133,10 @@ function App() {
           {/* {Umaya} */}
           <Route path="/add-inventory" element={<InventoryAdd />} />
           <Route path="/show-inventory" element={<InventoryShow />} />
-          <Route path="/update-inventory" element={<InventoryUpdateDlt />} />
+          <Route
+            path="/update-inventory/:id"
+            element={<InventoryUpdateDlt />}
+          />
           <Route path="/create-notification" element={<CreateNotification />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route
