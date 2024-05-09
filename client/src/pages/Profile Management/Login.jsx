@@ -4,41 +4,43 @@ import logo from "../../assets/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../shared/context/auth.context";
-
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
-  const auth = useContext(AuthContext)
+  const auth = useContext(AuthContext);
 
   const submitHandler = (event) => {
     event.preventDefault();
     setloading(true);
-    axios.post("http://localhost:3000/api/users/auth", {
-      email: email,
-      password: password,
-    }).then((response) => {
-      auth.login(response.data)
-      console.log(response.data)
-      navigate("/user-view-diet-plans")
-      setloading(false);
-    }).catch((error) => {
-      console.log("error")
-      setloading(true);
-      Toast("Invalid email or password","")
-    });
+    axios
+      .post("http://localhost:3000/api/users/auth", {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        auth.login(response.data);
+        console.log(response.data);
+        navigate("/user-view-diet-plans");
+        setloading(false);
+      })
+      .catch((error) => {
+        console.log("error");
+        setloading(true);
+        toast.error("Invalid email or password", "");
+      });
   };
 
   return (
     <div
       className="absolute h-screen w-screen lg:w-screen flex justify-center align-middle"
-      style={{ 
+      style={{
         backgroundImage: `url(${wmodel})`,
         backgroundRepeat: "no-repeat",
       }}
-      div
     >
       <div className=" w-fit flex h-screen ">
         <div className=" bg-opacity-40 bg-white align-middle w-fit h-fit mt-auto mb-auto rounded-xl border border-stone-800 backdrop-blur-sm justify-center p-6 shadow-lg backdrop filter relative lg:p-10">
