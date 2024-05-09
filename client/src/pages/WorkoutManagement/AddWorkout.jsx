@@ -41,41 +41,51 @@ function AddWorkout() {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLoading(true); // Set loading to true when submitting
-    try {
-      const requestBody = {
-        name: workoutName,
-        description: workoutDescription,
-        imageUrl: imageUrl,
-        category: category,
-      };
-      console.log("Request body:", requestBody);
-      const response = await fetch("http://localhost:3000/api/workouts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to save workout.");
-      }
-      console.log("Response from backend:", data);
-      toast.success("Workout saved successfully");
-      setWorkoutName("");
-      setWorkoutDescription("");
-      setImageUrl("");
-      setCategory("");
-    } catch (error) {
-      console.error("Error saving workout:", error.message);
-      setError(error.message || "Error saving workout.");
-      toast.error(error.message || "Error saving workout.");
-    } finally {
-      setLoading(false); // Set loading to false after submission
+  event.preventDefault();
+  
+  // Check if any field is empty
+  if (!workoutName || !workoutDescription || !imageUrl || !category) {
+    setError("Please fill in all fields."); // Set error message
+    return; // Don't proceed further
+  }
+
+  setLoading(true); // Set loading to true when submitting
+  try {
+    const requestBody = {
+      name: workoutName,
+      description: workoutDescription,
+      imageUrl: imageUrl,
+      category: category,
+    };
+    console.log("Request body:", requestBody);
+    const response = await fetch("http://localhost:3000/api/workouts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to save workout.");
     }
-  };
+    console.log("Response from backend:", data);
+    toast.success("Workout saved successfully");
+    setWorkoutName("");
+    setWorkoutDescription("");
+    setImageUrl("");
+    setCategory("");
+    setError(""); // Reset error state
+  } catch (error) {
+    console.error("Error saving workout:", error.message);
+    setError(error.message || "Error saving workout.");
+    toast.error(error.message || "Error saving workout.");
+  } finally {
+    setLoading(false); // Set loading to false after submission
+  }
+};
+
+  
 
   return (
     <div
@@ -155,6 +165,10 @@ function AddWorkout() {
                         <option value="Flexibility">Flexibility</option>
                         <option value="arms">arms</option>
                         <option value="legs">legs</option>
+                        <option value="chest">upper body</option>
+                      <option value="weigth loss">weight loss</option>
+                      <option value="back">back</option>
+                      <option value="abs">abs</option>
                         {/* Add more options as needed */}
                       </select>
                     </div>

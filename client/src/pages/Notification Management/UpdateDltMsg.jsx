@@ -1,4 +1,3 @@
-// TODO: Add Logo
 // Import your background image
 import backgroundImage from "../../assets/sim.jpg";
 import SideBar from "../../components/SideBar";
