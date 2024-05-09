@@ -1,12 +1,66 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LOGO from "../../assets/Logo.png";
 import bg from "../../assets/gym.jpg";
+import { AuthContext } from "../../shared/context/auth.context";
+import axios from "axios";
+import firebase from "firebase/compat/app";
+import "firebase/compat/storage";
+import Toast from "../../shared/toast/Toast";
 
-const test = () => {
+const Test = () => {
+  const { userID } = useContext(AuthContext);
   const [fullName, setFullName] = useState("");
   const [age, setAge] = useState("");
   const [nic, setNic] = useState("");
   const [phone, setPhone] = useState("");
+  const [image ,setImage] = useState("")
+  const [loading , setLoading] = useState(false)
+  const [data, setData] = useState([]);
+
+  const handleFileUpload = async (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const storageRef = firebase.storage().ref();
+      const fileRef = storageRef.child(selectedFile.name);
+      setLoading(true);
+      Toast("Uploading image..." , "info");
+      try {
+        const snapshot = await fileRef.put(selectedFile);
+        const url = await snapshot.ref.getDownloadURL();
+        setImage(url);
+        Toast("Image uploaded successfully" , "success");
+      } catch (error) {
+        console.error("Error uploading file:", error);
+        alert("Failed to upload file. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      console.log("No file selected");
+    }
+  };
+  
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        axios
+          .get(`http://localhost:3000/api/quiz/${userID}`)
+          .then((response) => {
+            setData(response.data);
+          })
+          .catch((err) => console.error(err));
+      } catch (error) {
+        console.log(error);
+      } finally {
+        console.log(data)
+        setFullName(data[0].userID && data[0].userID.details && data[0].userID.details.fullName);
+        setAge(data[0].age);
+        setNic(data[0].NIC);
+        setPhone(data[0].tele);
+      }
+    };
+    fetchProfileData();
+  }, [userID]);
 
   const isSaveEnabled =
     fullName !== "" &&
@@ -24,7 +78,7 @@ const test = () => {
   };
 
   const handleAgeGroupChange = (event) => {
-    setAge(event.target.value); 
+    setAge(event.target.value);
   };
 
   return (
@@ -65,10 +119,11 @@ const test = () => {
                 >
                   Select Your Age
                 </label>
-                <select 
-                value={age}
-                onChange={handleAgeGroupChange}
-                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                <select
+                  value={age}
+                  onChange={handleAgeGroupChange}
+                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                >
                   <option>18-29</option>
                   <option>30-39</option>
                   <option>40-49</option>
@@ -129,7 +184,8 @@ const test = () => {
                         <input
                           id="file-upload"
                           name="file-upload"
-                          type="file"
+                          type="file"   
+                    onChange={handleFileUpload}
                           class="sr-only"
                         />
                       </label>
@@ -159,4 +215,4 @@ const test = () => {
   );
 };
 
-export default test;
+export default Test;

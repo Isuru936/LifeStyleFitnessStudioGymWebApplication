@@ -4,31 +4,58 @@ import logo from "../../assets/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../shared/context/auth.context";
+import Toast from "../../shared/toast/Toast";
 
 
 export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [touchEmail , setTouchEmail] = useState(false);
+  const [touchPassword , setTouchPassword] = useState(false);
   const [loading, setloading] = useState(false);
   const auth = useContext(AuthContext)
 
+  const validateForm = () => {
+    let isValid = true;
+    if (!email) {
+      setEmailError("Email is required");
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Invalid email address");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+    if (!password) {
+      setPasswordError("Password is required");
+      isValid = false;
+    } else {
+      setPasswordError("");
+    }
+    return isValid;
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
-    setloading(true);
-    axios.post("http://localhost:3000/api/users/auth", {
-      email: email,
-      password: password,
-    }).then((response) => {
-      auth.login(response.data)
-      console.log(response.data)
-      navigate("/user-view-diet-plans")
-      setloading(false);
-    }).catch((error) => {
-      console.log("error")
+    if (validateForm()) {
       setloading(true);
-      Toast("Invalid email or password","")
-    });
+      axios.post("http://localhost:3000/api/users/auth", {
+        email: email,
+        password: password,
+      }).then((response) => {
+        auth.login(response.data);
+        console.log(response.data);
+        navigate("/user-view-diet-plans");
+        setloading(false);
+      }).catch((error) => {
+        console.log("error");
+        setloading(false);
+        Toast("Invalid email or password", "error");
+      });
+    }
   };
 
   return (
@@ -59,11 +86,13 @@ export const Login = () => {
                     <input
                       className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
                       type="email"
+                      onBlur={() => setTouchEmail(true)}
                       onChange={(e) => {
                         setEmail(e.target.value);
                       }}
                       id="email"
                     />
+                    {touchEmail && emailError && <div className="text-red-500">{emailError}</div>}
                   </div>
                   <div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2 ">
                     <label htmlFor="Password">Password</label>
@@ -73,10 +102,12 @@ export const Login = () => {
                       className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-[300px]"
                       type="password"
                       id="password"
+                      onBlur={() => setTouchPassword(true)}
                       onChange={(e) => {
                         setPassword(e.target.value);
                       }}
                     />
+                    {touchPassword && passwordError && <div className="text-red-500">{passwordError}</div>}
                   </div>
                   <Link to="/forget-password">
                     <div className="mt-7 mb-5">
