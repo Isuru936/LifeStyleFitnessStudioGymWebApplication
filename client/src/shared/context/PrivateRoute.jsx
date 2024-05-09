@@ -4,7 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import axios from "axios";
 
 const ProtectedRouteClient = () => {
-  const { isLoggedIn, userID , otpVerified } = useContext(AuthContext);
+  const { isLoggedIn, userID } = useContext(AuthContext);
   const [quizDone, setQuizDone] = useState(false);
   const [loading, setLoading] = useState(true); 
 
