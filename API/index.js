@@ -18,6 +18,8 @@ import BioDataRoutes from "./routes/bioData.route.js";
 import InventoryRoute from "./routes/inventoryroute.js";
 import NotificationRoute from "./routes/Notificationroute.js"
  import cors from "cors";
+ import AdminUsersRouter from "./routes/adminuser.route.js"
+import authRoutes from "./routes/adminuserauth.route.js"
 // import userRouter from "./routes/user.route.js";
 dotenv.config();
 
@@ -62,5 +64,6 @@ app.use("/api", pdfGenerationRoute);
 app.use("/api/bioData/", BioDataRoutes);
 app.use("/api/", InventoryRoute);
 app.use("/api/messages", NotificationRoute)
-
+app.use('/api/admin/users', AdminUsersRouter);
+app.use('/api', authRoutes);
 // app.get("/", testRoute);
