@@ -8,13 +8,6 @@
 
   <p align="center">
     This is a full stack web application developed using MERN for Gymnasium
-    <br/>
-    <br/>
-    <a href="https://github.com/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication"><strong>Explore the docs »</strong></a>
-    <br/>
-    <br/>
-    <a href="https://github.com/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication">View Demo</a>
-    .
   </p>
 </p>
 
