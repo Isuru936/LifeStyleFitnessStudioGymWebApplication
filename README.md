@@ -25,7 +25,6 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Contributing](#contributing)
 * [Authors](#authors)
 
 ## About The Project
@@ -63,30 +62,34 @@ This is an example of how to list things you need to use the software and how to
  1. Clone the repo
 git clone https://github.com/Isuru936/LifeStyleFitnessStudioGymWebApplication.git
 
-2. Select the client folder in terminal
-cd client
+2. Add the .env file data in both backend and frontend 
+Front-end <b>./client/.env</b>
 
-3. Install NPM packages
- npm i
+PUBLIC_URL="<your_public_URL>"
+FIREBASE_API_KEY="<your_Firebase_API_key>"
+FIREBASE_AUTH_DOMAIN="<your_Firebase_auth_domain>"
 
-4. run the program
+Back-end <b>/.env</b>
+
+MONGO=<your_MongoDB_connection_string>
+NODE_ENV=development
+JWT_SECRET=<your_JWT_secret_key>
+SENDGRID_API_KEY=<your_SendGrid_API_key>
+
+4. Install BackEnd dependencies
+npm i
+
+5. run the backend
 npm run dev
 
-## Contributing
+3. Select the client folder in terminal
+cd client
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-* If you have suggestions for adding or removing projects, feel free to [open an issue](https://github.com/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication/issues/new) to discuss it, or directly create a pull request after you edit the *README.md* file with necessary changes.
-* Please make sure you check your spelling and grammar.
-* Create individual PR for each suggestion.
-* Please also read through the [Code Of Conduct](https://github.com/Isuru936/Isuru936/LifeStyleFitnessStudioGymWebApplication/blob/main/CODE_OF_CONDUCT.md) before posting your first idea as well.
+4. Install NPM packages
+ npm i
 
-### Creating A Pull Request
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+6. run the program
+npm run dev
 
 ## Authors
 
