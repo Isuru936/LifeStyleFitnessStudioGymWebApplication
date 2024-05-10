@@ -65,16 +65,16 @@ git clone https://github.com/Isuru936/LifeStyleFitnessStudioGymWebApplication.gi
 2. Add the .env file data in both backend and frontend 
 Front-end <b>./client/.env</b>
 
-PUBLIC_URL="<your_public_URL>"
-FIREBASE_API_KEY="<your_Firebase_API_key>"
-FIREBASE_AUTH_DOMAIN="<your_Firebase_auth_domain>"
+PUBLIC_URL="<your_public_URL>"  <br />
+FIREBASE_API_KEY="<your_Firebase_API_key>"  <br />
+FIREBASE_AUTH_DOMAIN="<your_Firebase_auth_domain>"  <br />
 
 Back-end <b>/.env</b>
 
-MONGO=<your_MongoDB_connection_string>
-NODE_ENV=development
-JWT_SECRET=<your_JWT_secret_key>
-SENDGRID_API_KEY=<your_SendGrid_API_key>
+MONGO=<your_MongoDB_connection_string> <br />
+NODE_ENV=development <br />
+JWT_SECRET=<your_JWT_secret_key> <br />
+SENDGRID_API_KEY=<your_SendGrid_API_key> <br />
 
 4. Install BackEnd dependencies
 npm i
