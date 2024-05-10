@@ -63,15 +63,15 @@ This is an example of how to list things you need to use the software and how to
 git clone https://github.com/Isuru936/LifeStyleFitnessStudioGymWebApplication.git
 
 2. Add the .env file data in both backend and frontend 
-Front-end <b>./client/.env</b>
-----------------------------------------------------------------------
+Front-end <b>./client/.env</b> <br />
+----------------------------------------------------------------------<br />
 PUBLIC_URL="<your_public_URL>"  <br />
 FIREBASE_API_KEY="<your_Firebase_API_key>"  <br />
 FIREBASE_AUTH_DOMAIN="<your_Firebase_auth_domain>"  <br />
 
 <br />
-Back-end <b>/.env</b>
-----------------------------------------------------------------------
+Back-end <b>/.env</b><br />
+----------------------------------------------------------------------<br />
 MONGO=<your_MongoDB_connection_string> <br />
 NODE_ENV=development <br />
 JWT_SECRET=<your_JWT_secret_key> <br />
