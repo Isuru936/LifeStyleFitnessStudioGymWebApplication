@@ -62,7 +62,8 @@ This is an example of how to list things you need to use the software and how to
  1. Clone the repo
 git clone https://github.com/Isuru936/LifeStyleFitnessStudioGymWebApplication.git
 
-2. Add the .env file data in both backend and frontend 
+2. Add the .env file data in both backend and frontend
+
 Front-end <b>./client/.env</b> <br />
 ----------------------------------------------------------------------<br />
 PUBLIC_URL="<your_public_URL>"  <br />
@@ -72,23 +73,19 @@ FIREBASE_AUTH_DOMAIN="<your_Firebase_auth_domain>"  <br />
 <br />
 Back-end <b>/.env</b><br />
 ----------------------------------------------------------------------<br />
-<div margin:"10px" >
+<div margin="10px" >
 MONGO=<your_MongoDB_connection_string> <br />
 NODE_ENV=development <br />
 JWT_SECRET=<your_JWT_secret_key> <br />
 SENDGRID_API_KEY=<your_SendGrid_API_key> <br />
   
-</div>
-4. Install BackEnd dependencies
-npm i
-
-5. run the backend
+3. run the backend
 npm run dev
 
-3. Select the client folder in terminal
+4. Select the client folder in terminal
 cd client
 
-4. Install NPM packages
+5. Install NPM packages
  npm i
 
 6. run the program
