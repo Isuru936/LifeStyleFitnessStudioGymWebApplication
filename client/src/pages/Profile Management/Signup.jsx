@@ -15,12 +15,12 @@ export const signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
+    console.log(formData);
     axios
       .post("http://localhost:3000/api/users", formData)
       .then((response) => {
         Toast("Account Created", "success");
-        navigate("/quiz",  { replace: true, state: {id:response.data._id} });
+        navigate("/login", { replace: true, state: { id: response.data._id } });
       })
       .catch((error) => {
         console.log(error);
@@ -50,17 +50,18 @@ export const signup = () => {
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
+                      className="rounded-[10px] bg-slate-50 border p-5 outline-none opacity-65 h-8 w-full"
                       type="text"
                       id="username"
                       onChange={handleChange}
                     />
-                  </div><div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2">
+                  </div>
+                  <div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2">
                     <label htmlFor="username">Full Name</label>
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
+                      className="rounded-[10px]  bg-slate-50 border p-5 outline-none opacity-65 h-8 w-full"
                       type="text"
                       id="fullName"
                       onChange={handleChange}
@@ -71,7 +72,7 @@ export const signup = () => {
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
+                      className="rounded-[10px]  bg-slate-50 border p-5 outline-none opacity-65 h-8 w-full"
                       type="text"
                       id="email"
                       onChange={handleChange}
@@ -83,7 +84,7 @@ export const signup = () => {
                   </div>
                   <div className="mb-5">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-[300px]"
+                      className="rounded-[10px]  bg-slate-50 border p-5 outline-none opacity-65 h-8 w-[300px]"
                       type="password"
                       id="password"
                       onChange={handleChange}
@@ -91,14 +92,14 @@ export const signup = () => {
                   </div>
                   <Link to="/login">
                     <div className="mb-7">
-                      <span className="text-xl flex justify-center text-blue-800">
+                      <span className="text-xl flex justify-center text-blue-800 hover:text-blue-500 hover:underline">
                         Have an Account?
                       </span>
                     </div>
                   </Link>
                   <div className="flex justify-center mb-5">
                     <button
-                      className="text-xl w-[200px] h-[50px] bg-amber-600 rounded-[10px]"
+                      className="text-xl w-[200px] h-[50px] bg-amber-600 rounded-[10px] hover:bg-amber-700 transition-colors duration-300 ease-in-out text-white font-bold font-['Inria Sans']"
                       type="submit"
                     >
                       Signup

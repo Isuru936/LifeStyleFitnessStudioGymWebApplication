@@ -24,7 +24,7 @@ export const Login = () => {
       .then((response) => {
         auth.login(response.data);
         console.log(response.data);
-        navigate("/user-view-diet-plans");
+        navigate("/");
         setloading(false);
       })
       .catch((error) => {
@@ -59,7 +59,7 @@ export const Login = () => {
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
+                      className="rounded-xl outline-none bg-slate-50 border-2 p-5 opacity-65 h-8 w-full"
                       type="email"
                       onChange={(e) => {
                         setEmail(e.target.value);
@@ -72,7 +72,7 @@ export const Login = () => {
                   </div>
                   <div className="mb-5">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-[300px]"
+                      className="rounded-[10px] bg-slate-50 p-5 border-2 outline-none opacity-65 h-8 w-[300px]"
                       type="password"
                       id="password"
                       onChange={(e) => {
@@ -82,7 +82,7 @@ export const Login = () => {
                   </div>
                   <Link to="/forget-password">
                     <div className="mt-7 mb-5">
-                      <span className="text-xl flex justify-center size- text-blue-500">
+                      <span className="text-xl flex justify-center hover:text-slate-700 text-slate-600">
                         Forget Password?
                       </span>
                     </div>
@@ -90,7 +90,7 @@ export const Login = () => {
 
                   <div className="flex justify-center mb-5">
                     <button
-                      className="text-xl w-[200px] h-[50px] bg-amber-600 rounded-[10px]"
+                      className="text-xl w-[200px] h-[50px] bg-amber-600 rounded-[10px] hover:bg-amber-700 transition-colors duration-300 ease-in-out text-white font-bold font-['Inria Sans']"
                       type="submit"
                     >
                       Login
@@ -98,7 +98,7 @@ export const Login = () => {
                   </div>
                   <Link to="/sign-up">
                     <div className=" mb-7">
-                      <span className="flex justify-center text-blue-700">
+                      <span className="flex justify-center text-blue-700 hover:underline transition-transform duration-1000 ease-in-out">
                         Don't have an Account?
                       </span>
                     </div>

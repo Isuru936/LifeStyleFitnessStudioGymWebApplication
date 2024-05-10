@@ -1,7 +1,7 @@
 // Import your background image
 import backgroundImage from "../../assets/sim.jpg";
 import SideBar from "../../components/SideBar";
-import React from "react";
+import React, { useState } from "react";
 
 function NotificationUpdateDelete() {
   return (

@@ -3,10 +3,11 @@ import axios from "axios";
 import SideBar from "../../components/SideBar";
 import DropDownNavBar from "../../components/DropDownNavBar";
 import backgroundImage from "../../assets/lot.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 function Notifications() {
+  const navigate = useNavigate();
   const [mobileView] = useState(window.innerWidth < 768);
   const [notifications, setNotifications] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +15,10 @@ function Notifications() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+
     fetchNotifications();
   }, []);
 

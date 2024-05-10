@@ -11,6 +11,10 @@ function InventoryUpdateDlt() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+
     const fetchItemByID = async () => {
       try {
         const response = await fetch(`http://localhost:3000/api/${id}`);
