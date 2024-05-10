@@ -64,14 +64,14 @@ git clone https://github.com/Isuru936/LifeStyleFitnessStudioGymWebApplication.gi
 
 2. Add the .env file data in both backend and frontend 
 Front-end <b>./client/.env</b>
-
-<div margin="10px">
+----------------------------------------------------------------------
 PUBLIC_URL="<your_public_URL>"  <br />
 FIREBASE_API_KEY="<your_Firebase_API_key>"  <br />
 FIREBASE_AUTH_DOMAIN="<your_Firebase_auth_domain>"  <br />
-</div>
-Back-end <b>/.env</b>
 
+<br />
+Back-end <b>/.env</b>
+----------------------------------------------------------------------
 MONGO=<your_MongoDB_connection_string> <br />
 NODE_ENV=development <br />
 JWT_SECRET=<your_JWT_secret_key> <br />
