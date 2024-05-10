@@ -74,10 +74,11 @@ FIREBASE_AUTH_DOMAIN="<your_Firebase_auth_domain>"  <br />
 Back-end <b>/.env</b><br />
 ----------------------------------------------------------------------<br />
 <div margin="10px" >
-MONGO=<your_MongoDB_connection_string> <br />
-NODE_ENV=development <br />
-JWT_SECRET=<your_JWT_secret_key> <br />
-SENDGRID_API_KEY=<your_SendGrid_API_key> <br />
+MONGO=<your_MongoDB_connection_string><br />
+NODE_ENV=development<br />
+JWT_SECRET=<your_JWT_secret_key><br />
+SENDGRID_API_KEY=<your_SendGrid_API_key><br />
+</div>
   
 3. run the backend
 npm run dev
