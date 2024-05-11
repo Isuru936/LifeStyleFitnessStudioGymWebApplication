@@ -464,33 +464,36 @@ also you can, click 'Generate Report' to view the assigned workouts.
               <div>
                 <p className="font-semibold mb-2 ml-6">{workout.name}</p>
                 <div className="flex items-center">
-                  <input
-                    type="number"
-                    placeholder="Reps"
-                    className="border-b-2 border-gray-300 mr-2 w-16"
-                    value={workout.reps || ""}
-                    onChange={(e) =>
-                      handleRepsSetsChange(index, "reps", e.target.value)
-                    }
-                  />
-                  <input
-                    type="number"
-                    placeholder="Sets"
-                    className="border-b-2 border-gray-300 mr-2 w-16"
-                    value={workout.sets || ""}
-                    onChange={(e) =>
-                      handleRepsSetsChange(index, "sets", e.target.value)
-                    }
-                  />
-                  <input
-                    type="number"
-                    placeholder="Weight"
-                    className="border-b-2 border-gray-300 mr-2 w-16"
-                    value={weightValues[workout._id] || ""}
-                    onChange={(e) =>
-                      handleWeightChange(workout._id, e.target.value)
-                    }
-                  />
+                <input
+  type="number"
+  placeholder="Reps"
+  className="border-b-2 border-gray-300 mr-2 w-16"
+  value={workout.reps || ""}
+  onChange={(e) => handleRepsSetsChange(index, "reps", e.target.value)}
+  min="1" // Minimum value allowed
+  step="1" // Increment value
+  required // Required field
+/>
+<input
+  type="number"
+  placeholder="Sets"
+  className="border-b-2 border-gray-300 mr-2 w-16"
+  value={workout.sets || ""}
+  onChange={(e) => handleRepsSetsChange(index, "sets", e.target.value)}
+  min="1" // Minimum value allowed
+  step="1" // Increment value
+  required // Required field
+/>
+<input
+  type="number"
+  placeholder="Weight"
+  className="border-b-2 border-gray-300 mr-2 w-16"
+  value={weightValues[workout._id] || ""}
+  onChange={(e) => handleWeightChange(workout._id, e.target.value)}
+  min="1" // Minimum value allowed
+  step="0.01" // Increment value
+  required // Required field
+/>
                 </div>
               </div>
             </div>
