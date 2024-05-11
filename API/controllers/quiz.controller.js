@@ -5,7 +5,6 @@ import asyncHandler from "express-async-handler";
 
 const quizData = async (req, res, next) => {
   try {
-    
     const { QandA, userID } = req.body;
     const user = await User.findById(userID);
     await User.findByIdAndUpdate(userID, { quiz: true });
@@ -32,13 +31,24 @@ const quizData = async (req, res, next) => {
 
 const quizUpdate = async (req, res) => {
   try {
-    const { ID } = req.params;
+    const { id } = req.params;
     const { QandA } = req.body;
 
-    const updateResult = await Quiz.findOneAndUpdate({ userID: ID }, QandA);
-    if (!updateResult) {
-      return res.status(404).send({ message: "No such user" });
+    console.log(QandA);
+    const updatequiz = {
+      age: QandA.age,
+      NIC: QandA.NIC,
+      tele: QandA.tele,
+    };
+    console.log(id);
+
+    await Quiz.findByIdAndUpdate(QandA.QuizId, updatequiz);
+    const user = await User.findById(QandA.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
+    user.details.fullName = QandA.fullName;
+    await user.save();
     return res.status(200).send({ message: "Quiz has updated" });
   } catch (error) {
     console.error(error);
@@ -49,7 +59,7 @@ const quizUpdate = async (req, res) => {
 const getUserQuizData = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
-    const quiz = await Quiz.find({ userID: id }).limit(1).populate("userID");
+    const quiz = await Quiz.findOne({ userID: id }).limit(1).populate("userID");
 
     res.status(200).json(quiz);
   } catch {
@@ -84,4 +94,4 @@ const getUserById = async (req, res) => {
   }
 };
 
-export { quizData, quizUpdate, getUserById , getUserQuizData };
+export { quizData, quizUpdate, getUserById, getUserQuizData };

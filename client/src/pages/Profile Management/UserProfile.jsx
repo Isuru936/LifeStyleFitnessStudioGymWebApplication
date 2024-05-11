@@ -27,7 +27,7 @@ const UserProfile = () => {
     axios
     .get(`http://localhost:3000/api/quiz/${Auth.userID}`)
     .then((response) => {
-      setProfile(response.data[0]);
+      setProfile(response.data);
     })
     .catch((error) => {
       console.log(error);
