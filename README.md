@@ -24,6 +24,14 @@
 
 Welcome to the Lifestyle Fitness Studio Management System, a comprehensive MERN (MongoDB, Express.js, React.js, Node.js) application designed to streamline operations and enhance the experience for both gym owners and customers.
 
+## Funtionalities
+QR Code Attendance System:  The employees can scan the QR Code and mark their attendance.
+Diet Plan Assignment: The Admin can assign diet plans to clients
+Workout Plan Assignment: The Admin can assign workout plans to clients
+Payment Management System: The Admin can add new Payments to clients for their payments and a reciept will be generated.
+Inventory Management System: The Admin can manage their inventories
+Employee Mangement System: The Admin can manage their employees
+
 ## Built With
 
 The Lifestyle Fitness Studio Management System is built using a combination of powerful technologies to ensure scalability, efficiency, and a seamless user experience. The core stack includes:
