@@ -2,7 +2,7 @@
 import express from "express";
 const router = express.Router();
 import Workout from '../models/workout.models.js';
-import quizzes from "../models/userBioData.model.js";
+import Quiz from "../models/quiz.model.js";
 
 // Route to add a new workout
 router.post('/workouts', async (req, res) => {
@@ -93,7 +93,7 @@ router.post('/saveWorkouts', async (req, res) => {
     console.log('User ID:', userId); // Log the userID
 
     // Find the document by userId
-    const user = await quizzes.findOne({ userID: userId });
+    const user = await Quiz.findOne({ userID: userId });
 
     console.log('User:', user); // Log the user object
 
@@ -149,7 +149,37 @@ router.get('/workoutplan/:userId', async (req, res) => {
   }
 });
 
+// Route to delete the workout plan for a user
+router.delete('/clearWorkouts/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
 
+    console.log('User ID:', userId); // Log the userID
+
+    // Find the document by userId
+    const user = await Quiz.findOne({ userID: userId });
+
+    console.log('User:', user); // Log the user object
+
+    // If user is not found, return 404 error
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'User not found' });
+    }
+
+    // Clear the workout plan for the user
+    user.workoutplan = [];
+
+    // Save the updated user document
+    const result = await user.save();
+
+    // Send success response with updated data
+    res.status(200).json({ success: true, message: 'Workout plan cleared successfully' });
+  } catch (error) {
+    console.error('Error clearing workout plan:', error);
+    // Send error response if there's an error
+    res.status(500).json({ success: false, error: 'Error clearing workout plan' });
+  }
+});
 
 
 

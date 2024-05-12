@@ -1,13 +1,14 @@
 // import { restart } from 'nodemon';
-import Quiz from '../models/quiz.model.js'
-import User from '../models/user.model.js';
+import Quiz from "../models/quiz.model.js";
+import User from "../models/user.model.js";
+import asyncHandler from "express-async-handler";
 
 const quizData = async (req, res, next) => {
   try {
-    const { QandA , userID } = req.body;
-
+    
+    const { QandA, userID } = req.body;
     const user = await User.findById(userID);
-    await User.findByIdAndUpdate(userID,{quiz:true});
+    await User.findByIdAndUpdate(userID, { quiz: true });
     const newQuiz = {
       userID: userID,
       email: user.email,
@@ -16,9 +17,9 @@ const quizData = async (req, res, next) => {
       height: QandA[2].answer,
       weight: QandA[3].answer,
       NIC: QandA[4].answer,
-      tele:   QandA[5].answer,
+      tele: QandA[5].answer,
       smoker: QandA[6].answer,
-      alcoholic: QandA[7].answer
+      alcoholic: QandA[7].answer,
     };
 
     const quiz = Quiz.create(newQuiz);
@@ -34,9 +35,7 @@ const quizUpdate = async (req, res) => {
     const { ID } = req.params;
     const { QandA } = req.body;
 
-    const updateResult = await Quiz.findOneAndUpdate(
-      { userID: ID },QandA
-    );
+    const updateResult = await Quiz.findOneAndUpdate({ userID: ID }, QandA);
     if (!updateResult) {
       return res.status(404).send({ message: "No such user" });
     }
@@ -46,6 +45,21 @@ const quizUpdate = async (req, res) => {
     return res.status(500).send(error);
   }
 };
+
+const getUserQuizData = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.params;
+    const quiz = await Quiz.find({ userID: id }).limit(1).populate("userID");
+
+    res.status(200).json(quiz);
+  } catch {
+    (err) => {
+      console.log(err);
+      res.status(401).json(err.message);
+    };
+  }
+});
+
 const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("-password");
@@ -70,4 +84,4 @@ const getUserById = async (req, res) => {
   }
 };
 
-export { quizData, quizUpdate, getUserById };
+export { quizData, quizUpdate, getUserById , getUserQuizData };
