@@ -10,6 +10,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 function AddUsers() {
   const navigate = useNavigate();
@@ -183,8 +184,13 @@ function AddUsers() {
                     className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
                   />
                 </div>
+                <Link to="/employee-pool">
+                  <button className="p-3 bg-white rounded-xl text-black border font-bold mr-5 mt-5 mb-10 hover:bg-slate-100">
+                    <Icon icon="ion:caret-back-circle" className="text-lg" />
+                  </button>
+                </Link>
                 <button
-                  className="p-3 bg-green-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-green-700"
+                  className="mt-5 bg-green-600 p-2 w-full rounded-xl hover:bg-green-500 transition"
                   type="submit"
                 >
                   <span
@@ -193,16 +199,6 @@ function AddUsers() {
                   />{" "}
                   Add User
                 </button>
-                <Link to="/employee-pool">
-                  <button className="p-3 bg-white rounded-xl text-black border font-bold mr-5 mt-5 mb-10 hover:bg-slate-100">
-                    <span
-                      className="icon-[ic--twotone-system-security-update-good] mr-2"
-                      type="button"
-                      style={{ width: "20px", height: "20px" }}
-                    />{" "}
-                    Back
-                  </button>
-                </Link>
               </form>
             </div>
           </div>

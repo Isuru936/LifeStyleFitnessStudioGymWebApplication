@@ -184,7 +184,7 @@ function AddPaymentAdmin() {
           Add Payment
         </h1>
         <p className="mb-3">Email: {userData.email}</p>
-        <p className="mb-3">Username: {userData.username}</p>
+        {/* <p className="mb-3">Username: {userData.username}</p> */}
         <label htmlFor="paymentType" className="block mb-1">
           Payment Type:
         </label>

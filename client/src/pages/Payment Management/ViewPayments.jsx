@@ -16,6 +16,10 @@ const ViewPayments = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+
     const fetchPayments = async () => {
       try {
         const response = await fetch(
@@ -33,11 +37,13 @@ const ViewPayments = () => {
 
   return (
     <div
-      className="flex flex-row items-start w-screen h-screen bg-cover bg-center bg-no-repeat bg-fixed"
+      className="flex flex-row items-start w-screen h-screen bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url(${bgImg})`,
-        backgroundSize: "contain",
+        backgroundSize: "cover",
         backgroundPosition: "left",
+        backgroundPositionX: "0",
+        backgroundAttachment: "fixed", // Add this line
       }}
     >
       <div className="p-5 w-full flex flex-row mx-auto">

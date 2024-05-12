@@ -22,7 +22,10 @@ const AdminRegistration = () => {
       .post("http://localhost:3000/api/admin/users", formData)
       .then((response) => {
         Toast("Account Created", "success");
-        navigate("/quiz", { replace: true, state: { id: response.data._id } });
+        navigate("/diet-plan", {
+          replace: true,
+          state: { id: response.data._id },
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -46,19 +49,19 @@ const AdminRegistration = () => {
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
+                      className="rounded-[10px]  bg-slate-50 p-5 outline-none border-2 opacity-65 h-8 w-full"
                       type="text"
                       id="username"
                       onChange={handleChange}
                     />
                   </div>
-                  
+
                   <div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2">
                     <label htmlFor="email">Email</label>
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
+                      className="rounded-[10px] bg-slate-50 p-5 outline-none border-2 opacity-65 h-8 w-full"
                       type="text"
                       id="email"
                       onChange={handleChange}
@@ -69,22 +72,22 @@ const AdminRegistration = () => {
                   </div>
                   <div className="mb-5">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-[300px]"
+                      className="rounded-[10px]  bg-slate-50 p-5 outline-none border-2 opacity-65 h-8 w-[300px]"
                       type="password"
                       id="password"
                       onChange={handleChange}
                     />
                   </div>
-                  <Link to="/login">
-                    <div className="mb-7">
-                      <span className="text-xl flex justify-center text-blue-800">
-                        Have an Account?
+                  <Link to="/admin-login">
+                    <div className="mb-2">
+                      <span className="text-lg flex justify-center text-blue-800">
+                        Login Here
                       </span>
                     </div>
                   </Link>
                   <div className="flex justify-center mb-5">
                     <button
-                      className="text-xl w-[200px] h-[50px] bg-amber-600 rounded-[10px]"
+                      className="text-xl w-[200px] h-[50px] bg-amber-600 rounded-[10px] hover:bg-amber-700 transition-colors duration-300 ease-in-out text-white font-bold font-['Inria Sans']"
                       type="submit"
                     >
                       Signup

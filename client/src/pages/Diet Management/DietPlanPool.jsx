@@ -25,6 +25,10 @@ const DietPlan = () => {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+
     const fetchFoods = async () => {
       Aos.init({ duration: 2000, selector: ".food-card" });
       try {

@@ -16,6 +16,10 @@ function UserPool() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+
     const fetchEmployees = async () => {
       try {
         const response = await axios.get(
