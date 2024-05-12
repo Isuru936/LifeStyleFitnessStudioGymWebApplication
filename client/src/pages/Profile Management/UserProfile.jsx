@@ -1,30 +1,44 @@
 import React, { useContext, useEffect, useState } from "react";
 import LOGO from "../../assets/Logo.png";
-import MENU from "../../assets/MENU.png";
-import model from "../../assets/model.jpg";
 import gym from "../../assets/gym.jpg";
 import bg from "../../assets/860.jpg";
+import Profiledropdown from "./component/profiledropdown";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../shared/context/auth.context";
 import axios from "axios";
+import DeleteConfirmBox from "./component/DeleteConfirmBox";
+import model from "../../assets/vector-stylish-fitness-trainer-man.png";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const UserProfile = () => {
-
-  const Auth = useContext(AuthContext)
-  const [profile , setProfile] = useState({});
+  const Auth = useContext(AuthContext);
+  const [profile, setProfile] = useState({
+    userID: {
+      details: {
+        fullName: "",
+      },
+    },
+    age: "",
+    NIC: "",
+    tele: "",
+  });
 
   useEffect(() => {
     axios
-    .get(`http://localhost:3000//api/users/${Auth.userID}`)
-    .then((response) => {
-      setProfile(response.data)
-      console.log(response.data)
-    })
-    .catch((error) => {
-      console.log(error);
-      Toast("Something went wrong", "error");
-    });
-  })
+      .get(`http://localhost:3000/api/quiz/${Auth.userID}`)
+      .then((response) => {
+        setProfile(response.data[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+        Toast("Something went wrong", "error");
+      });
+  }, [Auth.userID]);
+
+  useEffect(() => {
+    console.log(profile); // Log the profile state here
+  }, [profile]);
+
   return (
     <div className="bg-gray-200 h-screen lg:h-full relative">
       <img
@@ -35,14 +49,13 @@ const UserProfile = () => {
       <div className="p-5 relative z-10">
         <img
           src={LOGO}
+          onClick={() => {
+            window.location.href = "/";
+          }}
           alt="logo"
           className="absolute top-0 left-0 h-10 mt-2 ml-3"
         />
-        <img
-          src={MENU}
-          className="absolute w-10 h-10 top-0 right-0 mt-2 mr-2"
-          alt="menu"
-        />
+        <Profiledropdown />
         <div className="bg-white rounded-lg shadow-xl pb-8 mt-10">
           <div className="w-full h-[250px]">
             <img
@@ -58,18 +71,20 @@ const UserProfile = () => {
               alt="Profile"
             />
             <div className="flex items-center mt-2">
-              <label className="text-2xl text-black font-bold"></label>
+              <label className="text-2xl text-black font-bold">
+                {profile.userID.details.fullName}
+              </label>
             </div>
           </div>
           <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
             <div className="flex items-center space-x-4 mt-2">
               <Link to="/editProfile">
-                <button className="flex items-center bg-orange-600 hover:bg-orange-700 text-gray-100  rounded text-[12px]  transition duration-100 w-[130px] h-7 justify-center">
+                <button className="flex items-center bg-orange-600 hover:bg-orange-700 text-gray-100 p-3 rounded text-[12px]  transition duration-100 w-[130px] h-7 justify-center">
                   <span>Update Profile</span>
                 </button>
               </Link>
               <Link to="/change-password">
-                <button className="flex items-center bg-orange-600 hover:bg-orange-700 text-gray-100  rounded text-[12px]  transition duration-100 w-[130px] h-7 justify-center">
+                <button className="flex items-center bg-orange-600 hover:bg-orange-700 text-gray-100 p-3 rounded text-[12px]  transition duration-100 w-[130px] h-7 justify-center">
                   <span>Change Password</span>
                 </button>
               </Link>
@@ -81,26 +96,24 @@ const UserProfile = () => {
           <ul className="mt-2 text-gray-700">
             <li className="flex border-y py-2">
               <span className="font-bold w-24">Full name:</span>
-              <span className="text-gray-700">Amanda S. Ross</span>
+              <span className="text-gray-700">
+                {profile.userID.details.fullName}
+              </span>
             </li>
             <li className="flex border-y py-2">
               <span className="font-bold w-24">Age:</span>
-              <span className="text-gray-700">18</span>
+              <span className="text-gray-700">{profile.age}</span>
             </li>
             <li className="flex border-y py-2">
               <span className="font-bold w-24">NIC:</span>
-              <span className="text-gray-700">485684455</span>
+              <span className="text-gray-700">{profile.NIC}</span>
             </li>
             <li className="flex border-y py-2">
               <span className="font-bold w-24">Phone:</span>
-              <span className="text-gray-700">+94 77 666 8888</span>
+              <span className="text-gray-700">{profile.tele}</span>
             </li>
           </ul>
-          <div className="mt-12  flex justify-center">
-            <button className="flex items-center bg-red-600 hover:bg-red-700 text-gray-100  rounded text-[12px]  transition duration-100 w-[130px] h-7 justify-center">
-              <span>Delete Profile</span>
-            </button>
-          </div>
+          <DeleteConfirmBox />
         </div>
       </div>
       <div className="flex justify-center bg-white absolute bottom-0 left-0 w-full">

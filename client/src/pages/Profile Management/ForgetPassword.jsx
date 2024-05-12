@@ -3,8 +3,9 @@ import wmodel from "../../assets/model3.png";
 import logo from "../../assets/Logo.png";
 import axios from "axios";
 import Toast from "../../shared/toast/Toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../shared/context/auth.context";
+import { Icon } from "@iconify/react";
 
 export const ForgetPassword = () => {
   const Auth = useContext(AuthContext);
@@ -20,11 +21,11 @@ export const ForgetPassword = () => {
         if (response.data.message === "Otp Send Successfully") {
           Toast("Otp Send Successfully", "success");
           Auth.setOTP(response.data.OTP);
-          navigate("/otp", { replace: true, state: {email} });
+          navigate("/otp", { replace: true, state: { email } });
         }
       })
       .catch((error) => {
-        Toast("No Mail Founded", "error");
+        Toast("Current Email Does not Exist.", "error");
       });
   };
 
@@ -65,15 +66,23 @@ export const ForgetPassword = () => {
                     <div className="mb-3">
                       <input
                         onChange={(e) => setemail(e.target.value)}
-                        className="rounded-[10px] bg-gray-500 opacity-75 w-full"
+                        className="rounded-[10px] bg-slate-50 p-2 w-72 border-2 opacity-75 "
                         type="email"
                         id="email"
                       />
                     </div>
                     <div className="mb-6"></div>
                     <div className="flex justify-center mb-3">
+                      <Link to="/login">
+                        <button
+                          className="text-xl mr-2 w-fit p-3 bg-slate-600 rounded-[10px] hover:bg-slate-700 transition-colors duration-300 ease-in-out text-white font-bold font-['Inria Sans']"
+                          type="button"
+                        >
+                          <Icon icon="ion:caret-back-circle" />
+                        </button>
+                      </Link>
                       <button
-                        className="text-xl w-[108px] h-[35px] bg-amber-600 rounded-[10px]"
+                        className="text-xl w-[200px] h-[50px] bg-amber-600 rounded-[10px] hover:bg-amber-700 transition-colors duration-300 ease-in-out text-white font-bold font-['Inria Sans']"
                         type="submit"
                       >
                         Done
