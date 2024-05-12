@@ -6,8 +6,13 @@ import axios from "axios";
 import notify from "../../components/toasts/toastTemplate";
 import firebase from "firebase/compat/app";
 import { ToastContainer } from "react-toastify";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 function UpdateFood() {
+  if (localStorage.getItem("adminLogin") === null) {
+    navigate("/admin-login");
+  }
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -173,19 +178,24 @@ function UpdateFood() {
                         className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
                       />
                     </div>
-                    {
-                      <button
-                        className="mt-5 bg-green-600 p-2 w-full rounded-xl hover:bg-green-500 transition"
-                        type="success"
-                      >
-                        Update
-                      </button>
-                    }
-                    <Link to="/diet-plan">
-                      <button className="mt-5 bg-blue-600 p-2 w-full rounded-xl hover:bg-blue-500 transition">
-                        Back
-                      </button>
-                    </Link>
+                    <div className="flex flex-auto gap-4">
+                      <Link to="/diet-plan">
+                        <button className="mt-5 bg-blue-600 p-2 w-full rounded-xl hover:bg-blue-500 p-3 transition relative">
+                          <Icon
+                            icon="ion:caret-back-circle"
+                            className="text-white"
+                          />
+                        </button>
+                      </Link>
+                      {
+                        <button
+                          className="mt-5 bg-green-600 p-2 w-full rounded-xl hover:bg-green-500 transition"
+                          type="success"
+                        >
+                          <p className="text-white font-bold">Update</p>
+                        </button>
+                      }
+                    </div>
                   </form>
                 </div>
               </div>

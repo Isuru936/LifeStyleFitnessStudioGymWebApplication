@@ -10,8 +10,8 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 import logo from "../../assets/Logo.png";
 import backgroundImage from "../../assets/bg-Img.png";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import DietPlanUserView from "../../components/DietPlanUserView";
 import SideBar from "../../components/SideBar";
 import { jsPDF } from "jspdf";
@@ -30,6 +30,10 @@ function WorkoutPool() {
   const { id } = useParams();
 
   useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+
     axios
       .get("http://localhost:3000/api/workouts/categories")
       .then((response) => {
@@ -47,7 +51,9 @@ function WorkoutPool() {
       .get(`http://localhost:3000/api/bioData/bioDataById/${id}`)
       .then((response) => {
         setUserEmail(response.data.data.bioData.email);
-        setWorkoutPlanEmpty(response.data.data.bioData.workoutplan.length === 0);
+        setWorkoutPlanEmpty(
+          response.data.data.bioData.workoutplan.length === 0
+        );
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
@@ -178,7 +184,7 @@ function WorkoutPool() {
       name: workout.name,
       reps: workout.reps,
       sets: workout.sets,
-      description:workout.description,
+      description: workout.description,
       weight: weightValues[workout._id] || 0,
       imageUrl: workout.imageUrl,
       category: workout.category,
@@ -205,9 +211,7 @@ function WorkoutPool() {
         let emailContent = `<h1>Assigned Workouts</h1>`;
 
         // Loop through categories and include workouts
-        for (const [category, workouts] of Object.entries(
-          workoutsByCategory
-        )) {
+        for (const [category, workouts] of Object.entries(workoutsByCategory)) {
           emailContent += `<h2>${category}</h2>`;
           workouts.forEach((workout) => {
             emailContent += `
@@ -224,12 +228,12 @@ function WorkoutPool() {
           });
         }
 
-       // Replace the logo variable with the URL of the new logo image
-const image = "https://firebasestorage.googleapis.com/v0/b/lsfs-1a314.appspot.com/o/Logo.png?alt=media&token=117322bf-b255-4114-b29e-b58a55e5a58e";
+        // Replace the logo variable with the URL of the new logo image
+        const image =
+          "https://firebasestorage.googleapis.com/v0/b/lsfs-1a314.appspot.com/o/Logo.png?alt=media&token=117322bf-b255-4114-b29e-b58a55e5a58e";
 
-// Add company logo to email
-emailContent += `<img src="${image}" alt="Company Logo" style="max-width: 100px;">`;
-
+        // Add company logo to email
+        emailContent += `<img src="${image}" alt="Company Logo" style="max-width: 100px;">`;
 
         axios
           .post("http://localhost:3000/api/sendEmail", {
@@ -239,7 +243,7 @@ emailContent += `<img src="${image}" alt="Company Logo" style="max-width: 100px;
           })
           .then((response) => {
             console.log("Email sent successfully");
-            toast.success('Workouts assigned and email sent successfully');
+            toast.success("Workouts assigned and email sent successfully");
           })
           .catch((error) => {
             console.error("Error sending email:", error);
@@ -258,7 +262,7 @@ emailContent += `<img src="${image}" alt="Company Logo" style="max-width: 100px;
       .get(`http://localhost:3000/api/bioData/bioDataById/${userId}`)
       .then((response) => {
         const userData = response.data.data;
-  
+
         if (
           userData &&
           userData.bioData &&
@@ -267,31 +271,37 @@ emailContent += `<img src="${image}" alt="Company Logo" style="max-width: 100px;
         ) {
           const doc = new jsPDF();
           let yOffset = 20;
-  
+
           // Add "Assigned Workouts" heading
           doc.setFontSize(16);
           doc.setFont("helvetica", "bold");
           doc.text("Assigned Workouts", 105, yOffset, { align: "center" });
           yOffset += 10; // Increase Y offset for spacing
-  
+
           // Add user ID and email
           doc.setFontSize(12);
           doc.setFont("helvetica", "normal");
           doc.text(20, yOffset, `ID: ${userData.bioData._id}`);
           doc.text(20, yOffset + 7, `Email: ${userData.bioData.email}`);
           yOffset += 20; // Increase Y offset for spacing
-  
+
           // Loop through workoutplan
           userData.bioData.workoutplan.forEach((workout, index) => {
             // Add category heading if it's the first workout in a category
-            if (index === 0 || workout.category !== userData.bioData.workoutplan[index - 1].category) {
+            if (
+              index === 0 ||
+              workout.category !==
+                userData.bioData.workoutplan[index - 1].category
+            ) {
               yOffset += 10; // Add spacing between categories
               doc.setFontSize(14);
               doc.setFont("helvetica", "bold");
-              doc.text(`Category: ${workout.category}`, 105, yOffset, { align: "center" });
+              doc.text(`Category: ${workout.category}`, 105, yOffset, {
+                align: "center",
+              });
               yOffset += 10; // Increase Y offset for category heading
             }
-  
+
             // Add exercise details to the PDF
             doc.setFontSize(12);
             doc.setFont("helvetica", "normal");
@@ -299,10 +309,10 @@ emailContent += `<img src="${image}" alt="Company Logo" style="max-width: 100px;
             doc.text(20, yOffset + 7, `Reps: ${workout.reps}`);
             doc.text(20, yOffset + 14, `Sets: ${workout.sets}`);
             doc.text(20, yOffset + 21, `Weight: ${workout.weight}`);
-  
+
             yOffset += 30; // Increase Y offset for next workout
           });
-  
+
           doc.save("workout_report.pdf");
         } else {
           console.error("No workout data found");
@@ -317,7 +327,7 @@ emailContent += `<img src="${image}" alt="Company Logo" style="max-width: 100px;
     axios
       .delete(`http://localhost:3000/api/clearWorkouts/${userId}`)
       .then((response) => {
-        toast.success('Workouts cleared successfully');
+        toast.success("Workouts cleared successfully");
         setWorkoutPlanEmpty(true);
       })
       .catch((error) => {
@@ -370,44 +380,47 @@ emailContent += `<img src="${image}" alt="Company Logo" style="max-width: 100px;
                     />
                     {category}
                   </p>
-                  {workoutsByCategory[category] && openDropdown === category && (
-                    <div className="ml-14">
-                      <ul>
-                        {workoutsByCategory[category].map((workout, index) => (
-                          <li key={index}>
-                            <label className="flex items-center space-x-2">
-                              <input
-                                type="checkbox"
-                                className="form-checkbox text-indigo-600"
-                                onChange={(e) => e.stopPropagation()}
-                                onClick={() =>
-                                  handleSelectWorkout(category, index)
-                                }
-                                checked={selectedWorkouts.some(
-                                  (w) => w._id === workout._id
-                                )}
-                              />
-                              <span>{workout.name}</span>
-                              <Icon
-                                icon={trashAlt}
-                                className="cursor-pointer text-red-500"
-                                onClick={() =>
-                                  handleDeleteWorkout(category, index)
-                                }
-                              />
-                              <Icon
-                                icon={editIcon}
-                                className="cursor-pointer text-blue-500"
-                                onClick={(event) =>
-                                  handleEditWorkout(category, index, event)
-                                }
-                              />
-                            </label>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  {workoutsByCategory[category] &&
+                    openDropdown === category && (
+                      <div className="ml-14">
+                        <ul>
+                          {workoutsByCategory[category].map(
+                            (workout, index) => (
+                              <li key={index}>
+                                <label className="flex items-center space-x-2">
+                                  <input
+                                    type="checkbox"
+                                    className="form-checkbox text-indigo-600"
+                                    onChange={(e) => e.stopPropagation()}
+                                    onClick={() =>
+                                      handleSelectWorkout(category, index)
+                                    }
+                                    checked={selectedWorkouts.some(
+                                      (w) => w._id === workout._id
+                                    )}
+                                  />
+                                  <span>{workout.name}</span>
+                                  <Icon
+                                    icon={trashAlt}
+                                    className="cursor-pointer text-red-500"
+                                    onClick={() =>
+                                      handleDeleteWorkout(category, index)
+                                    }
+                                  />
+                                  <Icon
+                                    icon={editIcon}
+                                    className="cursor-pointer text-blue-500"
+                                    onClick={(event) =>
+                                      handleEditWorkout(category, index, event)
+                                    }
+                                  />
+                                </label>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    )}
                 </div>
               </div>
             ))}
@@ -427,14 +440,18 @@ emailContent += `<img src="${image}" alt="Company Logo" style="max-width: 100px;
           </div>
           {workoutPlanEmpty ? (
             <div className="text-center my-4">
-              <p className="text-red-500">No workouts have been assigned for this user yet.</p>
+              <p className="text-red-500">
+                No workouts have been assigned for this user yet.
+              </p>
             </div>
           ) : (
             <div className="text-center my-4">
-               <p className="text-l  ">
-               Assigned workouts exist for this user. Would you like to clear them? <br/>
-also you can, click 'Generate Report' to view the assigned workouts.
-            </p>
+              <p className="text-l  ">
+                Assigned workouts exist for this user. Would you like to clear
+                them? <br />
+                also you can, click 'Generate Report' to view the assigned
+                workouts.
+              </p>
               <button
                 className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                 onClick={handleClearWorkouts}
@@ -447,7 +464,10 @@ also you can, click 'Generate Report' to view the assigned workouts.
       </div>
       <div className="text-right py-20 pr-10 mx-20">
         <h1 className="text-2xl font-bold mx-12">Assigned Workouts</h1>
-        <div className="mt-8 bg-white rounded-md p-4 shadow-md overflow-auto border border-gray-300 h-80" style={{ maxWidth: '600px' }}>
+        <div
+          className="mt-8 bg-white rounded-md p-4 shadow-md overflow-auto border border-gray-300 h-80"
+          style={{ maxWidth: "600px" }}
+        >
           {selectedWorkouts.map((workout, index) => (
             <div key={index} className="relative flex items-center mb-4">
               <button
@@ -464,33 +484,36 @@ also you can, click 'Generate Report' to view the assigned workouts.
               <div>
                 <p className="font-semibold mb-2 ml-6">{workout.name}</p>
                 <div className="flex items-center">
-                  <input
-                    type="number"
-                    placeholder="Reps"
-                    className="border-b-2 border-gray-300 mr-2 w-16"
-                    value={workout.reps || ""}
-                    onChange={(e) =>
-                      handleRepsSetsChange(index, "reps", e.target.value)
-                    }
-                  />
-                  <input
-                    type="number"
-                    placeholder="Sets"
-                    className="border-b-2 border-gray-300 mr-2 w-16"
-                    value={workout.sets || ""}
-                    onChange={(e) =>
-                      handleRepsSetsChange(index, "sets", e.target.value)
-                    }
-                  />
-                  <input
-                    type="number"
-                    placeholder="Weight"
-                    className="border-b-2 border-gray-300 mr-2 w-16"
-                    value={weightValues[workout._id] || ""}
-                    onChange={(e) =>
-                      handleWeightChange(workout._id, e.target.value)
-                    }
-                  />
+                <input
+  type="number"
+  placeholder="Reps"
+  className="border-b-2 border-gray-300 mr-2 w-16"
+  value={workout.reps || ""}
+  onChange={(e) => handleRepsSetsChange(index, "reps", e.target.value)}
+  min="1" // Minimum value allowed
+  step="1" // Increment value
+  required // Required field
+/>
+<input
+  type="number"
+  placeholder="Sets"
+  className="border-b-2 border-gray-300 mr-2 w-16"
+  value={workout.sets || ""}
+  onChange={(e) => handleRepsSetsChange(index, "sets", e.target.value)}
+  min="1" // Minimum value allowed
+  step="1" // Increment value
+  required // Required field
+/>
+<input
+  type="number"
+  placeholder="Weight"
+  className="border-b-2 border-gray-300 mr-2 w-16"
+  value={weightValues[workout._id] || ""}
+  onChange={(e) => handleWeightChange(workout._id, e.target.value)}
+  min="1" // Minimum value allowed
+  step="0.01" // Increment value
+  required // Required field
+/>
                 </div>
               </div>
             </div>

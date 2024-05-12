@@ -222,6 +222,31 @@ function SideBar() {
                     </Link>
                   </motion.div>
                 </motion.div>
+                <motion.div
+                  className="sidebar"
+                  initial={{ x: "-100%" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "-120%" }}
+                  transition={{ duration: 0.7, delay: 0.7 }}
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 }}
+                  >
+                    <Link to="/notifications">
+                      <div
+                        className="p-2  w-50 my-2 rounded-xl bg-green-400  hover:bg-green-500 transition"
+                        onClick={(e) => {
+                          localStorage.clear();
+                          window.location.href = "/admin-login";
+                        }}
+                      >
+                        <p className="text-center  font-bold">Logout</p>
+                      </div>
+                    </Link>
+                  </motion.div>
+                </motion.div>
               </div>
             </div>
           </div>

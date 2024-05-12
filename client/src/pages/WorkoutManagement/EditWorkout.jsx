@@ -19,22 +19,27 @@ function EditWorkout() {
     imageUrl: "",
     category: "",
     reps: "",
-    sets: ""
+    sets: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true); // State to track loading status
 
   const storage = firebase.storage(); // Access the storage object from the imported firebase object
 
   useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+
     // Fetch workout details when component mounts
-    axios.get(`http://localhost:3000/api/workouts/${id}`)
-      .then(response => {
+    axios
+      .get(`http://localhost:3000/api/workouts/${id}`)
+      .then((response) => {
         setWorkout(response.data);
         setLoading(false); // Set loading to false after data is fetched
       })
-      .catch(error => {
-        console.error('Error fetching workout details:', error);
+      .catch((error) => {
+        console.error("Error fetching workout details:", error);
         setLoading(false); // Set loading to false in case of error
       });
   }, [id]);
@@ -45,16 +50,16 @@ function EditWorkout() {
     const imageRef = storageRef.child(`workoutImages/${Date.now()}`);
     await imageRef.put(file);
     const url = await imageRef.getDownloadURL();
-    setWorkout(prevState => ({
+    setWorkout((prevState) => ({
       ...prevState,
-      imageUrl: url
+      imageUrl: url,
     }));
   };
 
   const handleCategoryChange = (event) => {
-    setWorkout(prevState => ({
+    setWorkout((prevState) => ({
       ...prevState,
-      category: event.target.value
+      category: event.target.value,
     }));
   };
   const handleSubmit = async (event) => {
@@ -67,24 +72,27 @@ function EditWorkout() {
         const imageRef = storageRef.child(`workoutImages/${Date.now()}`);
         await imageRef.put(file);
         const url = await imageRef.getDownloadURL();
-        console.log('New Firebase URL:', url); // Log the new Firebase URL
-        setWorkout(prevState => ({
+        console.log("New Firebase URL:", url); // Log the new Firebase URL
+        setWorkout((prevState) => ({
           ...prevState,
-          imageUrl: url
+          imageUrl: url,
         }));
       }
-  
+
       // Update workout details (including image URL) in MongoDB
-      const response = await axios.put(`http://localhost:3000/api/workouts/${id}`, workout);
-      console.log('Workout updated successfully:', response.data);
+      const response = await axios.put(
+        `http://localhost:3000/api/workouts/${id}`,
+        workout
+      );
+      console.log("Workout updated successfully:", response.data);
       toast.success("Workout updated successfully!");
     } catch (error) {
-      console.error('Error updating workout:', error);
+      console.error("Error updating workout:", error);
       setError(error.message || "Error updating workout.");
       toast.error("Error updating workout.");
     }
   };
-  
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -110,24 +118,29 @@ function EditWorkout() {
                 Update the workout details
               </h1>
               <hr className="mb-2 mt-2" />
-              <div className="flex items-center justify-center"> {/* Add this container div */}
-                <img 
-                  src={workout.imageUrl} 
-                  alt="Workout" 
-                  style={{ 
+              <div className="flex items-center justify-center">
+                {" "}
+                {/* Add this container div */}
+                <img
+                  src={workout.imageUrl}
+                  alt="Workout"
+                  style={{
                     width: "200px", // Set a fixed width for the image
                     height: "200px", // Set a fixed height for the image to make it square
                     objectFit: "cover", // Maintain aspect ratio by cropping if needed
-                    borderRadius: "8px" // Add border radius for rounded corners
-                  }} 
+                    borderRadius: "8px", // Add border radius for rounded corners
+                  }}
                 />
               </div>
             </div>
-            
+
             {error && <div className="text-red-500">{error}</div>}
             <div className="flex flex-row justify-center">
               <div className="flex flex-col w-full">
-                <form onSubmit={handleSubmit} className="mt-5 text-base lg:text-xl">
+                <form
+                  onSubmit={handleSubmit}
+                  className="mt-5 text-base lg:text-xl"
+                >
                   <div className="mb-4 lg:mb-6">
                     <p className="font-semibold text-sm lg:text-base mb-1">
                       Workout name
@@ -137,10 +150,12 @@ function EditWorkout() {
                       placeholder="E.g. Bicep curl"
                       className="outline-none border-2 border-gray-100 rounded-lg p-2 w-full lg:w-96 mt-2 text-sm lg:text-base"
                       value={workout.name}
-                      onChange={(e) => setWorkout(prevState => ({
-                        ...prevState,
-                        name: e.target.value
-                      }))}
+                      onChange={(e) =>
+                        setWorkout((prevState) => ({
+                          ...prevState,
+                          name: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                   <div className="mb-4 lg:mb-6">
@@ -152,10 +167,12 @@ function EditWorkout() {
                       className="outline-none border-2 border-gray-100 rounded-lg p-2 w-full lg:w-96 mt-2 text-sm lg:text-base resize-y"
                       rows="5"
                       value={workout.description}
-                      onChange={(e) => setWorkout(prevState => ({
-                        ...prevState,
-                        description: e.target.value
-                      }))}
+                      onChange={(e) =>
+                        setWorkout((prevState) => ({
+                          ...prevState,
+                          description: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                   <div className="mb-4 lg:mb-6">
@@ -169,7 +186,9 @@ function EditWorkout() {
                     >
                       <option value="">Select category...</option>
                       <option value="Cardio">Cardio</option>
-                      <option value="Strength Training">Strength Training</option>
+                      <option value="Strength Training">
+                        Strength Training
+                      </option>
                       <option value="Flexibility">Flexibility</option>
                       <option value="arms">arms</option>
                       <option value="legs">legs</option>
@@ -185,7 +204,6 @@ function EditWorkout() {
                       htmlFor="file-upload"
                       className="font-semibold cursor-pointer text-sm lg:text-base text-blue-600 flex items-center"
                     >
-                     
                       Choose an image
                     </label>
                     <input
@@ -196,7 +214,10 @@ function EditWorkout() {
                       className="hidden"
                     />
                   </div>
-                  <button type="submit" className="mt-5 bg-orange-500 text-white p-2 w-full rounded-xl hover:bg-orange-600 transition text-sm lg:text-base">
+                  <button
+                    type="submit"
+                    className="mt-5 bg-orange-500 text-white p-2 w-full rounded-xl hover:bg-orange-600 transition text-sm lg:text-base"
+                  >
                     Update
                   </button>
                   <Link to="/">

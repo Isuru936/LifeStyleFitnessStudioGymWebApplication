@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import backgroundImage from "../../assets/sim.jpg";
 import SideBar from "../../components/SideBar";
 import { Link } from "react-router-dom";
@@ -7,6 +7,12 @@ function NewCreateNotification() {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [date, setDate] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+  }, []);
 
   const handleSubmit = async () => {
     try {

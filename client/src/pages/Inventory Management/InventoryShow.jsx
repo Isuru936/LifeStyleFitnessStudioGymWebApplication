@@ -37,6 +37,10 @@ function InventoryShow() {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+
     fetchInventory();
   }, []);
 
