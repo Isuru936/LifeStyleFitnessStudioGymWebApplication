@@ -12,7 +12,7 @@ import femaleIcon from "../../assets/selLadMod.jpg";
 import axios from 'axios';
 
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../shared/context/auth.context";
 
 const backgroundImg = [m0, m1, m2, m3, m4, m5, m6, m7];
@@ -62,6 +62,7 @@ const questions = [
 
 const Quiz = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const auth = useContext(AuthContext)
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -85,8 +86,9 @@ const Quiz = () => {
           questions: questions[index].question,
           answer: ans,
         }));
+        console.log(location.state.id)
         axios.post("http://localhost:3000/api/quiz/", {
-          userID:  auth.userID ,
+          userID: auth.userID !== null ? auth.userID :  location.state.id,
           email: auth.email,
           QandA: newQandA
         })

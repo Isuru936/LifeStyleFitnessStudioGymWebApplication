@@ -6,7 +6,8 @@ import axios from "axios";
 import Toast from "../../shared/toast/Toast";
 
 export const signup = () => {
-  const [formData, setFormData] = useState({}); // Fixed useState usage
+  const [formData, setFormData] = useState({});
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -15,17 +16,42 @@ export const signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    axios
-      .post("http://localhost:3000/api/users", formData)
-      .then((response) => {
-        Toast("Account Created", "success");
-        navigate("/login", { replace: true, state: { id: response.data._id } });
-      })
-      .catch((error) => {
-        console.log(error);
-        Toast("Something went wrong", "error");
-      });
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length === 0) {
+      axios
+        .post("http://localhost:3000/api/users", formData)
+        .then((response) => {
+          Toast("Account Created", "success");
+          navigate("/quiz", { replace: true, state: { id: response.data._id } });
+        })
+        .catch((error) => {
+          console.log(error);
+          Toast("Something went wrong", "error");
+        });
+    } else {
+      setErrors(validationErrors);
+    }
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.username) {
+      errors.username = "Username is required";
+    }
+    if (!formData.fullName) {
+      errors.fullName = "Full Name is required";
+    }
+    if (!formData.email) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Invalid email address";
+    }
+    if (!formData.password) {
+      errors.password = "Password is required";
+    } else if (formData.password.length < 6) {
+      errors.password = "Password must be at least 6 characters long";
+    }
+    return errors;
   };
 
   return (
@@ -50,33 +76,35 @@ export const signup = () => {
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px] bg-slate-50 border p-5 outline-none opacity-65 h-8 w-full"
+                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
                       type="text"
                       id="username"
                       onChange={handleChange}
                     />
-                  </div>
-                  <div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2">
+                    {errors.username && <div className="text-red-500">{errors.username}</div>}
+                  </div><div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2">
                     <label htmlFor="username">Full Name</label>
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px]  bg-slate-50 border p-5 outline-none opacity-65 h-8 w-full"
+                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
                       type="text"
                       id="fullName"
                       onChange={handleChange}
                     />
+                    {errors.fullName && <div className="text-red-500">{errors.fullName}</div>}
                   </div>
                   <div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2">
                     <label htmlFor="email">Email</label>
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px]  bg-slate-50 border p-5 outline-none opacity-65 h-8 w-full"
+                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
                       type="text"
                       id="email"
                       onChange={handleChange}
                     />
+                    {errors.email && <div className="text-red-500">{errors.email}</div>}
                   </div>
                   <div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2 ">
                     <label htmlFor="password">Password</label>{" "}
@@ -84,22 +112,23 @@ export const signup = () => {
                   </div>
                   <div className="mb-5">
                     <input
-                      className="rounded-[10px]  bg-slate-50 border p-5 outline-none opacity-65 h-8 w-[300px]"
+                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-[300px]"
                       type="password"
                       id="password"
                       onChange={handleChange}
                     />
+                    {errors.password && <div className="text-red-500">{errors.password}</div>}
                   </div>
                   <Link to="/login">
                     <div className="mb-7">
-                      <span className="text-xl flex justify-center text-blue-800 hover:text-blue-500 hover:underline">
+                      <span className="text-xl flex justify-center text-blue-800">
                         Have an Account?
                       </span>
                     </div>
                   </Link>
                   <div className="flex justify-center mb-5">
                     <button
-                      className="text-xl w-[200px] h-[50px] bg-amber-600 rounded-[10px] hover:bg-amber-700 transition-colors duration-300 ease-in-out text-white font-bold font-['Inria Sans']"
+                      className="text-xl w-[200px] h-[50px] bg-amber-600 rounded-[10px]"
                       type="submit"
                     >
                       Signup

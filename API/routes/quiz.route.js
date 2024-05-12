@@ -5,7 +5,7 @@ import { protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.post('/', quizData);
-router.put('/:ID' , quizUpdate);
+router.put('/:id' ,quizUpdate);
 router.get("/:id", getUserQuizData);
 router.get("/getEmail/:id", getUserById);
 

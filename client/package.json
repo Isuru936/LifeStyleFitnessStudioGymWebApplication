@@ -31,6 +31,7 @@
     "fortawesome": "^0.0.1-security",
     "framer-motion": "^11.1.9",
     "iconify": "^1.4.0",
+    "jsx-runtime": "^1.2.0",
     "mdb-react-ui-kit": "^8.0.0",
     "multer": "^1.4.5-lts.1",
     "pdfmake": "^0.2.10",
