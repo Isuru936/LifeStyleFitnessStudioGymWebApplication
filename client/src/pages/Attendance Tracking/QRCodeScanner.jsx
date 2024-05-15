@@ -112,7 +112,7 @@ function Scanner() {
     };
   }, []);
 
-  if (formData === null) return <div>Loading...</div>;
+  // if (formData === null) return <div>Loading...</div>;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">

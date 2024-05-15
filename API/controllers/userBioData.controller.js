@@ -64,7 +64,6 @@ export const getBioDataByUserId = async (req, res) => {
       bioData.gender,
       bioData.height,
       bioData.age,
-      "bulking",
       bioData._id
     );
 

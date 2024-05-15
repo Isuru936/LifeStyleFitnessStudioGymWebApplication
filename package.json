@@ -55,7 +55,8 @@
     "react-native-modern-qrscanner": "^1.0.8",
     "react-pdf": "^8.0.0",
     "react-qr-code": "^2.0.12",
-    "react-toastify": "^10.0.5"
+    "react-toastify": "^10.0.5",
+    "xlsx": "^0.18.5"
   },
   "keywords": [],
   "description": ""
