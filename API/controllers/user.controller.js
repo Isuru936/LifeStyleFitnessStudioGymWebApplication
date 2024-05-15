@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/user.model.js";
+import Quiz from "../models/quiz.model.js";
 import generateToken from "../utils/generateTokens.js";
 import dotenv from "dotenv";
 import { randomInt } from "crypto";
@@ -103,10 +104,17 @@ const logoutUser = asyncHandler(async (req, res) => {
 // route GET /api/users/profile
 //@access private
 const getUserProfile = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const user = await User.findById(id);
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
 
-  res.status(200).json(user);
+    res.status(200).json(user);
+  } catch {
+    (err) => {
+      console.log(err);
+      res.status(401).json(err.message);
+    };
+  }
 });
 
 //@desc Update user Profile
@@ -133,6 +141,20 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   } else {
     res.status(404);
     throw new Error("User not found");
+  }
+});
+
+const deleteProfile = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.params;
+    await User.findByIdAndDelete(id);
+    const quizid = await Quiz.find({ userID: id });
+    await Quiz.findByIdAndDelete(quizid);
+    res.status(200).json({ message: "Account deleted" });
+  } catch {
+    (err) => {
+      console.log(err);
+    };
   }
 });
 
@@ -165,6 +187,7 @@ const oneTimePassword = asyncHandler(async (req, res) => {
   }
 });
 
+
 export {
   authUser,
   registerUser,
@@ -174,4 +197,5 @@ export {
   ConfirmPasswordAndChange,
   oneTimePassword,
   newPasswordChange,
+  deleteProfile
 };

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LOGO from "../../assets/Logo.png";
 import MENU from "../../assets/MENU.png";
 import bg from "../../assets/gym.jpg";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const UserProfile = () => {
   const [fullName, setFullName] = useState("");
@@ -39,16 +40,15 @@ const UserProfile = () => {
           alt="logo"
           className="absolute top-0 left-0 h-10 mt-2 ml-5 "
         />
-        <img
-          src={MENU}
-          className="absolute w-10 h-10 top-0 right-0 mt-2 mr-2 "
-          alt="menu"
+        <Icon
+          icon="tabler:layout-navbar-expand"
+          className="text-3xl text-slate-300 hover:scale-105 transition-transform cursor-pointer absolute top-5 right-5"
         />
         <div className="bg-white bg-opacity-50 rounded-lg shadow-xl mt-16 pt-3 ">
           <h4 className="text-black text-2xl font-bold bg-transparent w-[380px] pl-4 mt-2">
             Edit profile
           </h4>
-          <ul className="p-6 flex flex-col space-y-8">
+          <ul className="p-6 flex flex-col space-y-5">
             <li className="flex flex-col w-full">
               <label htmlFor="fullName" className="text-black text-lg">
                 Full Name
@@ -96,7 +96,7 @@ const UserProfile = () => {
             {isSaveEnabled && (
               <li className="flex justify-center">
                 <button
-                  className="bg-blue-700 w-40 h-16 rounded-full text-xl font-bold"
+                  className="bg-orange-700 w-24 rounded-2xl text-xl font-bold text-white"
                   onClick={handleSave}
                 >
                   Save
@@ -104,11 +104,19 @@ const UserProfile = () => {
               </li>
             )}
           </ul>
+          <div className="w-full flex justify-center mb-3">
+            <button
+              className="bg-slate-700 w-fit p-2 rounded-2xl hover:bg-slate-600 text-xl font-bold text-white"
+              onClick={() => window.history.back()}
+            >
+              <Icon icon="ion:caret-back-circle" />
+            </button>
+          </div>
         </div>
       </div>
-       <div className="text-center bg-white bg-opacity-50 p-2 absolute bottom-0 left-0 w-full">
+      <div className="text-center bg-white bg-opacity-50 p-2 absolute bottom-0 left-0 w-full">
         <p className="text-black">Copyright© All rights Reserved.</p>
-        </div>
+      </div>
     </div>
   );
 };

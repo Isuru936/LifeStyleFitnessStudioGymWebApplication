@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import profImg from "../../assets/profImg.png";
 import SideBar from "../../components/SideBar";
 import bgImg from "../../assets/bgImg.png";
 import logo from "../../assets/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import notify from "../../components/toasts/toastTemplate";
-
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 import axios from "axios";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 function AddUsers() {
   const navigate = useNavigate();
+  const fileRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -32,12 +33,12 @@ function AddUsers() {
       const storageRef = firebase.storage().ref();
       const fileRef = storageRef.child(selectedFile.name);
       setLoading(true);
-      notify("info", "", "Uploading image...");
+      toast.info("Uploading image...");
       try {
         const snapshot = await fileRef.put(selectedFile);
         const url = await snapshot.ref.getDownloadURL();
         setFormData({ ...formData, image: url });
-        notify("success", "", "Image uploaded successfully");
+        toast.success("Image uploaded successfully");
       } catch (error) {
         console.error("Error uploading file:", error);
         alert("Failed to upload file. Please try again.");
@@ -62,7 +63,7 @@ function AddUsers() {
           },
         }
       );
-      notify("success", "", "New employee added successfully");
+      toast.success("Employee added successfully");
     } catch (error) {
       console.error("Error adding employee:", error);
       notify("error", "", "Failed to add new employee");
@@ -92,14 +93,21 @@ function AddUsers() {
             <hr />
             <div className="flex flex-col  justify-center w-full">
               <div className="mx-auto mt-5">
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  onChange={handleFileUpload}
+                  hidden
+                  ref={fileRef}
+                  className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
+                />
                 <img
                   src={formData.image}
+                  onClick={() => fileRef.current.click()}
                   alt="profile"
                   className=" w-32  h-32 bg-slate-800 rounded-full hover:scale-105 duration-500 ease-in-out transform mb-2"
                 />
-                <p className="flex flex-row justify-center font-semibold pb-5">
-                  Kelly Parker
-                </p>
               </div>
               <form className="mx-auto" onSubmit={handleSubmit}>
                 <h1 className="font-bold text-xl mb-2">Account Information</h1>
@@ -174,35 +182,35 @@ function AddUsers() {
                     />
                   </div>
                 </div>
-                <div>
-                  <input
-                    type="file"
-                    name="image"
-                    accept="image/*"
-                    onChange={handleFileUpload}
-                    className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
-                  />
+                <div className="flex h-12 align-middle justify-center">
+                  <Link to="/employee-pool">
+                    <button className="p-3 bg-white rounded-xl text-black border font-bold mr-5 hover:bg-slate-100">
+                      <Icon icon="ion:caret-back-circle" className="text-lg" />
+                    </button>
+                  </Link>
+                  {loading ? (
+                    <button
+                      className=" bg-green-600 text-white p-0 w-full rounded-xl hover:bg-green-500 transition flex justify-center items-center font-extrabold gap-5"
+                      type="submit"
+                    >
+                      <Icon
+                        icon="eos-icons:three-dots-loading"
+                        style={{ width: "40px", height: "20px" }}
+                      />
+                    </button>
+                  ) : (
+                    <button
+                      className=" bg-green-600 text-white p-0 w-full rounded-xl hover:bg-green-500 transition flex justify-center items-center font-extrabold gap-5"
+                      type="submit"
+                    >
+                      <Icon
+                        icon="wpf:add-user"
+                        style={{ width: "20px", height: "20px" }}
+                      />
+                      Add User
+                    </button>
+                  )}
                 </div>
-                <button
-                  className="p-3 bg-green-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-green-700"
-                  type="submit"
-                >
-                  <span
-                    className="icon-[ic--twotone-system-security-update-good] mr-2"
-                    style={{ width: "20px", height: "20px" }}
-                  />{" "}
-                  Add User
-                </button>
-                <Link to="/employee-pool">
-                  <button className="p-3 bg-white rounded-xl text-black border font-bold mr-5 mt-5 mb-10 hover:bg-slate-100">
-                    <span
-                      className="icon-[ic--twotone-system-security-update-good] mr-2"
-                      type="button"
-                      style={{ width: "20px", height: "20px" }}
-                    />{" "}
-                    Back
-                  </button>
-                </Link>
               </form>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../../components/SideBar";
 import backgroundImage from "../../assets/sim.jpg";
 import firebase from "firebase/compat/app";
@@ -32,6 +32,12 @@ function InventoryAdd() {
   //     console.log("No file selected");
   //   }
   // };
+
+  useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+  }, []);
 
   const handleAddInventory = async () => {
     try {

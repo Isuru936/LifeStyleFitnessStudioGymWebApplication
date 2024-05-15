@@ -6,8 +6,6 @@ export const AuthContext = createContext({
   otp: null,
   login: () => {},
   logout: () => {},
-  setOTP: () => {},
-  unsetOTP: () => {},
 });
 
 export const AuthProvider = ({ children }) => {
@@ -20,16 +18,11 @@ export const AuthProvider = ({ children }) => {
     const savedCusId = localStorage.getItem("userID");
     return savedCusId ? JSON.parse(savedCusId) : null;
   });
-  const [otp, setOtp] = useState(() => {
-    const savedotp = localStorage.getItem("otp");
-    return savedotp ? JSON.parse(savedotp) : null;
-  });
 
   useEffect(() => {
     localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
     localStorage.setItem("userID", JSON.stringify(userID));
-    localStorage.setItem("otp", JSON.stringify(otp));
-  }, [isLoggedIn, userID, otp]);
+  }, [isLoggedIn, userID]);
 
   const login = (userId) => {
     setIsLoggedIn(true);
@@ -41,19 +34,9 @@ export const AuthProvider = ({ children }) => {
     setUserID(null);
   };
 
-  const setOTP = (OTP) => {
-    setOtp(OTP);
-    setTimeout(() => {
-      unsetOTP();
-    }, 60000);
-  };
-
-  const unsetOTP = () => {
-    setOtp(null);
-  };
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, userID, otp, login, logout, setOTP, unsetOTP }}
+      value={{ isLoggedIn, userID, login, logout }}
     >
       {children}
     </AuthContext.Provider>

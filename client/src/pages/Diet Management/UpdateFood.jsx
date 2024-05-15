@@ -1,13 +1,19 @@
 import SideBar from "../../components/SideBar";
 import bgImg from "../../assets/bg-Img.png";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import notify from "../../components/toasts/toastTemplate";
 import firebase from "firebase/compat/app";
 import { ToastContainer } from "react-toastify";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 function UpdateFood() {
+  const fileRef = useRef(null);
+  if (localStorage.getItem("adminLogin") === null) {
+    navigate("/admin-login");
+  }
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -99,9 +105,24 @@ function UpdateFood() {
                       Enter the Food Details and the nutrient levels of them.
                     </p>
                   </div>
-                  <img src={food.imageData} className="w-64 mx-auto" alt="" />
+                  <img
+                    src={food.imageData}
+                    onClick={() => {
+                      fileRef.current.click();
+                    }}
+                    className="w-48 h-48 mx-auto hover:scale-105 transition duration-500 ease-in-out rounded-xl cursor-pointer"
+                    alt=""
+                  />
                   <form onSubmit={handleUpdate} className="mt-5 text-xl ">
                     <p className="font-semibold">Food Name</p>
+                    <input
+                      type="file"
+                      hidden
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      ref={fileRef}
+                      className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
+                    />
                     <input
                       type="text"
                       placeholder="E.g. Chicken Breast"
@@ -164,28 +185,24 @@ function UpdateFood() {
                         />
                       </div>
                     </div>
-                    <div>
-                      <p className="font-semibold">Upload Image</p>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileUpload}
-                        className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
-                      />
+                    <div className="flex flex-auto gap-4">
+                      <Link to="/diet-plan">
+                        <button className="mt-5 bg-blue-600 p-2 w-full rounded-xl hover:bg-blue-500 p-3 transition relative">
+                          <Icon
+                            icon="ion:caret-back-circle"
+                            className="text-white"
+                          />
+                        </button>
+                      </Link>
+                      {
+                        <button
+                          className="mt-5 bg-green-600 p-2 w-full rounded-xl hover:bg-green-500 transition"
+                          type="success"
+                        >
+                          <p className="text-white font-bold">Update</p>
+                        </button>
+                      }
                     </div>
-                    {
-                      <button
-                        className="mt-5 bg-green-600 p-2 w-full rounded-xl hover:bg-green-500 transition"
-                        type="success"
-                      >
-                        Update
-                      </button>
-                    }
-                    <Link to="/diet-plan">
-                      <button className="mt-5 bg-blue-600 p-2 w-full rounded-xl hover:bg-blue-500 transition">
-                        Back
-                      </button>
-                    </Link>
                   </form>
                 </div>
               </div>
