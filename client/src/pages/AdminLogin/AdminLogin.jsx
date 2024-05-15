@@ -17,12 +17,16 @@ const AdminLogin = () => {
     event.preventDefault();
     setLoading(true); // Set loading to true when form is submitted
     try {
-      const response = await axios.post("http://localhost:3000/api/admin/auth", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/admin/auth",
+        {
+          email,
+          password,
+        }
+      );
       auth.login(response.data);
       console.log(response.data);
+      localStorage.setItem("adminLogin", true);
       navigate("/view-all-users");
     } catch (error) {
       console.error(error);
@@ -49,7 +53,7 @@ const AdminLogin = () => {
             </h1>
             <form onSubmit={submitHandler} action="#">
               <h2 className="text-xl text-center static text-stone-800 font-bold font-['Inria Sans'] mb-4">
-                Welcome to Lifestyle Fitness Studio
+                Admin Login
               </h2>
               <div className="flex justify-center p-1">
                 <div action={submitHandler}>
@@ -58,7 +62,7 @@ const AdminLogin = () => {
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
+                      className="rounded-[10px] bg-slate-50 p-5 outline-none border-2 opacity-65 h-8 w-full"
                       type="email"
                       onChange={(e) => {
                         setEmail(e.target.value);
@@ -71,7 +75,7 @@ const AdminLogin = () => {
                   </div>
                   <div className="mb-5">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-[300px]"
+                      className="rounded-[10px]  bg-slate-50 p-5 outline-none border-2 opacity-65 h-8 w-[300px]"
                       type="password"
                       id="password"
                       onChange={(e) => {
@@ -79,27 +83,21 @@ const AdminLogin = () => {
                       }}
                     />
                   </div>
-                  <Link to="/forget-password">
-                    <div className="mt-7 mb-5">
-                      <span className="text-xl flex justify-center size- text-blue-500">
-                        Forget Password?
-                      </span>
-                    </div>
-                  </Link>
 
                   <div className="flex justify-center mb-5">
                     <button
-                      className="text-xl w-[200px] h-[50px] bg-amber-600 rounded-[10px]"
+                      className="text-xl w-[200px] h-[50px] bg-amber-600 hover:bg-orange-700 transition-colors duration-500 hover:text-white rounded-[10px]"
                       type="submit"
                       disabled={loading} // Disable button while loading
                     >
-                      {loading ? "Logging in..." : "Login"} {/* Show loading text when loading */}
+                      {loading ? "Logging in..." : "Login"}{" "}
+                      {/* Show loading text when loading */}
                     </button>
                   </div>
-                  <Link to="/sign-up">
+                  <Link to="/admin-registrations">
                     <div className=" mb-7">
                       <span className="flex justify-center text-blue-700">
-                        Don't have an Account?
+                        Register Admin
                       </span>
                     </div>
                   </Link>

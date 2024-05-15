@@ -49,6 +49,10 @@ export default function AssignDietPlan() {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+
     fetchFoods();
     fetchUser();
     console.log(id);

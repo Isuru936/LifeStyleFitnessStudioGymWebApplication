@@ -11,16 +11,20 @@ const CheckLogin = ({ children }) => {
   useEffect(() => {
     const fetchQuizStatus = async () => {
       try {
+        console.log("fetching user");
         if (userID) {
           const response = await axios.get(
             `http://localhost:3000/api/users/${userID}`
           );
+          console.log("User fetched");
+          console.log(response.data.quiz);
           setQuizDone(response.data.quiz);
+          setLoading(false);
         }
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 

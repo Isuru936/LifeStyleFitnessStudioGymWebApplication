@@ -6,6 +6,10 @@ import notify from "../../components/toasts/toastTemplate";
 import axios from "axios";
 
 function UpdatePaymentAdmin() {
+  if (localStorage.getItem("adminLogin") === null) {
+    navigate("/admin-login");
+  }
+
   const { id } = useParams();
   const navigate = useNavigate();
 

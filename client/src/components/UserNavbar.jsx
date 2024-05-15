@@ -56,7 +56,7 @@ function NavigationBar() {
             to="/membership-plan"
             className="text-black text-base font-semibold mr-6 mb-4 hover:text-gray-400 transition duration-300 relative text-link"
           >
-            Paymentsaslsdasd
+            Payments
           </Link>
           <Link
             to="/contact-us"
@@ -91,12 +91,7 @@ function NavigationBar() {
         >
           Payments
         </Link>
-        <Link
-          to="/contact-us"
-          className="text-black text-base font-semibold mr-6 hover:text-gray-400 transition duration-300 relative text-link"
-        >
-          Contact Us
-        </Link>
+
         <Link
           to="/dashboard"
           className="text-black text-base font-semibold mr-6 hover:text-gray-400 transition duration-300 relative text-link"
