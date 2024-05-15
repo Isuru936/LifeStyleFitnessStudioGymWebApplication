@@ -65,9 +65,19 @@ function Scanner() {
               `http://localhost:3000/api/employee/getEmployeeById/${decryptedId}`
             );
             console.log(response.data);
+            if (response.data.data === null) {
+              toast.error("Employee not found.");
+              toast.info("Refreshing page...");
+              return;
+            }
             setFormData(response.data.data.employee);
           } catch (error) {
             console.log("Error fetching employee.", error);
+            toast.error("Error fetching employee. Contact Support");
+            toast.info("Refreshing page...");
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
           }
         };
 
@@ -101,6 +111,8 @@ function Scanner() {
       scanner.clear();
     };
   }, []);
+
+  // if (formData === null) return <div>Loading...</div>;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">

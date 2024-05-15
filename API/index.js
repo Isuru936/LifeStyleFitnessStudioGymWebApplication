@@ -24,6 +24,8 @@ import authRoutes from "./routes/adminuserauth.route.js";
 dotenv.config();
 
 const app = express();
+const port = process.env.PORT || 3000;
+
 app.use(cors());
 
 app.use(bodyParser.json());
@@ -49,7 +51,7 @@ mongoose
   .then(() => console.log("DB connected"))
   .catch((err) => console.log(err));
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log("Server running in port 3000");
 });
 

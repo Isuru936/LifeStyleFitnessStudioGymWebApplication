@@ -54,40 +54,6 @@ function AddCard() {
       "perspective(1000px) rotateY(180deg)";
   };
 
-  const handleSubmit = async () => {
-    // Retrieve userid and selectedPackage from localStorage
-    const userid = localStorage.getItem("userid");
-    const selectedPackage = localStorage.getItem("selectedPackage");
-    const price = 99.99;
-    const paymentDate = "2024-04-02T00:00:00.000Z";
-    console.log(paymentDate, price, selectedPackage);
-
-    // Assuming you have a backend endpoint to add the id to the database
-    await fetch("http://localhost:3000/api/payment/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: userid,
-        packageName: selectedPackage,
-        price,
-        paymentDate,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle success response
-        console.log("Data added successfully:", data);
-        alert("Added");
-      })
-      .catch((error) => {
-        alert("Not added");
-        // Handle error
-        console.error("Error adding data:", error);
-      });
-  };
-
   return (
     <div className="full">
       <div className="container h-screen bg-[#212121] flex flex-col align-middle mx-auto pb-16 w-screen pt-10">
@@ -210,12 +176,7 @@ function AddCard() {
             </div>
           </div>
           <Link to="/payment-review">
-            <input
-              type="submit"
-              value="submit"
-              className="submit-btn"
-              onClick={handleSubmit}
-            />
+            <input type="submit" value="submit" className="submit-btn" />
           </Link>
         </form>
       </div>

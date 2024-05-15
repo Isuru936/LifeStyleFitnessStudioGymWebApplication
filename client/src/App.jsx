@@ -46,7 +46,6 @@ import UpdateFood from "./pages/Diet Management/UpdateFood";
 import AddUpdateEmployeeDetails from "./pages/Employee Management/ViewUpdateEmployee";
 import AddPaymentAdmin from "./pages/Payment Management/AddPaymentAdmin";
 import UpdatePaymentAdmin from "./pages/Payment Management/UpdatePaymentAdmin";
-import QRCodeScanner from "./pages/Attendance Tracking/QRCodeScanner";
 import Scanner from "./pages/Attendance Tracking/QRCodeScanner";
 import Test from "./pages/Profile Management/test";
 import OTP from "./pages/Profile Management/OTP";
@@ -56,6 +55,7 @@ import CheckLogin from "./shared/context/checkLogin";
 import DashBoard from "./pages/DashBoard.jsx";
 import AdminRegistration from "./pages/AdminLogin/AdminReg.jsx";
 import AdminLogin from "./pages/AdminLogin/AdminLogin.jsx";
+import NotFound404 from "./components/404.jsx";
 function App() {
   return (
     <AuthProvider>
@@ -149,6 +149,7 @@ function App() {
             path="/update-notifications"
             element={<NotificationUpdateDelete />}
           />
+          <Route path="*" element={<NotFound404 />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

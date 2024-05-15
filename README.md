@@ -24,6 +24,14 @@
 
 Welcome to the Lifestyle Fitness Studio Management System, a comprehensive MERN (MongoDB, Express.js, React.js, Node.js) application designed to streamline operations and enhance the experience for both gym owners and customers.
 
+## Funtionalities
+<p> <b> QR Code Attendance System:</b>  The Employees can scan the QR Code and mark their attendance. </p>  
+<p><b> Diet Plan Assignment:</b> The Admin can assign diet plans to clients </p> 
+<p><b> Workout Plan Assignment:</b> The Admin can assign workout plans to clients </p> 
+<p><b> Payment Management System:</b> The Admin can add new Payments to clients for their payments and a reciept will be generated. </p> 
+<p><b> Inventory Management System:</b> The Admin can manage their inventories </p> 
+<p><b> Employee Mangement System:</b> The Admin can manage their employees </p> 
+
 ## Built With
 
 The Lifestyle Fitness Studio Management System is built using a combination of powerful technologies to ensure scalability, efficiency, and a seamless user experience. The core stack includes:
@@ -59,18 +67,18 @@ git clone https://github.com/Isuru936/LifeStyleFitnessStudioGymWebApplication.gi
 
 Front-end <b>./client/.env</b> <br />
 ----------------------------------------------------------------------<br />
-PUBLIC_URL="<your_public_URL>"  <br />
-FIREBASE_API_KEY="<your_Firebase_API_key>"  <br />
-FIREBASE_AUTH_DOMAIN="<your_Firebase_auth_domain>"  <br />
+
+VITE_FIREBASE_API_KEY ="<your_Firebase_API_key>"  <br />
 
 <br />
 Back-end <b>/.env</b><br />
 ----------------------------------------------------------------------<br />
 <div margin="10px" >
 MONGO=<your_MongoDB_connection_string><br />
-NODE_ENV=development<br />
+NODE_ENV= <your_node_env> <br />
 JWT_SECRET=<your_JWT_secret_key><br />
 SENDGRID_API_KEY=<your_SendGrid_API_key><br />
+
 </div>
   
 3. run the backend

@@ -107,6 +107,10 @@ export default function AssignDietPlan() {
   const handleSubmit = async (e) => {
     console.log(userId);
     e.preventDefault();
+    if (assignedFoods.length === 0) {
+      toast.error("Please select foods to assign");
+      return;
+    }
     try {
       const response = await axios.put(
         `http://localhost:3000/api/bioData/bioDataUpdate/${userId}`,
@@ -153,7 +157,9 @@ export default function AssignDietPlan() {
           console.error("Error sending email:", error);
         });
       toast.success("Diet plan Assigned Successfully");
-      navigate("/view-all-users");
+      setTimeout(() => {
+        navigate("/view-all-users");
+      }, 2000);
       console.log(response.data);
     } catch (error) {
       console.error("Error:", error);
@@ -249,7 +255,7 @@ export default function AssignDietPlan() {
             </div>
           </div>
           {/* Selected Food and Nutrient Levels */}
-          <div className="fixed top-0 left-[1050px] bottom-0 w-screen h-screen bg-slate-50">
+          <div className="fixed top-0 left-[1050px] bottom-0 w-fit h-screen bg-slate-50">
             <div>
               <h1 className="mt-5 ml-2 text-lg font-semibold ">
                 Selected Food

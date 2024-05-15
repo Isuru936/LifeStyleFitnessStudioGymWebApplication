@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SideBar from "../../components/SideBar";
 import bgImg from "../../assets/bgImg.png";
 import logo from "../../assets/Logo.png";
@@ -24,6 +24,7 @@ import {
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 function AddUpdateEmployeeDetails() {
+  const fileRef = useRef(null);
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -186,8 +187,18 @@ function AddUpdateEmployeeDetails() {
               <hr />
               <div className="flex flex-col  justify-center w-full">
                 <div className="mx-auto mt-5">
+                  <input
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    ref={fileRef}
+                    onChange={handleFileUpload}
+                    hidden
+                    className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
+                  />
                   <img
                     src={formData.image}
+                    onClick={() => fileRef.current.click()}
                     alt="profile"
                     className=" w-32  h-32 bg-slate-800 rounded-full hover:scale-105 duration-500 ease-in-out transform mb-2"
                   />
@@ -199,19 +210,19 @@ function AddUpdateEmployeeDetails() {
                   <h1 className="font-bold text-xl mb-2">
                     Account Information
                   </h1>
-                  <div className="flex flex-row mb-5">
+                  <div className="flex flex-row mb-5 w-fit">
                     <div className="mr-5 w-full">
                       <p className="font-semibold">Full Name</p>
                       <input
-                        type="name"
+                        type="text"
                         value={formData.name}
                         onChange={(e) =>
                           setFormData({ ...formData, name: e.target.value })
                         }
-                        className="bg-white  p-2 rounded-xl w-96 border" // Adjusted width
+                        className="bg-white p-2 rounded-xl w-96 border outline-none" // Adjusted width
                       />
                     </div>
-                    <div className="mr-5 ">
+                    <div className="mr-5 w-full">
                       <p className="font-semibold">Email</p>
                       <input
                         onChange={(e) =>
@@ -220,7 +231,7 @@ function AddUpdateEmployeeDetails() {
                         type="text"
                         name="email"
                         value={formData.email}
-                        className="bg-white  p-2 rounded-xl w-96 border" // Adjusted width
+                        className="bg-white p-2 rounded-xl w-96 border outline-none" // Adjusted width
                       />
                     </div>
                   </div>
@@ -233,7 +244,7 @@ function AddUpdateEmployeeDetails() {
                         onChange={(e) =>
                           setFormData({ ...formData, role: e.target.value })
                         }
-                        className="bg-white  p-2 rounded-xl w-96 border" // Adjusted width
+                        className="bg-white p-2 rounded-xl w-96 border outline-none" // Adjusted width
                       />
                     </div>
                     <div className="mr-5 w-full">
@@ -244,7 +255,7 @@ function AddUpdateEmployeeDetails() {
                         onChange={(e) =>
                           setFormData({ ...formData, age: e.target.value })
                         }
-                        className="bg-white  p-2 rounded-xl w-96 border" // Adjusted width
+                        className="bg-white p-2 rounded-xl w-96 border outline-none" // Adjusted width
                       />
                     </div>
                   </div>
@@ -260,7 +271,7 @@ function AddUpdateEmployeeDetails() {
                           })
                         }
                         type="tel"
-                        className="bg-white  p-2 rounded-xl w-96 border" // Adjusted width
+                        className="bg-white p-2 rounded-xl w-96 border outline-none" // Adjusted width
                       />
                     </div>
                     <div className="mr-5 w-full">
@@ -271,71 +282,61 @@ function AddUpdateEmployeeDetails() {
                         onChange={(e) =>
                           setFormData({ ...formData, nic: e.target.value })
                         }
-                        className="bg-white  p-2 rounded-xl w-96 border" // Adjusted width
+                        className="bg-white  p-2 rounded-xl w-96 border outline-none" // Adjusted width
                       />
                     </div>
                   </div>
-                  <div>
-                    <input
-                      type="file"
-                      name="image"
-                      accept="image/*"
-                      onChange={handleFileUpload}
-                      className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
-                    />
-                  </div>
-                  <button
-                    className="p-3 bg-blue-800 rounded-xl w-full text-white font-bold mr-5 mt-5 mb-10 hover:bg-blue-700"
-                    onClick={handleSubmit}
-                  >
-                    <span
-                      className="icon-[ic--twotone-system-security-update-good] mr-2"
-                      style={{ width: "20px", height: "20px" }}
-                    />{" "}
-                    Update Details
-                  </button>
-                </form>
-                <div className="mx-auto">
-                  <Link to="/employee-pool">
-                    <button className="p-3 bg-white rounded-xl text-black border font-bold mr-5 mt-5 mb-10 hover:bg-slate-100">
-                      <Icon icon="ion:chevron-back-circle-sharp" />
-                    </button>
-                  </Link>
-                  <button
-                    className="p-3 bg-red-800 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-red-700"
-                    onClick={handleDelete}
-                  >
-                    <span
-                      className="icon-[material-symbols--delete-outline] mr-2"
-                      style={{ width: "20px", height: "20px" }}
-                    />{" "}
-                    Delete Record
-                  </button>
 
-                  <Link to={`/pdf/${formData._id}`} target="_blank">
+                  <div className="flex gap-4 w-full">
+                    <Link to="/employee-pool">
+                      <button className="p-4 bg-white rounded-xl text-black border font-bold  hover:bg-slate-100">
+                        <Icon icon="ion:chevron-back-circle-sharp" />
+                      </button>
+                    </Link>
                     <button
-                      className="p-3 bg-orange-500 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-orange-600"
+                      className="p-3 bg-blue-800 rounded-xl  text-white font-bold  hover:bg-blue-700"
+                      onClick={handleSubmit}
+                    >
+                      <span
+                        className="icon-[ic--twotone-system-security-update-good] mr-2"
+                        style={{ width: "20px", height: "20px" }}
+                      />{" "}
+                      Update Details
+                    </button>
+                    <button
+                      className="p-3 bg-red-800 rounded-xl text-white font-bold   hover:bg-red-700"
+                      onClick={handleDelete}
+                      type="button"
+                    >
+                      <span
+                        className="icon-[material-symbols--delete-outline] mr-2"
+                        style={{ width: "20px", height: "20px" }}
+                      />{" "}
+                      Delete Record
+                    </button>
+                    <Link to={`/pdf/${formData._id}`} target="_blank">
+                      <button
+                        className="p-3 flex align-middle bg-orange-500 rounded-xl text-white font-bold hover:bg-orange-600 "
+                        type="button"
+                      >
+                        <Icon icon="grommet-icons:qr" className="mr-2" />
+                        Download QR Code
+                      </button>
+                    </Link>
+                    <button
+                      className="p-3 bg-green-600 rounded-xl text-white font-bold hover:bg-green-700"
+                      onClick={handlePDFDownnload}
                       type="none"
                     >
                       <span
                         className="icon-[line-md--download-loop] mr-2"
                         style={{ width: "20px", height: "20px" }}
                       />{" "}
-                      Download QR Code
+                      Download Employee Details
                     </button>
-                  </Link>
-                  <button
-                    className="p-3 bg-green-600 rounded-xl text-white font-bold mr-5 mt-5 mb-10 hover:bg-green-700"
-                    onClick={handlePDFDownnload}
-                    type="none"
-                  >
-                    <span
-                      className="icon-[line-md--download-loop] mr-2"
-                      style={{ width: "20px", height: "20px" }}
-                    />{" "}
-                    Download Employee Details
-                  </button>
-                </div>
+                  </div>
+                </form>
+                <div className="mx-auto"></div>
               </div>
             </div>
           </div>
