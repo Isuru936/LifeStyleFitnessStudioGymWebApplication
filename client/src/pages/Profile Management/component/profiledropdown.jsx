@@ -19,40 +19,40 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 const ProfileDropdown = () => {
   const Auth = useContext(AuthContext);
   const [openDropdown, setOpenDropdown] = useState(false);
-
+  
   const [profile, setProfile] = useState({
     userID: {
       details: {
-        fullName: "",
-      },
+        fullName: ""
+      }
     },
-    email: "",
+    email:"",
     age: "",
     NIC: "",
     tele: "",
     gender: "",
-    height: "",
+    height:"",
     weight: "",
     smoker: "",
     alcoholic: "",
-    createdAt: "",
+    createdAt:"",
     workoutplan: [
-      {
-        description: "",
-      },
-    ],
-  });
-
-  useEffect(() => {
+        {
+          description:""
+        },
+      ]
+    });
+  
+    useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/quiz/${Auth.userID}`)
-      .then((response) => {
-        setProfile(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        Toast("Something went wrong", "error");
-      });
+    .get(`http://localhost:3000/api/quiz/${Auth.userID}`)
+    .then((response) => {
+      setProfile(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      Toast("Something went wrong", "error");
+    });
   }, [Auth.userID]);
 
   const toggleDropdown = () => {
@@ -77,24 +77,22 @@ const ProfileDropdown = () => {
               <hr />
               <View style={styles.infoSection}>
                 <View style={styles.infoRow}>
-                  <Text style={styles.text}>
-                    Name : {profile.userID.details.fullName}
-                  </Text>
+                  <Text style={styles.text }>Name   : {profile.userID.details.fullName}</Text>
                 </View>
                 <View style={styles.infoRow}>
-                  <Text style={styles.label}>Email : {profile.email}</Text>
+                  <Text style={styles.label}>Email  : {profile.email}</Text>
                 </View>
                 <View style={styles.infoRow}>
-                  <Text style={styles.label}>Age : {profile.age}</Text>
+                  <Text style={styles.label}>Age    : {profile.age}</Text>
                 </View>
                 <View style={styles.infoRow}>
-                  <Text style={styles.text}>Gender : {profile.gender}</Text>
+                  <Text style={styles.text} >Gender : {profile.gender}</Text>
                 </View>
                 <View style={styles.infoRow}>
-                  <Text style={styles.label}>NIC : {profile.NIC}</Text>
+                  <Text style={styles.label}>NIC    : {profile.NIC}</Text>
                 </View>
                 <View style={styles.infoRow}>
-                  <Text style={styles.label}>Tele : {profile.tele}</Text>
+                  <Text style={styles.label}>Tele   : {profile.tele}</Text>
                 </View>
               </View>
             </View>
@@ -128,13 +126,13 @@ const ProfileDropdown = () => {
             aria-labelledby="dropdownDelayButton"
           >
             <li>
-              <Link
+              <a
                 href="#"
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                 onClick={handlePDFDownload}
               >
                 Generate Report
-              </Link>
+              </a>
             </li>
             <div onClick={logout}>
               <li className="block px-4 py-2 hover:bg-gray-00 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -152,31 +150,33 @@ export default ProfileDropdown;
 
 // Assuming you have defined styles
 const styles = StyleSheet.create({
+
   section: {},
   headerSection: {},
   header: {
     fontSize: 20,
-    marginBottom: 20,
-  },
+    marginBottom: 20
+   },
   infoSection: {},
   infoRow: {},
   label: {},
   text: {},
   page: {
-    backgroundColor: "#fff",
-    fontFamily: "Helvetica",
+    backgroundColor: '#fff',
+    fontFamily: 'Helvetica',
     fontSize: 11,
     paddingTop: 30,
     paddingLeft: 50,
     paddingRight: 50,
     lineHeight: 1.5,
-    flexDirection: "column",
-  },
-  logo: {
+    flexDirection: 'column',
+},
+logo: {
     width: 84,
     height: 60,
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginBottom: 50,
-  },
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: 50
+}
 });
+
