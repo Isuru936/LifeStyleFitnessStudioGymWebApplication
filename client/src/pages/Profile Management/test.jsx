@@ -1,12 +1,70 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LOGO from "../../assets/Logo.png";
 import bg from "../../assets/gym.jpg";
+import { AuthContext } from "../../shared/context/auth.context";
+import axios from "axios";
+import firebase from "firebase/compat/app";
+import "firebase/compat/storage";
+import Toast from "../../shared/toast/Toast";
 
-const test = () => {
+const Test = () => {
+  const { userID } = useContext(AuthContext);
   const [fullName, setFullName] = useState("");
   const [age, setAge] = useState("");
   const [nic, setNic] = useState("");
   const [phone, setPhone] = useState("");
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({});
+
+  const handleFileUpload = async (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const storageRef = firebase.storage().ref();
+      const fileRef = storageRef.child(selectedFile.name);
+      setLoading(true);
+      Toast("Uploading image...", "info");
+      try {
+        const snapshot = await fileRef.put(selectedFile);
+        const url = await snapshot.ref.getDownloadURL();
+        setImage(url);
+        Toast("Image uploaded successfully", "success");
+      } catch (error) {
+        console.error("Error uploading file:", error);
+        alert("Failed to upload file. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      console.log("No file selected");
+    }
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchProfileData = async () => {
+      try {
+        axios
+          .get(`http://localhost:3000/api/quiz/${userID}`)
+          .then((response) => {
+            setData(response.data);
+          })
+          .catch((err) => console.error(err));
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProfileData();
+  }, [userID]);
+
+  useEffect(() => {
+    setFullName(data?.userID?.details?.fullName || "");
+    setAge(data.age || "");
+    setNic(data.NIC || "");
+    setPhone(data.tele || "");
+  }, [data]);
 
   const isSaveEnabled =
     fullName !== "" &&
@@ -24,7 +82,7 @@ const test = () => {
   };
 
   const handleAgeGroupChange = (event) => {
-    setAge(event.target.value); 
+    setAge(event.target.value);
   };
 
   return (
@@ -46,99 +104,112 @@ const test = () => {
           </h1>
           <form>
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-              <div>
-                <label class="text-white dark:text-gray-200" for="username">
-                  Full Name
-                </label>
-                <input
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  id="fullName"
-                  type="text"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                />
-              </div>
-              <div>
-                <label
-                  class="text-white dark:text-gray-200"
-                  for="passwordConfirmation"
-                >
-                  Select Your Age
-                </label>
-                <select 
-                value={age}
-                onChange={handleAgeGroupChange}
-                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                  <option>18-29</option>
-                  <option>30-39</option>
-                  <option>40-49</option>
-                  <option>50+</option>
-                </select>
-              </div>
-              <div>
-                <label class="text-white dark:text-gray-200" for="emailAddress">
-                  NIC
-                </label>
-                <input
-                  value={nic}
-                  onChange={(e) => setNic(e.target.value)}
-                  id="nic"
-                  type="text"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                />
-              </div>
-
-              <div>
-                <label class="text-white dark:text-gray-200" for="password">
-                  Telephone
-                </label>
-                <input
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  id="phone"
-                  type="text"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-white">
-                  Profile Picture
-                </label>
-                <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                  <div class="space-y-1 text-center">
-                    <svg
-                      class="mx-auto h-12 w-12 text-white"
-                      stroke="currentColor"
-                      fill="none"
-                      viewBox="0 0 48 48"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                    <div class="flex text-sm text-gray-600">
-                      <label
-                        for="file-upload"
-                        class="relative cursor-pointer u font-medium text-orange-600 hover:text-orange-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-                      >
-                        <span class="">Upload a file</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          class="sr-only"
-                        />
-                      </label>
-                      <p class="pl-1 text-white">or drag and drop</p>
-                    </div>
-                    <p class="text-xs text-white">PNG, JPG, GIF up to 10MB</p>
+              {loading ? (
+                <div> ...Loading </div>
+              ) : (
+                <>
+                  <div>
+                    <label class="text-white dark:text-gray-200" for="username">
+                      Full Name
+                    </label>
+                    <input
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      id="fullName"
+                      type="text"
+                      class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    />
                   </div>
-                </div>
-              </div>
+                  <div>
+                    <label
+                      class="text-white dark:text-gray-200"
+                      for="passwordConfirmation"
+                    >
+                      Select Your Age
+                    </label>
+                    <select
+                      value={age}
+                      onChange={handleAgeGroupChange}
+                      className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    >
+                      <option value="18 - 29">18-29</option>
+                      <option value="30 - 39">30-39</option>
+                      <option value="40 - 49">40-49</option>
+                      <option value="50+">50+</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label
+                      class="text-white dark:text-gray-200"
+                      for="emailAddress"
+                    >
+                      NIC
+                    </label>
+                    <input
+                      value={nic}
+                      onChange={(e) => setNic(e.target.value)}
+                      id="nic"
+                      type="text"
+                      class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="text-white dark:text-gray-200" for="password">
+                      Telephone
+                    </label>
+                    <input
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      id="phone"
+                      type="text"
+                      class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-white">
+                      Profile Picture
+                    </label>
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                      <div class="space-y-1 text-center">
+                        <svg
+                          class="mx-auto h-12 w-12 text-white"
+                          stroke="currentColor"
+                          fill="none"
+                          viewBox="0 0 48 48"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                        <div class="flex text-sm text-gray-600">
+                          <label
+                            for="file-upload"
+                            class="relative cursor-pointer u font-medium text-orange-600 hover:text-orange-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                          >
+                            <span class="">Upload a file</span>
+                            <input
+                              id="file-upload"
+                              name="file-upload"
+                              type="file"
+                              onChange={handleFileUpload}
+                              class="sr-only"
+                            />
+                          </label>
+                          <p class="pl-1 text-white">or drag and drop</p>
+                        </div>
+                        <p class="text-xs text-white">
+                          PNG, JPG, GIF up to 10MB
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
 
             <div class="flex justify-end mt-6">
@@ -159,4 +230,4 @@ const test = () => {
   );
 };
 
-export default test;
+export default Test;

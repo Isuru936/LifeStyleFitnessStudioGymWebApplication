@@ -64,8 +64,6 @@ const ProfileDropdown = () => {
   };
 
   const handlePDFDownload = async () => {
-    console.log("Generating PDF...");
-    console.log(profile.userID);
     try {
       // Generate PDF content
       const pdfContent = (
@@ -80,7 +78,7 @@ const ProfileDropdown = () => {
               <View style={styles.infoSection}>
                 <View style={styles.infoRow}>
                   <Text style={styles.text}>
-                    {/* Name : {profile.userID.details.fullName} */}
+                    Name : {profile.userID.details.fullName}
                   </Text>
                 </View>
                 <View style={styles.infoRow}>
@@ -108,7 +106,7 @@ const ProfileDropdown = () => {
       const blob = await pdf(pdfContent).toBlob();
 
       // Download PDF
-      saveAs(blob, ` ${profile.email}_Employee_Details.pdf`);
+      saveAs(blob, `${profile.userID.details.fullName}_Employee_Details.pdf`);
     } catch (error) {
       console.error("Error downloading PDF:", error);
     }
@@ -130,13 +128,13 @@ const ProfileDropdown = () => {
             aria-labelledby="dropdownDelayButton"
           >
             <li>
-              <a
+              <Link
                 href="#"
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                 onClick={handlePDFDownload}
               >
                 Generate Report
-              </a>
+              </Link>
             </li>
             <div onClick={logout}>
               <li className="block px-4 py-2 hover:bg-gray-00 dark:hover:bg-gray-600 dark:hover:text-white">
