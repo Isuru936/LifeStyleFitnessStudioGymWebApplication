@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import firebase from "firebase/compat/app";
@@ -15,6 +15,7 @@ import notify from "../../components/toasts/toastTemplate";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 function AddFood() {
+  const fileRef = useRef(null);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -116,9 +117,19 @@ function AddFood() {
                   <p className="text-blue-900 ">
                     Enter the Food Details and the nutrient levels of them.
                   </p>
+                  <input
+                    type="file"
+                    name="imageData"
+                    accept="image/*"
+                    hidden
+                    ref={fileRef}
+                    onChange={handleFileUpload}
+                    className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
+                  />
                   <img
+                    onClick={() => fileRef.current.click()}
                     src={formData.imageData}
-                    className="w-64 h-64 mx-auto"
+                    className="w-48 h-48 mx-auto hover:scale-110 transition duration-500 ease-in-out rounded-xl mt-5"
                     alt=""
                   />
                 </div>
@@ -198,16 +209,6 @@ function AddFood() {
                           className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
                         />
                       </div>
-                    </div>
-                    <div>
-                      <p className="font-semibold">Upload Image</p>
-                      <input
-                        type="file"
-                        name="imageData"
-                        accept="image/*"
-                        onChange={handleFileUpload}
-                        className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
-                      />
                     </div>
                     <div className="flex flex-auto gap-4">
                       <Link to="/diet-plan">

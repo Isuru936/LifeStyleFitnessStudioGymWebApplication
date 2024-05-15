@@ -176,7 +176,7 @@ function InventoryShow() {
                 <th className="border p-2">Item</th>
                 <th className="border p-2">Status</th>
                 <th className="border p-2">Description</th>
-                <th className="border p-2">Actions</th>
+                <th className="border p-2 ">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -195,11 +195,11 @@ function InventoryShow() {
                     delay: index * 0.1,
                   }}
                 >
-                  <td className=" p-2">{item.itemName}</td>
+                  <td className=" p-3">{item.itemName}</td>
                   <td className=" p-2">{item.status}</td>
                   <td className=" p-2">{item.description}</td>
 
-                  <td className=" p-2 flex gap-1 mx-auto">
+                  <td className=" p-2 flex gap-1 justify-center">
                     <Link to={`/update-inventory/${item._id}`}>
                       <button className="bg-green-500 hover:bg-green-700 p-1 rounded-lg text-white font-light pl-2 pr-2">
                         Update

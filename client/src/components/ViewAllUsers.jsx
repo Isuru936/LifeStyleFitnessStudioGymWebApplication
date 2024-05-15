@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import bgImg from "../assets/bg-Img.png";
 
 function ViewAllUsers() {
   const [users, setUsers] = useState([]);
@@ -47,7 +48,15 @@ function ViewAllUsers() {
   };
 
   return (
-    <div className="flex">
+    <div
+      className="flex bg-cover bg-center bg-no-repeat bg-fixed w-screen"
+      style={{
+        backgroundImage: `url(${bgImg})`,
+        backgroundSize: "auto",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "left",
+      }}
+    >
       <SideBar />
       <div className="container mx-auto pt-16">
         <div className="flex">
