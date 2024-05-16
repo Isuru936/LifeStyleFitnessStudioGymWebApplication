@@ -20,8 +20,8 @@ export const ForgetPassword = () => {
       .then((response) => {
         if (response.data.message === "Otp Send Successfully") {
           Toast("Otp Send Successfully", "success");
-          Auth.setOTP(response.data.OTP);
-          navigate("/otp", { replace: true, state: { email } });
+          Auth.SetOTP(response.data.OTP);
+          navigate("/otp", { replace: true, state: {email} });
         }
       })
       .catch((error) => {

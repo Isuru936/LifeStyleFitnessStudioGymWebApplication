@@ -11,20 +11,24 @@ export const NewPassword = () => {
   const navigate = useNavigate();
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [NewPassword, setNewPassword] = useState("");
-  const [ConfirmPassword, setConfirmPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [touch, setTouch] = useState(false);
 
   const handleSave = () => {
+    if (newPassword.length < 8) {
+      Toast("At least 8 characters", "error");
+      return;
+    }
     axios
       .put("/api/users/newpassword", {
         mail: location.state.email,
-        NewPassword: NewPassword,
+        NewPassword: newPassword,
       })
       .then((response) => {
         if (response.data.message === "Password updated successfully") {
           Toast("Password updated successfully", "success");
-          navigate("/login")
+          navigate("/login");
         }
       })
       .catch((error) => {
@@ -52,7 +56,7 @@ export const NewPassword = () => {
         className="w-[107px] h-12 absolute bottom-0 right-0 mb-4 mr-4"
         alt="background"
       />
-      <div className=" w-fit flex h-screen ">
+      <div className="w-fit flex h-screen">
         <div className="bg-opacity-40 bg-white align-middle w-fit h-fit mt-auto mb-auto rounded-xl border border-stone-800 backdrop-blur-sm justify-center p-6 shadow-lg backdrop filter relative lg:p-10">
           <div>
             <h1 className="text-center static text-neutral-980 text-2xl mb-6 font-bold font-['Josefin Slab']">
@@ -64,10 +68,10 @@ export const NewPassword = () => {
               </h2>
               <div className="flex justify-center">
                 <div>
-                  <div className=" h-5 text-black text-lg font-normal font-['Inria Sans'] mb-3 ">
+                  <div className="h-5 text-black text-lg font-normal font-['Inria Sans'] mb-3">
                     <label htmlFor="Password">New Password</label>
                   </div>
-                  <div className="rounded-[10px] pr-1 mb-5 relative flex bg-slate-500">
+                  <div className="rounded-[10px] pr-1 relative flex bg-slate-500">
                     <input
                       type={showNewPassword ? "text" : "password"}
                       className="bg-transparent h-7 w-full"
@@ -77,7 +81,12 @@ export const NewPassword = () => {
                       {showNewPassword ? <HiEyeOff /> : <HiEye />}
                     </button>
                   </div>
-                  <div className=" h-5 text-black text-lg font-normal font-['Inria Sans'] mb-2">
+                  {touch && newPassword.length < 8 && (
+                    <h2 className="text-red-700 mb-5">
+                      At least 8 characters
+                    </h2>
+                  )}
+                  <div className="h-5 text-black text-lg font-normal font-['Inria Sans'] mb-2 mt-5">
                     <label htmlFor="Password">Confirm Password</label>
                   </div>
                   <div className="rounded-[10px] pr-1 mb-1 relative flex bg-slate-500">
@@ -91,30 +100,34 @@ export const NewPassword = () => {
                       }
                     />
                     <button onClick={toggleShowConfirmPassword}>
-                    {showNewPassword ? <HiEyeOff /> : <HiEye />}
+                      {showConfirmPassword ? <HiEyeOff /> : <HiEye />}
                     </button>
                   </div>
-                  {touch && NewPassword !== ConfirmPassword && (
-                    <h2 className="text-red-700 mb-5">Password Mismatch </h2>
+                  {touch && newPassword !== confirmPassword && (
+                    <h2 className="text-red-700 mb-2">Password Mismatch</h2>
                   )}
-                  <div className="flex justify-center mb-3">
+                  <div className="flex justify-center mt-5 mb-3">
                     <button
                       className={`text-xl w-[100px] h-[45px] ${
-                        NewPassword !== ConfirmPassword || NewPassword === ""
+                        newPassword !== confirmPassword ||
+                        newPassword.length < 8 ||
+                        newPassword === ""
                           ? "bg-gray-600"
                           : "bg-amber-600"
                       } rounded-[10px]`}
                       type="submit"
                       onClick={handleSave}
                       disabled={
-                        NewPassword !== ConfirmPassword || NewPassword === ""
+                        newPassword !== confirmPassword ||
+                        newPassword.length < 8 ||
+                        newPassword === ""
                       }
                     >
                       Submit
                     </button>
                   </div>
                   <label className="flex justify-center text-black opacity-75 mt-7">
-                    "Decipline Work Miracles."
+                    "Discipline Works Miracles."
                   </label>
                 </div>
               </div>

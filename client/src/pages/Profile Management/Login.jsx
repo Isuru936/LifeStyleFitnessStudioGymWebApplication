@@ -88,7 +88,7 @@ export const Login = () => {
                       type="email"
                       onBlur={() => setTouchEmail(true)}
                       onChange={(e) => {
-                        setEmail(e.target.value);
+                        setEmail(e.target.value.toLowerCase());
                       }}
                       id="email"
                     />
