@@ -1,12 +1,114 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../components/UserNavbar.jsx";
 import BgVideo from "../components/BgVideo.jsx";
+import developer1 from "../assets/developers/developer1.jpg";
+import developer2 from "../assets/developers/developer2.png";
+import developer3 from "../assets/developers/developer3.png";
+import developer4 from "../assets/developers/developer4.png";
+import developer5 from "../assets/developers/developer5.png";
+import developer6 from "../assets/developers/developer6.png";
+import { FaInstagram, FaFacebook, FaTiktok, FaYoutube } from 'react-icons/fa';
+
+const developerImages = [
+  { src: developer1, name: "Vinuka Wijerathne" },
+  { src: developer2, name: "Shafry Mohommad" },
+  { src: developer3, name: "Isuru Bandara" },
+  { src: developer4, name: "Umaya Thilakarathna" },
+  { src: developer5, name: "Sewmini Swarnasinghe" },
+  { src: developer6, name: "Thamalsha Perera" },
+];
 
 function DashBoard() {
+  useEffect(() => {
+    const imageContainers = document.querySelectorAll('.developer-image-container');
+    imageContainers.forEach((container, index) => {
+      container.style.animationDelay = `${index * 1.5}s`;
+      container.classList.add('pop-up-flip-animation');
+    });
+
+    const loopAnimation = () => {
+      imageContainers.forEach((container, index) => {
+        container.style.animationDelay = `${index * 1.5}s`;
+        container.classList.remove('pop-up-flip-animation');
+        void container.offsetWidth; // Trigger reflow
+        container.classList.add('pop-up-flip-animation');
+      });
+    };
+
+    const interval = setInterval(loopAnimation, imageContainers.length * 1500);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div>
       <NavBar />
       <BgVideo />
+      <div className="text-center mt-8">
+        <h2 className="text-4xl font-bold">Our Team</h2>
+        <p className="text-lg mt-4 mx-auto max-w-2xl">
+          Meet our dedicated team of developers who have worked tirelessly to bring this platform to life. Each member of the team brings a wealth of experience and passion to deliver an exceptional experience for our users.
+        </p>
+        <div className="flex justify-center items-center mt-8 flex-wrap">
+          {developerImages.map((developer, index) => (
+            <div key={index} className="developer-image-container w-24 h-36 flex flex-col items-center mx-4 mb-4">
+              <div className="w-24 h-24 rounded-full overflow-hidden">
+                <img src={developer.src} alt={developer.name} className="developer-image w-full h-full object-cover" />
+              </div>
+              <p className="text-center mt-2">{developer.name}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="text-center mt-16">
+        <h2 className="text-4xl font-bold">Connect with us </h2>
+        <p className="text-lg mt-4 mx-auto max-w-2xl">
+          Connect with us on social media for the latest updates and promotions!
+        </p>
+        <div className="flex justify-center items-center mt-8 space-x-8">
+          <a href="https://www.instagram.com/lifestyle_fitnessstudio/?hl=en" target="_blank" rel="noopener noreferrer">
+            <FaInstagram size={40} className="text-gray-700 hover:text-gray-900" />
+          </a>
+          <a href="https://www.facebook.com/lifestylefitnessstudiokandy/" target="_blank" rel="noopener noreferrer">
+            <FaFacebook size={40} className="text-gray-700 hover:text-gray-900" />
+          </a>
+          <a href="https://www.tiktok.com/@lifestylefitnessstudio?_t=8lA6Un3Gd1T&_r=1" target="_blank" rel="noopener noreferrer">
+            <FaTiktok size={40} className="text-gray-700 hover:text-gray-900" />
+          </a>
+          <a href="https://www.youtube.com/channel/UCcVD0uHzvwMFE1KuQ9R9EEQ" target="_blank" rel="noopener noreferrer">
+            <FaYoutube size={40} className="text-gray-700 hover:text-gray-900" />
+          </a>
+        </div>
+        <p className="text-lg mt-4">Call us at: <a href="tel:+94777258479" className="text-blue-600 hover:underline">+94777258479</a></p>
+      </div>
+      <style>{`
+        .developer-image-container {
+          transition: transform 0.3s ease-in-out;
+        }
+
+        .developer-image-container:hover {
+          transform: scale(1.2);
+        }
+
+        .developer-image-container.pop-up-flip-animation {
+          animation: popUpFlip 1.5s ease-out forwards;
+        }
+
+        @keyframes popUpFlip {
+          0% {
+            transform: scale(0.5) rotateY(0deg);
+            opacity: 0;
+          }
+          50% {
+            transform: scale(1.2) rotateY(180deg);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1) rotateY(360deg);
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 }
