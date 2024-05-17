@@ -3,42 +3,40 @@ import LOGO from "../../assets/Logo.png";
 import model from "../../assets/model.jpg";
 import gym from "../../assets/gym.jpg";
 import bg from "../../assets/860.jpg";
-import Profiledropdown from "./component/profiledropdown"
+import Profiledropdown from "./component/profiledropdown";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../shared/context/auth.context";
 import axios from "axios";
 import DeleteConfirmBox from "./component/DeleteConfirmBox";
 
 const UserProfile = () => {
-
-  const Auth = useContext(AuthContext)
+  const Auth = useContext(AuthContext);
   const [profile, setProfile] = useState({
     userID: {
       details: {
-        fullName: ""
-      }
+        fullName: "",
+      },
     },
     age: "",
     NIC: "",
-    tele: ""
+    tele: "",
   });
 
   useEffect(() => {
     axios
-    .get(`http://localhost:3000/api/quiz/${Auth.userID}`)
-    .then((response) => {
-      setProfile(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-      Toast("Something went wrong", "error");
-    });
+      .get(`http://localhost:3000/api/quiz/${Auth.userID}`)
+      .then((response) => {
+        setProfile(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        Toast("Something went wrong", "error");
+      });
   }, [Auth.userID]);
-  
+
   useEffect(() => {
     console.log(profile); // Log the profile state here
   }, [profile]);
-  
 
   return (
     <div className="bg-gray-200 h-screen lg:h-full relative">
@@ -48,12 +46,14 @@ const UserProfile = () => {
         className="absolute inset-0 object-cover w-full h-full opacity-50"
       />
       <div className="p-5 relative z-10">
-        <img
-          src={LOGO}
-          alt="logo"
-          className="absolute top-0 left-0 h-10 mt-2 ml-3"
-        />
-        <Profiledropdown/>
+        <Link to="/">
+          <img
+            src={LOGO}
+            alt="logo"
+            className="absolute top-0 left-0 h-10 mt-2 ml-3"
+          />
+        </Link>
+        <Profiledropdown />
         <div className="bg-white rounded-lg shadow-xl pb-8 mt-10">
           <div className="w-full h-[250px]">
             <img
@@ -69,7 +69,9 @@ const UserProfile = () => {
               alt="Profile"
             />
             <div className="flex items-center mt-2">
-            <label className="text-2xl text-black font-bold">{profile.userID.details.fullName}</label>
+              <label className="text-2xl text-black font-bold">
+                {profile.userID.details.fullName}
+              </label>
             </div>
           </div>
           <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
@@ -92,7 +94,9 @@ const UserProfile = () => {
           <ul className="mt-2 text-gray-700">
             <li className="flex border-y py-2">
               <span className="font-bold w-24">Full name:</span>
-              <span className="text-gray-700">{profile.userID.details.fullName}</span>
+              <span className="text-gray-700">
+                {profile.userID.details.fullName}
+              </span>
             </li>
             <li className="flex border-y py-2">
               <span className="font-bold w-24">Age:</span>
@@ -107,7 +111,7 @@ const UserProfile = () => {
               <span className="text-gray-700">{profile.tele}</span>
             </li>
           </ul>
-          <DeleteConfirmBox/>
+          <DeleteConfirmBox />
         </div>
       </div>
       <div className="flex justify-center bg-white absolute bottom-0 left-0 w-full">

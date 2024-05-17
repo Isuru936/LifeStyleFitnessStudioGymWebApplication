@@ -6,7 +6,7 @@ import axios from "axios";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 import Toast from "../../shared/toast/Toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -73,10 +73,9 @@ const UserProfile = () => {
     nic !== "" &&
     phone !== "" &&
     !isNaN(parseInt(phone)) &&
-    !isNaN(parseInt(nic))&&
+    !isNaN(parseInt(nic)) &&
     nic.length === 13 &&
-    phone.length === 10; 
-
+    phone.length === 10;
 
   const handleSave = async () => {
     if (isSaveEnabled) {
@@ -91,7 +90,7 @@ const UserProfile = () => {
             tele: phone,
           },
         });
-        Toast("Profile updated Successfully","success")
+        Toast("Profile updated Successfully", "success");
         navigate("/profile");
       } catch (error) {
         console.error("Error updating profile:", error);
@@ -134,11 +133,13 @@ const UserProfile = () => {
         className="absolute inset-0 object-cover w-full h-screen opacity-80 grayscale brightness-50"
       />
       <div className="p-5 relative">
-        <img
-          src={LOGO}
-          alt="logo"
-          className="absolute top-0 left-0 h-10 mt-2 ml-5 "
-        />
+        <Link to="/">
+          <img
+            src={LOGO}
+            alt="logo"
+            className="absolute top-0 left-0 h-10 mt-2 ml-5 "
+          />
+        </Link>
         <div className="mt-10">
           <h1 class="text-xl font-bold text-white capitalize dark:text-white">
             Edit Profile
@@ -194,8 +195,8 @@ const UserProfile = () => {
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   />
                   {nicError && (
-                <p className="text-red-500 text-xs mt-1">{nicError}</p>
-              )}
+                    <p className="text-red-500 text-xs mt-1">{nicError}</p>
+                  )}
                 </div>
 
                 <div>
@@ -209,11 +210,11 @@ const UserProfile = () => {
                     type="text"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   />
-                {phoneError && (
-                <p className="text-red-500 text-xs mt-1">{phoneError}</p>
-              )}
+                  {phoneError && (
+                    <p className="text-red-500 text-xs mt-1">{phoneError}</p>
+                  )}
                 </div>
-                <div>
+                {/* <div>
                   <label class="block text-sm font-medium text-white">
                     Profile Picture
                   </label>
@@ -253,7 +254,7 @@ const UserProfile = () => {
                       <p class="text-xs text-white">PNG, JPG, GIF up to 10MB</p>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </>
             )}
           </div>

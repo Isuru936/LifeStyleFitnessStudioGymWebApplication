@@ -22,7 +22,10 @@ export const signup = () => {
         .post("http://localhost:3000/api/users", formData)
         .then((response) => {
           Toast("Account Created", "success");
-          navigate("/quiz", { replace: true, state: { id: response.data._id } });
+          navigate("/quiz", {
+            replace: true,
+            state: { id: response.data._id },
+          });
         })
         .catch((error) => {
           console.log(error);
@@ -76,35 +79,42 @@ export const signup = () => {
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
+                      className="rounded-[10px]  bg-slate-50 p-5 outline-none border-2 opacity-65 h-8 w-full"
                       type="text"
                       id="username"
-                      onChange={{handleChange}.toLowerCase()}
+                      onChange={handleChange}
                     />
-                    {errors.username && <div className="text-red-500">{errors.username}</div>}
-                  </div><div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2">
+                    {errors.username && (
+                      <div className="text-red-500">{errors.username}</div>
+                    )}
+                  </div>
+                  <div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2">
                     <label htmlFor="username">Full Name</label>
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
+                      className="rounded-[10px] bg-slate-50 p-5 outline-none border-2 opacity-65 h-8 w-full"
                       type="text"
                       id="fullName"
                       onChange={handleChange}
                     />
-                    {errors.fullName && <div className="text-red-500">{errors.fullName}</div>}
+                    {errors.fullName && (
+                      <div className="text-red-500">{errors.fullName}</div>
+                    )}
                   </div>
                   <div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2">
                     <label htmlFor="email">Email</label>
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
+                      className="rounded-[10px] bg-slate-50 p-5 outline-none border-2 opacity-65 h-8 w-full"
                       type="text"
                       id="email"
                       onChange={handleChange}
                     />
-                    {errors.email && <div className="text-red-500">{errors.email}</div>}
+                    {errors.email && (
+                      <div className="text-red-500">{errors.email}</div>
+                    )}
                   </div>
                   <div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2 ">
                     <label htmlFor="password">Password</label>{" "}
@@ -112,12 +122,14 @@ export const signup = () => {
                   </div>
                   <div className="mb-5">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-[300px]"
+                      className="rounded-[10px] bg-slate-50 p-5 outline-none border-2 opacity-65 h-8 w-[300px]"
                       type="password"
                       id="password"
                       onChange={handleChange}
                     />
-                    {errors.password && <div className="text-red-500">{errors.password}</div>}
+                    {errors.password && (
+                      <div className="text-red-500">{errors.password}</div>
+                    )}
                   </div>
                   <Link to="/login">
                     <div className="mb-7">

@@ -21,7 +21,7 @@ export const ForgetPassword = () => {
         if (response.data.message === "Otp Send Successfully") {
           Toast("Otp Send Successfully", "success");
           Auth.SetOTP(response.data.OTP);
-          navigate("/otp", { replace: true, state: {email} });
+          navigate("/otp", { replace: true, state: { email } });
         }
       })
       .catch((error) => {
@@ -66,7 +66,7 @@ export const ForgetPassword = () => {
                     <div className="mb-3">
                       <input
                         onChange={(e) => setemail(e.target.value)}
-                        className="rounded-[10px] bg-slate-50 p-2 w-72 border-2 opacity-75 "
+                        className="rounded-[10px]  bg-slate-50 outline-none border-2 opacity-65 p-2 w-72  "
                         type="email"
                         id="email"
                       />

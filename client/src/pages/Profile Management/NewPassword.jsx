@@ -74,17 +74,18 @@ export const NewPassword = () => {
                   <div className="rounded-[10px] pr-1 relative flex bg-slate-500">
                     <input
                       type={showNewPassword ? "text" : "password"}
-                      className="bg-transparent h-7 w-full"
+                      className=" bg-slate-50 p-4 outline-none border-2 opacity-65 h-7 w-full"
                       onChange={(event) => setNewPassword(event.target.value)}
                     />
-                    <button className="" onClick={toggleShowNewPassword}>
+                    <button
+                      className=" bg-slate-50 outline-none border-2 opacity-65"
+                      onClick={toggleShowNewPassword}
+                    >
                       {showNewPassword ? <HiEyeOff /> : <HiEye />}
                     </button>
                   </div>
                   {touch && newPassword.length < 8 && (
-                    <h2 className="text-red-700 mb-5">
-                      At least 8 characters
-                    </h2>
+                    <h2 className="text-red-700 mb-5">At least 8 characters</h2>
                   )}
                   <div className="h-5 text-black text-lg font-normal font-['Inria Sans'] mb-2 mt-5">
                     <label htmlFor="Password">Confirm Password</label>
@@ -92,14 +93,17 @@ export const NewPassword = () => {
                   <div className="rounded-[10px] pr-1 mb-1 relative flex bg-slate-500">
                     <input
                       onBlur={() => setTouch(true)}
-                      className="bg-transparent opacity-65 h-7 w-full"
+                      className="bg-slate-50 p-4 outline-none border-2 opacity-65 h-7 w-full"
                       type={showConfirmPassword ? "text" : "password"}
                       id="confirmPassword"
                       onChange={(event) =>
                         setConfirmPassword(event.target.value)
                       }
                     />
-                    <button onClick={toggleShowConfirmPassword}>
+                    <button
+                      onClick={toggleShowConfirmPassword}
+                      className="bg-slate-50 outline-none border-2 opacity-65"
+                    >
                       {showConfirmPassword ? <HiEyeOff /> : <HiEye />}
                     </button>
                   </div>

@@ -6,17 +6,16 @@ import axios from "axios";
 import { AuthContext } from "../../shared/context/auth.context";
 import Toast from "../../shared/toast/Toast";
 
-
 export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [touchEmail , setTouchEmail] = useState(false);
-  const [touchPassword , setTouchPassword] = useState(false);
+  const [touchEmail, setTouchEmail] = useState(false);
+  const [touchPassword, setTouchPassword] = useState(false);
   const [loading, setloading] = useState(false);
-  const auth = useContext(AuthContext)
+  const auth = useContext(AuthContext);
 
   const validateForm = () => {
     let isValid = true;
@@ -42,26 +41,29 @@ export const Login = () => {
     event.preventDefault();
     if (validateForm()) {
       setloading(true);
-      axios.post("http://localhost:3000/api/users/auth", {
-        email: email,
-        password: password,
-      }).then((response) => {
-        auth.login(response.data);
-        console.log(response.data);
-        navigate("/user-view-diet-plans");
-        setloading(false);
-      }).catch((error) => {
-        console.log("error");
-        setloading(false);
-        Toast("Invalid email or password", "error");
-      });
+      axios
+        .post("http://localhost:3000/api/users/auth", {
+          email: email,
+          password: password,
+        })
+        .then((response) => {
+          auth.login(response.data);
+          console.log(response.data);
+          navigate("/user-view-diet-plans");
+          setloading(false);
+        })
+        .catch((error) => {
+          console.log("error");
+          setloading(false);
+          Toast("Invalid email or password", "error");
+        });
     }
   };
 
   return (
     <div
       className="absolute h-screen w-screen lg:w-screen flex justify-center align-middle"
-      style={{ 
+      style={{
         backgroundImage: `url(${wmodel})`,
         backgroundRepeat: "no-repeat",
       }}
@@ -84,22 +86,24 @@ export const Login = () => {
                   </div>
                   <div className="mb-3">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
+                      className="rounded-[10px]  bg-slate-50 p-5 outline-none border-2 opacity-65 h-8 w-full"
                       type="email"
                       onBlur={() => setTouchEmail(true)}
                       onChange={(e) => {
-                        setEmail(e.target.value.toLowerCase());
+                        setEmail(e.target.value);
                       }}
                       id="email"
                     />
-                    {touchEmail && emailError && <div className="text-red-500">{emailError}</div>}
+                    {touchEmail && emailError && (
+                      <div className="text-red-500">{emailError}</div>
+                    )}
                   </div>
                   <div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2 ">
                     <label htmlFor="Password">Password</label>
                   </div>
                   <div className="mb-5">
                     <input
-                      className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-[300px]"
+                      className="rounded-[10px] bg-slate-50 p-5 outline-none border-2 opacity-65 h-8 w-[300px]"
                       type="password"
                       id="password"
                       onBlur={() => setTouchPassword(true)}
@@ -107,7 +111,9 @@ export const Login = () => {
                         setPassword(e.target.value);
                       }}
                     />
-                    {touchPassword && passwordError && <div className="text-red-500">{passwordError}</div>}
+                    {touchPassword && passwordError && (
+                      <div className="text-red-500">{passwordError}</div>
+                    )}
                   </div>
                   <Link to="/forget-password">
                     <div className="mt-7 mb-5">
