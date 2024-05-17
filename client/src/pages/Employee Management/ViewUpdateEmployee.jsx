@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 import QRCode from "react-qr-code";
-import PDFGeneration from "../PDF Generation/InsertDataToPDF";
+// import PDFGeneration from "../PDF Generation/InsertDataToPDF";
 import { saveAs } from "file-saver";
 import {
   PDFViewer,

@@ -24,7 +24,7 @@ import WorkoutPool from "./pages/WorkoutManagement/WorkouPool";
 import UserExercises from "./pages/WorkoutManagement/UserExercises";
 import AddWorkout from "./pages/WorkoutManagement/AddWorkout";
 
-import PDFGeneration from "./pages/PDF Generation/InsertDataToPDF.jsx";
+// import PDFGeneration from "./pages/PDF Generation/InsertDataToPDF.jsx";
 
 import InventoryAdd from "./pages/Inventory Management/InventoryAdd";
 import InventoryShow from "./pages/Inventory Management/InventoryShow";
@@ -98,7 +98,7 @@ function App() {
             <Route path="/editProfile" element={<EditProfile />} />
             <Route path="/profile" element={<UserProfile />} />
           </Route>
-          <Route path="/pdf/:id" element={<PDFGeneration />} />
+          {/* <Route path="/pdf/:id" element={<PDFGeneration />} /> */}
           <Route path="/test" element={<Test />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
