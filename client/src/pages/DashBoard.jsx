@@ -45,14 +45,14 @@ function DashBoard() {
       <NavBar />
       <BgVideo />
       <div className="text-center mt-8">
-        <h2 className="text-4xl font-bold">Our Team</h2>
+        <h2 className="text-4xl font-bold">Meet Our Developer Team</h2>
         <p className="text-lg mt-4 mx-auto max-w-2xl">
           Meet our dedicated team of developers who have worked tirelessly to bring this platform to life. Each member of the team brings a wealth of experience and passion to deliver an exceptional experience for our users.
         </p>
         <div className="flex justify-center items-center mt-8 flex-wrap">
           {developerImages.map((developer, index) => (
-            <div key={index} className="developer-image-container w-24 h-36 flex flex-col items-center mx-4 mb-4">
-              <div className="w-24 h-24 rounded-full overflow-hidden">
+            <div key={index} className="developer-image-container w-28 h-40 flex flex-col items-center mx-4 mb-4">
+              <div className="w-28 h-28 rounded-full overflow-hidden">
                 <img src={developer.src} alt={developer.name} className="developer-image w-full h-full object-cover" />
               </div>
               <p className="text-center mt-2">{developer.name}</p>
@@ -81,6 +81,17 @@ function DashBoard() {
         </div>
         <p className="text-lg mt-4">Call us at: <a href="tel:+1234567890" className="text-blue-600 hover:underline">+1 (234) 567-890</a></p>
         <p className="text-lg mt-4">Visit us at: <span className="text-gray-700">No.198/11/12 Lifestyle Fitness Studio, George E de Silva Mawatha, Santa Maria Church Lane, Kandy 20000</span></p>
+        <div className="mt-8 flex justify-center">
+          <iframe
+            title="Google Map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63055.75597800309!2d80.6181334!3d7.2866936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae368852367cca1%3A0xdb673bd4769ce11e!2sLifeStyle%20Fitness%20Studio!5e0!3m2!1sen!2slk!4v1629890745683!5m2!1sen!2slk"
+            width="600"
+            height="450"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+          ></iframe>
+        </div>
       </div>
       <style>{`
         .developer-image-container {
