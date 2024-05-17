@@ -61,7 +61,7 @@ function DashBoard() {
         </div>
       </div>
       <div className="text-center mt-16">
-        <h2 className="text-4xl font-bold">Connect with us </h2>
+        <h2 className="text-4xl font-bold">Contact Us</h2>
         <p className="text-lg mt-4 mx-auto max-w-2xl">
           Connect with us on social media for the latest updates and promotions!
         </p>
@@ -79,7 +79,8 @@ function DashBoard() {
             <FaYoutube size={40} className="text-gray-700 hover:text-gray-900" />
           </a>
         </div>
-        <p className="text-lg mt-4">Call us at: <a href="tel:+94777258479" className="text-blue-600 hover:underline">+94777258479</a></p>
+        <p className="text-lg mt-4">Call us at: <a href="tel:+1234567890" className="text-blue-600 hover:underline">+1 (234) 567-890</a></p>
+        <p className="text-lg mt-4">Visit us at: <span className="text-gray-700">No.198/11/12 Lifestyle Fitness Studio, George E de Silva Mawatha, Santa Maria Church Lane, Kandy 20000</span></p>
       </div>
       <style>{`
         .developer-image-container {
