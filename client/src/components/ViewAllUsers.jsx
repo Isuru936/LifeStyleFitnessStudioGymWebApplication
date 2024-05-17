@@ -49,12 +49,12 @@ function ViewAllUsers() {
 
   return (
     <div
-      className="flex bg-cover bg-center bg-no-repeat bg-fixed w-screen"
+      className="flex bg-cover bg-center bg-no-repeat bg-fixed w-screen h-screen"
       style={{
         backgroundImage: `url(${bgImg})`,
-        backgroundSize: "auto",
+        backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "left",
+        backgroundPosition: "center",
       }}
     >
       <SideBar />
@@ -129,7 +129,10 @@ function ViewAllUsers() {
                       navigateAssignDiet(user._id);
                     }}
                   >
-                    <Icon icon="mdi:food-apple" className="w-6 h-6" />
+                    <Icon
+                      icon="mdi:food-apple"
+                      className="w-6 h-6 bg-[#68686855]"
+                    />
                     Assign
                   </button>
                 </td>

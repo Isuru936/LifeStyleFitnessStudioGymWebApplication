@@ -43,7 +43,7 @@ const ViewPayments = () => {
         backgroundSize: "cover",
         backgroundPosition: "left",
         backgroundPositionX: "0",
-        backgroundAttachment: "fixed", // Add this line
+        backgroundAttachment: "fixed",
       }}
     >
       <div className="p-5 w-full flex flex-row mx-auto">

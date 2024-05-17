@@ -15,6 +15,7 @@ import {
   StyleSheet,
 } from "@react-pdf/renderer";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { Link } from "react-router-dom";
 
 const ProfileDropdown = () => {
   const Auth = useContext(AuthContext);

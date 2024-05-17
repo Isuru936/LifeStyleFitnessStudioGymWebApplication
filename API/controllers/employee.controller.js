@@ -3,6 +3,10 @@ import CryptoJS from "crypto-js";
 import xlsx from "xlsx";
 import path from "path";
 import { promises as fs } from "fs";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const addEmployee = async (req, res) => {
   try {
@@ -92,8 +96,26 @@ export const getEmployee = async (req, res) => {
   }
 };
 
-export const updateAttendance = async (req, res) => {
+// Utility function to get __dirname equivalent in ES6
+
+const ensureDirectoryExistence = async (filePath) => {
+  const dirname = path.dirname(filePath);
   try {
+    await fs.access(dirname);
+  } catch (err) {
+    await fs.mkdir(dirname, { recursive: true });
+  }
+};
+
+export const updateAttendance = async (req, res) => {
+  const workbookPath = path.resolve(
+    "C:\\Users\\Isru\\Documents\\SLIIT\\Year 2\\Semester 2\\sheet",
+    "attendance.xlsx"
+  ); // Set your desired path here
+
+  try {
+    await ensureDirectoryExistence(workbookPath);
+
     const employee = await Employee.findByIdAndUpdate(
       req.params.id,
       { attendance: req.body.attendance },
@@ -105,7 +127,6 @@ export const updateAttendance = async (req, res) => {
 
     if (employee) {
       const now = new Date();
-      const workbookPath = path.join(__dirname, "attendance.xlsx");
       let workbook;
 
       try {
@@ -129,7 +150,7 @@ export const updateAttendance = async (req, res) => {
 
       const newRow = [
         req.params.id,
-        req.body.attendance ? "Present" : "Absent",
+        req.body.attendance ? "Arrival" : "Departure",
         now.toISOString(),
       ];
 

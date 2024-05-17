@@ -68,6 +68,7 @@ function Scanner() {
             if (response.data.data === null) {
               toast.error("Employee not found.");
               toast.info("Refreshing page...");
+
               return;
             }
             setFormData(response.data.data.employee);

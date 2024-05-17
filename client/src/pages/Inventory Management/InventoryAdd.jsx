@@ -11,27 +11,6 @@ function InventoryAdd() {
   const [status, setStatus] = useState("underMaintenance");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  // const [imageUrl, setImageUrl] = useState("");
-
-  // const handleFileUpload = async (e) => {
-  //   const selectedFile = e.target.files[0];
-  //   if (selectedFile) {
-  //     const storageRef = firebase.storage().ref();
-  //     const fileRef = storageRef.child(selectedFile.name);
-  //     setErrorMessage("");
-  //     try {
-  //       const snapshot = await fileRef.put(selectedFile);
-  //       const url = await snapshot.ref.getDownloadURL();
-  //       setImageUrl(url);
-  //       setSuccessMessage("Image uploaded successfully");
-  //     } catch (error) {
-  //       console.error("Error uploading file:", error);
-  //       setErrorMessage("Failed to upload file. Please try again.");
-  //     }
-  //   } else {
-  //     console.log("No file selected");
-  //   }
-  // };
 
   useEffect(() => {
     if (localStorage.getItem("adminLogin") === null) {

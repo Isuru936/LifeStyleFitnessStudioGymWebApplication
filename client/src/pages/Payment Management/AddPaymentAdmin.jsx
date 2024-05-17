@@ -93,21 +93,14 @@ function AddPaymentAdmin() {
               <View style={styles.section}>
                 <Image src={logo} style={styles.logo} />
                 <Text style={styles.header}>Payment Details</Text>
+                <Text style={[styles.label, styles.text]}>
+                  {" "}
+                  Please Aknowleged this as the payment reciept. For your
+                  payment.
+                </Text>
                 <View style={styles.section}>
                   <Text style={[styles.label, styles.text]}>Email:</Text>
                   <Text style={styles.text}>{userData.email}</Text>
-                </View>
-                <View style={styles.section}>
-                  <Text style={[styles.label, styles.text]}>
-                    {" "}
-                    Please Aknowleged this as the payment reciept. For your
-                    payment.
-                  </Text>
-                  <Text style={styles.text}>{userData.email}</Text>
-                </View>
-                <View style={styles.section}>
-                  <Text style={[styles.label, styles.text]}>Username:</Text>
-                  <Text style={styles.text}>{userData.username}</Text>
                 </View>
                 <View style={styles.section}>
                   <Text style={[styles.label, styles.text]}>Payment Type:</Text>
@@ -126,7 +119,7 @@ function AddPaymentAdmin() {
         const blob = await pdf(pdfContent).toBlob();
 
         // Download PDF
-        saveAs(blob, "payment_details.pdf");
+        saveAs(blob, `${userData.email}_payment_details.pdf`);
 
         let emailContent = `
           <h1 style="text-align: center; color: #333;">Payment Details Updated</h1>
@@ -231,7 +224,7 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
     backgroundColor: "#ffffff",
-    padding: 20,
+    padding: 60,
   },
   section: {
     marginBottom: 10,

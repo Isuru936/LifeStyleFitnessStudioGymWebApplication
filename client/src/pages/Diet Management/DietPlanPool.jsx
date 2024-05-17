@@ -16,6 +16,7 @@ const DietPlan = () => {
   const [popUp, setPopUp] = useState(false);
   const [popUpData, setPopUpData] = useState({});
   const [foods, setFoods] = useState([]);
+  const [imageLoading, setImageLoading] = useState(true);
   const navigate = useNavigate();
 
   const fetchFoods = async () => {
@@ -47,6 +48,10 @@ const DietPlan = () => {
     };
 
     fetchFoods();
+
+    setTimeout(() => {
+      setImageLoading(false);
+    }, 4000);
   }, []);
 
   const handleDelete = async (id) => {
