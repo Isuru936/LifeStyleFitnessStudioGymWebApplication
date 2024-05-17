@@ -14,7 +14,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['jspdf']
+      external: ['jspdf', 'file-saver'],
     }
   }
 });
