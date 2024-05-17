@@ -1,0 +1,65 @@
+.exercise-hover:hover {
+  transform: translateY(-5px); /* Adjust the value for desired bounce effect */
+  transition: transform 0.3s ease;
+}
+
+.exercise-item {
+  position: relative;
+}
+
+
+.exercise-item:hover {
+  background-color: #f8d7b1;
+}
+
+.description {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.description-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  width: 80%; /* Adjust as needed */
+  max-width: 400px; /* Adjust as needed */
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 9999; /* Ensure it appears above other elements */
+  color: white;
+  text-align: center;
+}
+
+/* Adjust the width of exercise items */
+@media (min-width: 768px) {
+  .exercise-item {
+    width: 400px; /* Wider width for larger screens */
+  }
+
+  .exercise-item .exercise-hover {
+    /* Adjust the width of the content */
+    width: 350px; /* Adjust based on your design */
+  }
+}
+
+/* Adjust the width of exercise items for smaller screens */
+@media (max-width: 767px) {
+  .exercise-item {
+    width: 300px; /* Narrower width for smaller screens */
+  }
+
+  .exercise-item .exercise-hover {
+    /* Adjust the width of the content */
+    width: 250px; /* Adjust based on your design */
+  }
+}

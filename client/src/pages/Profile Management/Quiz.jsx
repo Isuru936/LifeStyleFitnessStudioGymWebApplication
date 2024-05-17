@@ -21,7 +21,7 @@ const questions = [
   {
     id: 1,
     question: "Select Your Age",
-    options: ["18 - 29", " 30 - 39", " 40 - 49", "Age : 50+"],
+    options: ["18 - 29", " 30 - 39", " 40 - 49", " 50+"],
   },
   {
     id: 2,
@@ -62,7 +62,7 @@ const questions = [
 
 const Quiz = () => {
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
   const auth = useContext(AuthContext)
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -86,9 +86,10 @@ const Quiz = () => {
           questions: questions[index].question,
           answer: ans,
         }));
-        console.log(location.state.id);
+        console.log(location.state.id)
         axios.post("http://localhost:3000/api/quiz/", {
-          userID: location.state.id,
+          userID: auth.userID !== null ? auth.userID :  location.state.id,
+          email: auth.email,
           QandA: newQandA
         })
           .then(res => {

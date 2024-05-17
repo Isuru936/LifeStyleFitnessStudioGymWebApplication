@@ -18,6 +18,10 @@ function AddWorkout() {
   const storage = firebase.storage();
 
   useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+
     console.log("Updated imageUrl:", imageUrl);
   }, [imageUrl]);
 
@@ -42,6 +46,13 @@ function AddWorkout() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Check if any field is empty
+    if (!workoutName || !workoutDescription || !imageUrl || !category) {
+      setError("Please fill in all fields."); // Set error message
+      return; // Don't proceed further
+    }
+
     setLoading(true); // Set loading to true when submitting
     try {
       const requestBody = {
@@ -68,6 +79,7 @@ function AddWorkout() {
       setWorkoutDescription("");
       setImageUrl("");
       setCategory("");
+      setError(""); // Reset error state
     } catch (error) {
       console.error("Error saving workout:", error.message);
       setError(error.message || "Error saving workout.");
@@ -133,9 +145,7 @@ function AddWorkout() {
                         className="outline-none border-2 border-gray-100 rounded-lg p-2 w-full lg:w-96 mt-2 text-sm lg:text-base resize-y"
                         rows="5"
                         value={workoutDescription}
-                        onChange={(e) =>
-                          setWorkoutDescription(e.target.value)
-                        }
+                        onChange={(e) => setWorkoutDescription(e.target.value)}
                       />
                     </div>
                     <div className="mb-4 lg:mb-6">
@@ -155,6 +165,10 @@ function AddWorkout() {
                         <option value="Flexibility">Flexibility</option>
                         <option value="arms">arms</option>
                         <option value="legs">legs</option>
+                        <option value="chest">upper body</option>
+                        <option value="weigth loss">weight loss</option>
+                        <option value="back">back</option>
+                        <option value="abs">abs</option>
                         {/* Add more options as needed */}
                       </select>
                     </div>
@@ -178,7 +192,8 @@ function AddWorkout() {
                       disabled={!imageUrl || loading} // Disable button when imageUrl is empty or loading is true
                       className="mt-5 bg-orange-500 text-white p-2 w-full rounded-xl hover:bg-orange-600 transition text-sm lg:text-base"
                     >
-                      {loading ? "Saving..." : "Save"} {/* Button text changes based on loading state */}
+                      {loading ? "Saving..." : "Save"}{" "}
+                      {/* Button text changes based on loading state */}
                     </button>
 
                     <Link to="/">
