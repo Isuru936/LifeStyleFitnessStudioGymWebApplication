@@ -1,0 +1,3 @@
+# netlify.toml
+[build]
+  command = "npm install $NPM_FLAGS && npm run build"
