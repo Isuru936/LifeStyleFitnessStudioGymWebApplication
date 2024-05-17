@@ -14,7 +14,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['jspdf', 'file-saver'],
+      external: ['jspdf', 'file-saver','html5-qrcode'],
     }
   }
 });
