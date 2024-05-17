@@ -79,7 +79,7 @@ export const signup = () => {
                       className="rounded-[10px] bg-gray-500 opacity-65 h-8 w-full"
                       type="text"
                       id="username"
-                      onChange={handleChange}
+                      onChange={{handleChange}.toLowerCase()}
                     />
                     {errors.username && <div className="text-red-500">{errors.username}</div>}
                   </div><div className="h-5 text-black text-xl font-normal font-['Inria Sans'] mb-2">
