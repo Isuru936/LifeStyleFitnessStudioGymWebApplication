@@ -44,6 +44,7 @@
     "react-router-dom": "^6.22.2",
     "react-toastify": "^10.0.5",
     "react-transition-group": "^4.4.5",
+    "rollup": "^4.17.2",
     "toastify": "^2.0.1"
   },
   "devDependencies": {
