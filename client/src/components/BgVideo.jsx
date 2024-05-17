@@ -11,13 +11,10 @@ function BgVideo() {
         loop
         muted
       />
-      <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-white">
-        <h1 className="text-6xl font-extrabold text-center">Welcome</h1>
-        <p className="font-extrabold text-3xl text-center">to</p>
-        <p className="font-extrabold text-3xl text-center">LSFS Gym</p>
-        <p className="text-lg text-center mx-auto max-w-lg mt-4">
-          At LSFS Gym, we believe that staying fit and strong is not just a goal, but a way of life. Our state-of-the-art facilities and expert trainers are here to support you on your fitness journey, whether you're a beginner or a seasoned athlete.
-        </p>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10 text-center">
+        <h1 className="text-6xl font-extrabold">Welcome</h1>
+        <p className="font-extrabold text-3xl mt-4">to</p>
+        <p className="font-extrabold text-3xl">LSFS Gym</p>
       </div>
     </div>
   );

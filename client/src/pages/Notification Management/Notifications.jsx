@@ -30,6 +30,7 @@ function Notifications() {
       );
       // Reverse the order of notifications before setting the state
       setNotifications(response.data.notifications.reverse());
+      console.log(response.data.notifications.reverse());
     } catch (error) {
       setError("Error fetching notifications. Please try again later.");
     } finally {
