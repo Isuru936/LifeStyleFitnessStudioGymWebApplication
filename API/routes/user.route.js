@@ -8,6 +8,7 @@ import {
   ConfirmPasswordAndChange,
   oneTimePassword,
   newPasswordChange,
+  deleteProfile
 } from "../controllers/user.controller.js";
 import { protect } from "../middleware/authMiddleware.js";
 
@@ -19,6 +20,7 @@ router.post("/logout", logoutUser);
 router.get("/:id", getUserProfile);
 router.put("/changepassword", ConfirmPasswordAndChange);
 router.put("/newpassword", newPasswordChange);
+router.delete("/delete/:id", deleteProfile);
 router.post("/SendOTP", oneTimePassword);
 
 export default router;

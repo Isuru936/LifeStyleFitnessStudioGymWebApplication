@@ -46,18 +46,23 @@ import UpdateFood from "./pages/Diet Management/UpdateFood";
 import AddUpdateEmployeeDetails from "./pages/Employee Management/ViewUpdateEmployee";
 import AddPaymentAdmin from "./pages/Payment Management/AddPaymentAdmin";
 import UpdatePaymentAdmin from "./pages/Payment Management/UpdatePaymentAdmin";
-import QRCodeScanner from "./pages/Attendance Tracking/QRCodeScanner";
 import Scanner from "./pages/Attendance Tracking/QRCodeScanner";
 import Test from "./pages/Profile Management/test";
 import OTP from "./pages/Profile Management/OTP";
 import { AuthProvider } from "./shared/context/auth.context";
 import ProtectedRouteCustomer from "./shared/context/PrivateRoute";
 import CheckLogin from "./shared/context/checkLogin";
+import DashBoard from "./pages/DashBoard.jsx";
+import AdminRegistration from "./pages/AdminLogin/AdminReg.jsx";
+import AdminLogin from "./pages/AdminLogin/AdminLogin.jsx";
+import NotFound404 from "./components/404.jsx";
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<DashBoard />} />
+          <Route path="/dashboard" element={<DashBoard />} />
           <Route
             path="/login"
             element={
@@ -71,6 +76,7 @@ function App() {
             {/* {Isuru} */}
             <Route path="/user-view-diet-plans" element={<ShowDietPlan />} />
             {/* {Vinuka} */}
+            {/* TODO code This hadnle backend as well */}
             <Route path="/contact-us" element={<ContactUs />} />
             {/* Thamalsha */}
             <Route path="/UserExercises" element={<UserExercises />} />
@@ -89,6 +95,8 @@ function App() {
             />
             <Route path="/enter-payment" element={<EnterPaymentDetails />} />
             {/* {Shafry} */}
+            <Route path="/editProfile" element={<EditProfile />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Route>
           <Route path="/pdf/:id" element={<PDFGeneration />} />
           <Route path="/test" element={<Test />} />
@@ -96,13 +104,13 @@ function App() {
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/Quiz" element={<Quiz />} />
-          <Route path="/new-password" element={<NewPassword />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/otp" element={<OTP />} />
+          <Route path="/new-password" element={<NewPassword />} />
           {/* Admin Routes */}
           {/* Isuru */}
-          <Route path="/" element={<DietPlan />} />
+          <Route path="/admin-registrations" element={<AdminRegistration />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/diet-plan" element={<DietPlan />} />
           <Route path="/assign-diet-plan/:id" element={<AssignDietPlan />} />
           <Route path="/add-food" element={<AddFood />} />
           <Route path="/update-food/:id" element={<UpdateFood />} />
@@ -128,7 +136,6 @@ function App() {
           {/* Define route for editing workouts */}
           {/* <Route path="/workoutpool" element={<WorkoutPool />} />
           <Route path="/AddWorkout" element={<AddWorkout />} /> */}
-
           {/* {Umaya} */}
           <Route path="/add-inventory" element={<InventoryAdd />} />
           <Route path="/show-inventory" element={<InventoryShow />} />
@@ -136,13 +143,13 @@ function App() {
             path="/update-inventory/:id"
             element={<InventoryUpdateDlt />}
           />
-
           <Route path="/create-notification" element={<CreateNotification />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route
             path="/update-notifications"
             element={<NotificationUpdateDelete />}
           />
+          <Route path="*" element={<NotFound404 />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import firebase from "firebase/compat/app";
@@ -12,8 +12,10 @@ import bgImg from "../../assets/bg-Img.png";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import notify from "../../components/toasts/toastTemplate";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 function AddFood() {
+  const fileRef = useRef(null);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -54,6 +56,10 @@ function AddFood() {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+
     console.log("FormData updated:", formData);
   }, [formData]);
 
@@ -111,9 +117,19 @@ function AddFood() {
                   <p className="text-blue-900 ">
                     Enter the Food Details and the nutrient levels of them.
                   </p>
+                  <input
+                    type="file"
+                    name="imageData"
+                    accept="image/*"
+                    hidden
+                    ref={fileRef}
+                    onChange={handleFileUpload}
+                    className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
+                  />
                   <img
+                    onClick={() => fileRef.current.click()}
                     src={formData.imageData}
-                    className="w-64 h-64 mx-auto"
+                    className="w-48 h-48 mx-auto hover:scale-110 transition duration-500 ease-in-out rounded-xl mt-5"
                     alt=""
                   />
                 </div>
@@ -194,34 +210,34 @@ function AddFood() {
                         />
                       </div>
                     </div>
-                    <div>
-                      <p className="font-semibold">Upload Image</p>
-                      <input
-                        type="file"
-                        name="imageData"
-                        accept="image/*"
-                        onChange={handleFileUpload}
-                        className="outline-none border-2 border-gray-100 rounded-lg p-1 w-fit mt-2"
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      className="mt-5 bg-green-600 p-2 w-full rounded-xl hover:bg-green-500 transition"
-                      disabled={loading}
-                    >
-                      {loading ? (
-                        <div className="flex justify-center">
-                          <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-white"></div>
-                        </div>
-                      ) : (
-                        <p>Save</p>
-                      )}
-                    </button>
-                    <Link to="/diet-plan">
-                      <button className="mt-5 bg-blue-600 p-2 w-full rounded-xl hover:bg-blue-500 transition relative">
-                        Back
+                    <div className="flex flex-auto gap-4">
+                      <Link to="/diet-plan">
+                        <button className="mt-5 bg-blue-600 p-2 w-full rounded-xl hover:bg-blue-500 p-3 transition relative">
+                          <Icon
+                            icon="ion:caret-back-circle"
+                            className="text-white"
+                          />
+                        </button>
+                      </Link>
+                      <button
+                        type="submit"
+                        className="mt-5 bg-green-600 p-2 w-full rounded-xl hover:bg-green-500 transition"
+                        disabled={loading}
+                      >
+                        {loading ? (
+                          <div className="flex justify-center">
+                            <div className="animate-spin rounded-full h-fit w-fit border-t-2 border-b-2 border-white">
+                              <Icon
+                                icon="line-md:loading-loop"
+                                className="text-white"
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <p className="text-white font-bold">Save</p>
+                        )}
                       </button>
-                    </Link>
+                    </div>
                   </form>
                 </div>
               </div>

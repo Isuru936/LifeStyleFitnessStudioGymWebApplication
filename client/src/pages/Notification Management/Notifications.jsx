@@ -3,9 +3,11 @@ import axios from "axios";
 import SideBar from "../../components/SideBar";
 import DropDownNavBar from "../../components/DropDownNavBar";
 import backgroundImage from "../../assets/lot.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function Notifications() {
+  const navigate = useNavigate();
   const [mobileView] = useState(window.innerWidth < 768);
   const [notifications, setNotifications] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,6 +15,10 @@ function Notifications() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (localStorage.getItem("adminLogin") === null) {
+      navigate("/admin-login");
+    }
+
     fetchNotifications();
   }, []);
 
@@ -22,8 +28,8 @@ function Notifications() {
       const response = await axios.get(
         "http://localhost:3000/api/messages/notifications"
       );
-      setNotifications(response.data.notifications);
-      console.log(response.data.notifications);
+      // Reverse the order of notifications before setting the state
+      setNotifications(response.data.notifications.reverse());
     } catch (error) {
       setError("Error fetching notifications. Please try again later.");
     } finally {
@@ -69,35 +75,40 @@ function Notifications() {
       <div className={`flex ${mobileView ? "flex-col" : "flex-row"}`}>
         <div>{mobileView ? <DropDownNavBar /> : <SideBar />}</div>
         <div className="flex flex-col">
-          <div className="m-8 mb-4 flex  justify-between  ">
-            <h2 className=" font-bold text-2xl text-black">NOTIFICATIONS</h2>
+          <div className="m-8 mb-4 flex justify-between">
+            <h2 className="font-bold text-2xl text-black">NOTIFICATIONS</h2>
             <Link to="/create-notification">
-              <button className="bg-slate-500 text-white py-2 px-4 rounded md:ml-2 mt-8 md:mt-0">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="bg-slate-500 text-white py-2 px-4 rounded md:ml-2 mt-8 md:mt-0"
+              >
                 Add Notifications
-              </button>
+              </motion.button>
             </Link>
           </div>
           {loading ? (
             <p>Loading...</p>
-          ) : error ? (
-            <p>{error}</p>
           ) : (
-            notifications.map((notification) => (
-              <div
-                key={notification.id}
-                className={`mx-8 mb-4 p-4 border  bg-gray-50 ${
+            notifications.map((notification, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`mx-8 mb-4 p-4 border bg-gray-50 ${
                   notification.read ? "bg-gray-300" : ""
                 }`}
               >
-                <div className="flex justify-between">
-                  <p className="font-bold font-serif">{notification.subject}</p>
-                  <p className="font-light">
+                <div className="flex justify-between items-center mb-2">
+                  <p className="font-bold text-xl">{notification.subject}</p>
+                  <p className="font-light text-sm text-gray-600">
                     {notification.date.split("T")[0]}{" "}
                     {notification.date.split("T")[1].split("Z")}
                   </p>
                 </div>
-                <p>{notification.message}</p>
-              </div>
+                <p className="text-lg">{notification.message}</p>
+              </motion.div>
             ))
           )}
         </div>

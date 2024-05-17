@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
-      unique: true,
     },
     email: {
       type: String,
@@ -20,6 +19,9 @@ const userSchema = new mongoose.Schema(
     quiz: {
       type: Boolean,
       default: false,
+    },
+    image: {
+      type: "String"
     },
     details: {
       fullName: {

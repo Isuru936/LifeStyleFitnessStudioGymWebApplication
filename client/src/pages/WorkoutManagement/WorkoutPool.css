@@ -1,0 +1,12 @@
+.workout-item {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .workout-item:hover {
+    transform: translateX(-5px);
+  }
+  
+  .workout-item:hover .close-button {
+    display: block;
+  }
+  

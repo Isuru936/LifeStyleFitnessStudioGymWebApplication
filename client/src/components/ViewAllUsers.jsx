@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import { Icon } from "@iconify/react";
+import { motion } from "framer-motion";
+import bgImg from "../assets/bg-Img.png";
 
 function ViewAllUsers() {
   const [users, setUsers] = useState([]);
@@ -46,7 +48,15 @@ function ViewAllUsers() {
   };
 
   return (
-    <div className="flex">
+    <div
+      className="flex bg-cover bg-center bg-no-repeat bg-fixed w-screen"
+      style={{
+        backgroundImage: `url(${bgImg})`,
+        backgroundSize: "auto",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "left",
+      }}
+    >
       <SideBar />
       <div className="container mx-auto pt-16">
         <div className="flex">
@@ -95,8 +105,21 @@ function ViewAllUsers() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {filteredUsers.map((user) => (
-              <tr key={user._id} className="hover:bg-slate-400">
+            {filteredUsers.map((user, index) => (
+              <motion.tr
+                key={user._id}
+                className="hover:bg-slate-400"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, x: 50 },
+                  visible: { opacity: 1, x: 0 },
+                }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                }}
+              >
                 <td className="px-6 py-4 whitespace-nowrap">{user.username}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
                 <td className="px-6 py-4 whitespace-nowrap border  justify-center">
@@ -132,7 +155,7 @@ function ViewAllUsers() {
                     <Icon icon="mdi:contactless-payment" className="w-6 h-6" />
                   </button>
                 </td>
-              </tr>
+              </motion.tr>
             ))}
           </tbody>
         </table>
