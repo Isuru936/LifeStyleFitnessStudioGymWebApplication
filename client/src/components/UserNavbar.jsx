@@ -19,7 +19,7 @@ function NavigationBar() {
   const fetchNotifications = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/messages/notifications"
+        "https://lifestylefitnessstudiogymwebapplication.onrender.com/api/messages/notifications"
       );
       setNotifications(response.data.notifications);
       console.log(response.data.notifications);
