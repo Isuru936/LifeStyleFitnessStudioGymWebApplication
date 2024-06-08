@@ -14,50 +14,35 @@ import getUserRoute from "./routes/getUser.route.js";
 import { sendEmailRoute } from "./emailSender.js";
 import pdfGenerationRoute from "./routes/Report.js";
 import BioDataRoutes from "./routes/bioData.route.js";
-
 import InventoryRoute from "./routes/inventoryroute.js";
 import NotificationRoute from "./routes/Notificationroute.js";
 import cors from "cors";
 import AdminUsersRouter from "./routes/adminuser.route.js";
 import authRoutes from "./routes/adminuserauth.route.js";
-// import userRouter from "./routes/user.route.js";
+
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
-
-app.use(bodyParser.json());
-app.use(CookieParser());
-
+// Apply CORS middleware
 app.use(
   cors({
-    origin: "https://lsfs-gym.netlify.app/",
+    origin: "https://lsfs-gym.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type"],
   })
 );
 
+// Middleware
+app.use(bodyParser.json());
+app.use(CookieParser());
+
+// Routes
 app.use("/api/users/", userRouter);
 app.use("/api/quiz/", quizRoute);
-
-app.get("/", (req, res) => res.send("Server is ready"));
-
-app.use(errorHandler);
-
-mongoose
-  .connect(process.env.MONGO)
-  .then(() => console.log("DB connected"))
-  .catch((err) => console.log(err));
-
-app.listen(port, () => {
-  console.log("Server running in port 3000");
-});
-
 app.use("/api/food/", foodRouter);
 app.use("/api/employee/", employeeRouter);
-app.use("/api/users/", userRouter);
 app.use("/api", workoutRoutes);
 app.use("/api/payments/", paymentRouter);
 app.use("/api/getUsers/", getUserRoute);
@@ -68,4 +53,23 @@ app.use("/api/", InventoryRoute);
 app.use("/api/messages", NotificationRoute);
 app.use("/api/admin/users", AdminUsersRouter);
 app.use("/api", authRoutes);
-// app.get("/", testRoute);
+
+// Root route
+app.get("/", (req, res) => res.send("Server is ready"));
+
+// Error handler middleware
+app.use(errorHandler);
+
+// Connect to MongoDB
+mongoose
+  .connect(process.env.MONGO, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("DB connected"))
+  .catch((err) => console.log(err));
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
