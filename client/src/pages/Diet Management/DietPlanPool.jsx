@@ -8,7 +8,6 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { set } from "mongoose";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const DietPlan = () => {
@@ -108,23 +107,26 @@ const DietPlan = () => {
                 id="searchFood"
                 placeholder="Search Food Items"
                 onChange={(e) => handleSearch(e.target.value)}
-                className="mt-2 rounded-lg text-black bg-blue-100 outline-none pl-2 pb-2 flex-1 "
+                className="mt-2 rounded-lg text-black bg-blue-100 flex align-middle items-center outline-none pl-2 pb-2 flex-1 "
               />
-              <button className="bg-blue-0 rounded-lg hover:scale-105 transition hover:bg-lightBlue-300">
+              <button className="rounded-lg hover:scale-105 transition hover:bg-lightBlue-300">
                 <span
                   className="icon-[material-symbols--search]"
                   style={{ width: "30px", height: "20px" }}
                 />
+                <Icon icon="cil:search" className="text-slate-500 text-xl" />
               </button>
             </div>
             <Link to="/add-food">
-              <button className="bg-slate-50 rounded-xl pl-2 pr-2 p-2 border ml-2 text-black font-semibold hover:bg-blue-950 hover:text-slate-50 transition ">
+              <button className="bg-slate-50 flex  rounded-xl pl-2 pr-2 p-2 border ml-2 text-black font-semibold hover:bg-blue-950 hover:text-slate-50 transition ">
+                <Icon icon="mi:add" className="font-bold " />
                 <span className="icon-[ci--add-plus] font-extrabold mr-1" />
                 {mobileView ? "" : "Add Foods"}
               </button>
             </Link>
             <Link to="/view-all-users">
-              <button className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
+              <button className="bg-slate-50 flex rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
+                <Icon icon="mdi:food" />{" "}
                 <span className="icon-[mdi--food] mr-2" /> Assign Diet Plans
               </button>
             </Link>
@@ -172,23 +174,16 @@ const DietPlan = () => {
                   className="p-1 border-2 bg-[#F2420D] text-white rounded-xl mx-0 flex  hover:scale-110 transform duration-200"
                   onClick={() => handleDelete(food._id)}
                 >
-                  <p className="">
-                    <span
-                      className="icon-[material-symbols--delete-sharp] align-middle my-auto"
-                      style={{ width: "32px" }}
-                    />{" "}
+                  <p className="flex items-center align-middle gap-2">
+                    <Icon icon="fluent:delete-16-regular" />
                     Delete
                   </p>
                 </button>
                 <button
-                  className="p-1 border-2 bg-slate-400 text-white rounded-xl w-full flex hover:scale-110 transform duration-200"
+                  className="p-1 border-2 align-middle items-center bg-slate-400 text-white rounded-xl w-full gap-2 flex hover:scale-110 transform duration-200"
                   onClick={() => handleUpdate(food._id)}
                 >
-                  <span
-                    className="icon-[basil--edit-outline] align-middle"
-                    style={{ width: "32px" }}
-                  />{" "}
-                  Update
+                  <Icon icon="iconoir:edit" /> Update
                 </button>
               </div>
             </motion.div>

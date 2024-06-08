@@ -101,7 +101,7 @@ function Notifications() {
                   notification.read ? "bg-gray-300" : ""
                 }`}
               >
-                <div className="flex justify-between items-center mb-2">
+                <div className="flex justify-between items-center mb-2 w-fit">
                   <p className="font-bold text-xl">{notification.subject}</p>
                   <p className="font-light text-sm text-gray-600">
                     {notification.date.split("T")[0]}{" "}

@@ -8,6 +8,7 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 export default function AssignDietPlan() {
   const navigate = useNavigate();
@@ -198,20 +199,22 @@ export default function AssignDietPlan() {
             <div>
               <h2 className="text-xl font-semibold mt-3">Create Diet Plan</h2>
               <div className="flex flex-row ">
-                <div className="bg-slate-200 rounded-xl w-fit h-fit ml-1 mr-1 mt-2 pt-1 pb-1">
+                <div className="bg-slate-200 flex items-center rounded-xl w-fit h-fit ml-1 mr-1  pt-1 pb-1">
                   <input
                     type="text"
                     placeholder="Search by Food Name"
                     onChange={(e) => handleSearch(e.target.value)}
-                    className="bg-slate-200 p-1 pl-2 rounded-xl  ml-1 outline-none"
+                    className="bg-slate-200 p-1 pl-2 pr-2 rounded-xl  ml-1 outline-none"
                   />
-                  <span
-                    className="icon-[material-symbols--search] bg-slate-500 pl-4 pr-4"
+                  <Icon
+                    icon="cil:search"
+                    className="text-slate-500 transition duration-300 ease-in-out"
                     style={{ width: "20px", height: "20px" }}
                   />
                 </div>
                 <Link to="/diet-plan">
-                  <button className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
+                  <button className="bg-slate-50 rounded-xl m-auto p-2 flex align-middle border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition ">
+                    <Icon icon="noto-v1:pot-of-food" />
                     <span className="icon-[emojione--pot-of-food] mr-2" /> View
                     Food Pool
                   </button>
@@ -296,6 +299,10 @@ export default function AssignDietPlan() {
                               animation: "auto",
                             }}
                           />
+                          <Icon
+                            icon="line-md:close-small"
+                            className="text-xl hover:text-red-500"
+                          />
                         </button>
                       </div>
                     ))
@@ -364,19 +371,24 @@ export default function AssignDietPlan() {
                   </p>
                 </div>
               </div>
-              <button
-                className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition "
-                onClick={handleSubmit}
-              >
-                <span className="icon-[mdi--food] mr-2" /> Assign Diet Plans
-              </button>
-              <button
-                className="bg-slate-50 rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-red-700 hover:text-slate-50  transition "
-                onClick={handleClearAssignedFoods}
-              >
-                <span className="icon-[ic--twotone-clear] mr-2" /> Clear
-                Selected Foods
-              </button>
+              <div className="flex flex-row">
+                <button
+                  className="flex  rounded-xl m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-green-700 hover:text-slate-50  transition "
+                  onClick={handleSubmit}
+                >
+                  <Icon icon="noto:shallow-pan-of-food" className="text-xl" />
+                  <span className="icon-[mdi--food] mr-2" /> Assign Diet Plans
+                </button>
+
+                <button
+                  className="bg-slate-50 rounded-xl flex align-middle items-center m-auto p-2 border-2 border-solid ml-2 text-black font-semibold hover:bg-red-700 hover:text-slate-50  transition "
+                  onClick={handleClearAssignedFoods}
+                >
+                  <Icon icon="fontisto:close-a" className="text-sm" />
+                  <span className="icon-[ic--twotone-clear] mr-2" /> Clear
+                  Selected Foods
+                </button>
+              </div>
             </div>
           </div>
         </div>

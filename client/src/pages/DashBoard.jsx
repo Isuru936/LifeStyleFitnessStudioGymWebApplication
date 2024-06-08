@@ -6,7 +6,7 @@ import developer1 from "../assets/developers/developer1.jpg";
 import developer2 from "../assets/developers/developer2.png";
 import developer3 from "../assets/developers/developer3.png";
 import developer4 from "../assets/developers/developer4.png";
-import developer5 from "../assets/dev5.png";
+import developer5 from "../assets/padminidev5.jpg";
 import developer6 from "../assets/developers/developer6.png";
 import { FaInstagram, FaFacebook, FaTiktok, FaYoutube } from "react-icons/fa";
 import DeveloperCards from "../components/Developers.jsx";

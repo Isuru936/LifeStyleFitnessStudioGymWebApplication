@@ -168,9 +168,17 @@ const oneTimePassword = asyncHandler(async (req, res) => {
     const msg = {
       to: email, // Change to your recipient
       from: "glitchblogger@gmail.com", // Change to your verified sender
-      subject: "One Time Password From LSF",
-      text: `Dont share your otp is ${otp}`,
-      html: `<strong>Dont share your otp is ${otp}</strong>`,
+      subject: "Your One-Time Password (OTP) from LSF",
+      text: `Dear User,
+  
+  Your one-time password (OTP) is ${otp}. Please do not share this OTP with anyone for security reasons.
+  
+  Thank you,
+  The LSF Team`,
+      html: `<p>Dear User,</p>
+             <p>Your one-time password (OTP) is <strong>${otp}</strong>. Please do not share this OTP with anyone for security reasons.</p>
+             <p>Thank you,<br/>
+             The LSF Team</p>`,
     };
 
     sgMail
@@ -187,7 +195,6 @@ const oneTimePassword = asyncHandler(async (req, res) => {
   }
 });
 
-
 export {
   authUser,
   registerUser,
@@ -197,5 +204,5 @@ export {
   ConfirmPasswordAndChange,
   oneTimePassword,
   newPasswordChange,
-  deleteProfile
+  deleteProfile,
 };

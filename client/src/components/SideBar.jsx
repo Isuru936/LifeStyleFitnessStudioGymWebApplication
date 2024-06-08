@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, NavLink } from "react-router-dom";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 function SideBar() {
   const [show, setShow] = useState(false);
@@ -13,8 +14,8 @@ function SideBar() {
     <div className="w-fit h-fit">
       <div className="pl-3 pt-8">
         <button className="cursor-pointer" onClick={sidebarHandler}>
-          <span
-            className="icon-[ri--menu-2-line]"
+          <Icon
+            icon="ri:menu-2-line"
             style={{ width: "30px", height: "30px" }}
           />
         </button>
@@ -38,14 +39,12 @@ function SideBar() {
                   >
                     <NavLink to="/employee-pool" className="">
                       <div className="p-2 my-2 rounded-xl bg-slate-50 hover:bg-slate-200 transition">
-                        <p className="text-l font-bold">
-                          <span
-                            className="icon-[ph--users] mx-2"
-                            style={{
-                              width: "20px",
-                              height: "20px",
-                            }}
-                          />{" "}
+                        <p className="text-l flex font-bold gap-2 items-center align-middle">
+                          <Icon
+                            icon="ep:user"
+                            className=""
+                            style={{ width: "20px", height: "20px" }}
+                          />
                           Employees
                         </p>
                       </div>
@@ -67,15 +66,13 @@ function SideBar() {
                   >
                     <Link to="/payment-view">
                       <div className="p-2 my-2 rounded-xl bg-slate-50 hover:bg-slate-200 transition">
-                        <p className="text-l font-bold">
+                        <p className="text-l font-bold flex gap-2">
                           {" "}
-                          <span
-                            className="icon-[fluent--payment-16-regular] mx-2"
-                            style={{
-                              width: "22px",
-                              height: "22px",
-                            }}
-                          />{" "}
+                          <Icon
+                            icon="solar:card-2-outline"
+                            classname="text-5xl"
+                            style={{ width: "20px", height: "20px" }}
+                          />
                           Payments
                         </p>
                       </div>
@@ -96,14 +93,12 @@ function SideBar() {
                   >
                     <Link to="/QR-CodeScanner" target="_blank">
                       <div className="p-2 my-2 rounded-xl bg-slate-50 hover:bg-slate-200 transition">
-                        <p className="text-l font-bold">
-                          <span
-                            className="icon-[bi--qr-code-scan] mx-2"
-                            style={{
-                              width: "20px",
-                              height: "20px",
-                            }}
-                          />{" "}
+                        <p className="text-l font-bold flex gap-2">
+                          <Icon
+                            icon="ri:qr-code-line"
+                            classname="text-5xl"
+                            style={{ width: "20px", height: "20px" }}
+                          />
                           QR Scan
                         </p>
                       </div>
@@ -124,14 +119,12 @@ function SideBar() {
                   >
                     <Link to="/diet-plan">
                       <div className="p-2  w-50 my-2 rounded-xl bg-slate-50  hover:bg-slate-200 transition">
-                        <p className="text-l font-bold">
-                          <span
-                            className="icon-[ant-design--apple-outlined] mx-2"
-                            style={{
-                              width: "22px",
-                              height: "22px",
-                            }}
-                          />{" "}
+                        <p className="text-l font-bold flex gap-2">
+                          <Icon
+                            icon="pajamas:food"
+                            classname="text-5xl"
+                            style={{ width: "20px", height: "20px" }}
+                          />
                           Diet Plan
                         </p>
                       </div>
@@ -152,14 +145,12 @@ function SideBar() {
                   >
                     <Link to="/show-inventory">
                       <div className="p-2  w-50 my-2 rounded-xl bg-slate-50 hover:bg-slate-200 transition">
-                        <p className="text-l font-bold">
-                          <span
-                            className="icon-[mingcute--inventory-line] mx-2"
-                            style={{
-                              width: "22px",
-                              height: "22px",
-                            }}
-                          />{" "}
+                        <p className="text-l font-bold flex gap-2">
+                          <Icon
+                            icon="mingcute:inventory-line"
+                            classname="text-5xl"
+                            style={{ width: "20px", height: "20px" }}
+                          />
                           Inventory
                         </p>
                       </div>
@@ -180,14 +171,12 @@ function SideBar() {
                   >
                     <Link to="/view-all-users">
                       <div className="p-2  w-50 my-2 rounded-xl bg-slate-50 hover:bg-slate-200 transition">
-                        <p className="text-l font-bold">
-                          <span
-                            className="icon-[ph--users] mx-2"
-                            style={{
-                              width: "22px",
-                              height: "22px",
-                            }}
-                          />{" "}
+                        <p className="text-l font-bold flex gap-2">
+                          <Icon
+                            icon="majesticons:users-line"
+                            classname="text-5xl"
+                            style={{ width: "20px", height: "20px" }}
+                          />
                           Users
                         </p>
                       </div>
@@ -208,14 +197,12 @@ function SideBar() {
                   >
                     <Link to="/notifications">
                       <div className="p-2  w-50 my-2 rounded-xl bg-slate-50  hover:bg-slate-200 transition">
-                        <p className="text-l font-bold">
-                          <span
-                            className="icon-[ion--notifications-outline] mx-2"
-                            style={{
-                              width: "22px",
-                              height: "22px",
-                            }}
-                          />{" "}
+                        <p className="text-l font-bold flex gap-2">
+                          <Icon
+                            icon="ic:round-edit-notifications"
+                            classname="text-5xl"
+                            style={{ width: "20px", height: "20px" }}
+                          />
                           Notifications
                         </p>
                       </div>
@@ -236,12 +223,13 @@ function SideBar() {
                   >
                     <Link to="/notifications">
                       <div
-                        className="p-2  w-50 my-2 rounded-xl bg-green-400  hover:bg-green-500 transition"
+                        className="p-2  w-50 my-2 rounded-xl bg-green-400 flex gap-2  hover:bg-green-500 transition"
                         onClick={(e) => {
                           localStorage.clear();
                           window.location.href = "/admin-login";
                         }}
                       >
+                        <Icon icon="line-md:logout" />
                         <p className="text-center  font-bold">Logout</p>
                       </div>
                     </Link>

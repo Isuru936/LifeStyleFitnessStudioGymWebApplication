@@ -9,7 +9,6 @@ import { ToastContainer, toast } from "react-toastify";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 import QRCode from "react-qr-code";
-import PDFGeneration from "../PDF Generation/InsertDataToPDF";
 import { saveAs } from "file-saver";
 import {
   PDFViewer,
@@ -294,29 +293,23 @@ function AddUpdateEmployeeDetails() {
                       </button>
                     </Link>
                     <button
-                      className="p-3 bg-blue-800 rounded-xl  text-white font-bold  hover:bg-blue-700"
+                      className="p-3 flex bg-blue-800 rounded-xl items-center align-middle gap-1 text-white font-bold  hover:bg-blue-700"
                       onClick={handleSubmit}
                     >
-                      <span
-                        className="icon-[ic--twotone-system-security-update-good] mr-2"
-                        style={{ width: "20px", height: "20px" }}
-                      />{" "}
+                      <Icon icon="flowbite:edit-outline" />
                       Update Details
                     </button>
                     <button
-                      className="p-3 bg-red-800 rounded-xl text-white font-bold   hover:bg-red-700"
+                      className="p-3 bg-red-800 rounded-xl text-white font-bold flex align-middle items-center gap-2  hover:bg-red-700"
                       onClick={handleDelete}
                       type="button"
                     >
-                      <span
-                        className="icon-[material-symbols--delete-outline] mr-2"
-                        style={{ width: "20px", height: "20px" }}
-                      />{" "}
+                      <Icon icon="mdi-light:delete" />
                       Delete Record
                     </button>
                     <Link to={`/pdf/${formData._id}`} target="_blank">
                       <button
-                        className="p-3 flex align-middle bg-orange-500 rounded-xl text-white font-bold hover:bg-orange-600 "
+                        className="p-3 flex align-middle bg-orange-500 rounded-xl items-center text-white font-bold hover:bg-orange-600 "
                         type="button"
                       >
                         <Icon icon="grommet-icons:qr" className="mr-2" />
@@ -324,14 +317,11 @@ function AddUpdateEmployeeDetails() {
                       </button>
                     </Link>
                     <button
-                      className="p-3 bg-green-600 rounded-xl text-white font-bold hover:bg-green-700"
+                      className="p-3 bg-green-600 rounded-xl flex  align-middle items-center gap-2 text-white font-bold hover:bg-green-700"
                       onClick={handlePDFDownnload}
                       type="none"
                     >
-                      <span
-                        className="icon-[line-md--download-loop] mr-2"
-                        style={{ width: "20px", height: "20px" }}
-                      />{" "}
+                      <Icon icon="line-md:download-loop" />
                       Download Employee Details
                     </button>
                   </div>

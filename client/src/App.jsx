@@ -56,6 +56,9 @@ import DashBoard from "./pages/DashBoard.jsx";
 import AdminRegistration from "./pages/AdminLogin/AdminReg.jsx";
 import AdminLogin from "./pages/AdminLogin/AdminLogin.jsx";
 import NotFound404 from "./components/404.jsx";
+
+import SideBar from "./components/SideBar.jsx";
+
 function App() {
   return (
     <AuthProvider>

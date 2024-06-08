@@ -234,7 +234,11 @@ function AddFood() {
                             </div>
                           </div>
                         ) : (
-                          <p className="text-white font-bold">Save</p>
+                          <p className="text-white font-bold flex justify-center align-middle items-center gap-2">
+                            {" "}
+                            <Icon icon="fluent:food-grains-24-filled" />
+                            Save
+                          </p>
                         )}
                       </button>
                     </div>
